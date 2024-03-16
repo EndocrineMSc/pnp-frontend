@@ -1,0 +1,55 @@
+import NavLink from "./NavLink";
+import CollapseButton from "./basic-ui/CollapseButton";
+import Searchbar from "./basic-ui/Searchbar";
+import { useState } from "react";
+
+const NavBar = () => {
+  const [activePage, setActivePage] = useState("Dashboard");
+
+  const clickHandler = (event) => {
+    setActivePage(event.target.textContent);
+  };
+
+  return (
+    <nav className="flex flex-col justify-start items-start gap-2 bg-wgray-200 h-screen list-none pl-2 max-w-60">
+      <li>
+        <div className="flex gap-3 pt-4 pe-4">
+          <CollapseButton />
+          <Searchbar />
+        </div>
+      </li>
+      <NavLink
+        path="/notes"
+        text="Dashboard"
+        onClick={clickHandler}
+        className={activePage === "Dashboard" ? "bg-wgray-400" : ""}
+      />
+      <NavLink
+        path="/campaigns"
+        text="Campaigns"
+        onClick={clickHandler}
+        className={activePage === "Campaigns" ? "bg-wgray-400" : ""}
+      />
+      <NavLink
+        path="/characters"
+        text="Characters"
+        onClick={clickHandler}
+        className={activePage === "Characters" ? "bg-wgray-400" : ""}
+      />
+      <NavLink
+        path="/locations"
+        text="Locations"
+        onClick={clickHandler}
+        className={activePage === "Locations" ? "bg-wgray-400" : ""}
+      />
+      <NavLink
+        path="/objects"
+        text="Objects"
+        onClick={clickHandler}
+        className={activePage === "Objects" ? "bg-wgray-400" : ""}
+      />
+    </nav>
+  );
+};
+
+export default NavBar;
