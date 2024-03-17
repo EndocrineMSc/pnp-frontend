@@ -3,7 +3,7 @@ import NavBar from "../components/NavBar";
 
 const Dashboard = () => {
   return (
-    <div className="flex justify-start items-start w-screen h-screen text-wgray-950">
+    <div className="flex justify-start items-start w-screen h-screen text-wgray-950 bg-wgray-50 dark:bg-wgray-950">
       <NavBar />
       <Outlet />
     </div>

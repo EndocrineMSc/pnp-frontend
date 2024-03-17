@@ -18,6 +18,16 @@ const NavBar = () => {
           <Searchbar />
         </div>
       </li>
+      <li className="relative flex flex-col items-center w-full">
+        <img
+          className="mr-2 bg-wgray-400 rounded-xl"
+          src="../public/campaign.svg"
+          alt=""
+        />
+        <div className="absolute text-center text-pretty text-wgray-50 font-bold text-xl mr-2 bottom-1">
+          Current Campaign
+        </div>
+      </li>
       <NavLink
         path="/notes"
         text="Dashboard"
