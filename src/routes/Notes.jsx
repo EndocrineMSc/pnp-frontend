@@ -45,7 +45,7 @@ const testNotesFull = [
 
 const Notes = () => {
   return (
-    <div className="flex items-start w-full h-screen overflow-scroll">
+    <div className="flex items-start w-full h-screen">
       <NoteLayout notes={testNotesFull} />
       <NoteScrollBar notes={testNotes} />
     </div>

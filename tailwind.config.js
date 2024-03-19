@@ -3,7 +3,14 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateColumns: {
+        autofill: "repeat(5, minmax(200px, 1fr))",
+      },
+      gridTemplateRows: {
+        autofill: "repeat(auto-fill, minmax(200px, 1fr))",
+      },
+    },
     colors: {
       transparent: "transparent",
       current: "currentColor",
