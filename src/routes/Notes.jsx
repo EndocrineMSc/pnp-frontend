@@ -21,6 +21,7 @@ const testNotesFull = [
     noteId: 2,
     text: "You find a recently written skill book entitled Celebrated Arguments on Deciphering Scripts. This book is meant to teach a person a specific skill. This could be used as a permanent or temporary stat increase if read and studied. This book is torn/stained pretty badly. Some of the pages are missing. It is written in Common Speech. It is unfinished, ends abruptly after a few chapters. This book is worth 40 gps and has 478 pages.\n\nYou find a recently written skill book entitled Celebrated Arguments on Deciphering Scripts. This book is meant to teach a person a specific skill. This could be used as a permanent or temporary stat increase if read and studied. This book is torn/stained pretty badly. Some of the pages are missing. It is written in Common Speech. It is unfinished, ends abruptly after a few chapters. This book is worth 40 gps and has 478 pages.",
   },
+  /*
   {
     date: "12.05.2024",
     noteId: 3,
@@ -41,6 +42,7 @@ const testNotesFull = [
     noteId: 6,
     text: "You find a recently written skill book entitled Celebrated Arguments on Deciphering Scripts. This book is meant to teach a person a specific skill. This could be used as a permanent or temporary stat increase if read and studied. This book is torn/stained pretty badly. Some of the pages are missing. It is written in Common Speech. It is unfinished, ends abruptly after a few chapters. This book is worth 40 gps and has 478 pages.\n\nYou find a recently written skill book entitled Celebrated Arguments on Deciphering Scripts. This book is meant to teach a person a specific skill. This could be used as a permanent or temporary stat increase if read and studied. This book is torn/stained pretty badly. Some of the pages are missing. It is written in Common Speech. It is unfinished, ends abruptly after a few chapters. This book is worth 40 gps and has 478 pages.",
   },
+  */
 ];
 
 const Notes = () => {
