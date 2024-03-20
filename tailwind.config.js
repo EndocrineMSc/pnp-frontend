@@ -5,7 +5,7 @@ export default {
   theme: {
     extend: {
       gridTemplateColumns: {
-        autofill: "repeat(2, minmax(0, 1fr))",
+        notefit: "repeat(auto-fit, minmax(300px, 1fr))",
       },
       gridTemplateRows: {
         autofill: "repeat(auto-fill, minmax(200px, 1fr))",

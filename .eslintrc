@@ -4,6 +4,7 @@
       "plugin:prettier/recommended"
     ],
     "rules": {
-        "no-use-before-define": "off"
+        "no-use-before-define": "off",
+        "prettier/prettier": "off"
     }
   }
