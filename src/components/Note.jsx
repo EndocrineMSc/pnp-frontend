@@ -19,7 +19,7 @@ const Note = ({ noteId, date, text }) => {
 
   return (
     <div
-      className="shadow-md bg-wgray-100 overflow-y-auto max-w-[600px] min-h-[500px] max-h-[600px]"
+      className="shadow-md bg-wgray-100 overflow-y-auto w-full aspect-square rounded"
       onDoubleClick={clickToEdit}
     >
       <h3 className="text-center p-1 text-xl bg-gradient-to-b from-wgray-300 to-wgray-400">

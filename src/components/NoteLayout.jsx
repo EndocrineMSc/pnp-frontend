@@ -41,7 +41,8 @@ const NoteLayout = ({ notes }) => {
   }, [width, displayedNotes]);
 
   return (
-    <div className={gridClassName}>
+      
+      <div className="grid grid-cols-notefit justify-center justify-items-center items-center py-4 px-2 gap-3 w-full">
       {displayedNotes.map((note) => {
         return (
           <Note

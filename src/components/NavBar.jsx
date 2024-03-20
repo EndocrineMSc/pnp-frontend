@@ -3,7 +3,7 @@ import CollapseButton from "./basic-ui/CollapseButton";
 import Searchbar from "./basic-ui/Searchbar";
 import { useState } from "react";
 
-const NavBar = () => {
+const NavBar = ({hideNavBar}) => {
   const [activePage, setActivePage] = useState("Dashboard");
 
   const clickHandler = (event) => {
@@ -14,7 +14,7 @@ const NavBar = () => {
     <nav className="flex flex-col justify-start items-start gap-2 bg-wgray-200 h-screen list-none pl-2 max-w-60">
       <li>
         <div className="flex gap-3 pt-4 pe-4">
-          <CollapseButton />
+          <CollapseButton toggleCollapse={hideNavBar}/>
           <Searchbar />
         </div>
       </li>
