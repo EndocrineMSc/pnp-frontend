@@ -50,7 +50,7 @@ const CampaignDetailView = ({ campaignId }) => {
         <div className="flex flex-col gap-3 p-4 bg-wgray-300 rounded-xl max-w-screen-sm">
           <div className="flex justify-center align-center w-full">
             <img
-              className="aspect-square bg-wgray-400 rounded-xl"
+              className="w-[150px] aspect-square bg-wgray-400 rounded-xl"
               src={
                 campaignData.image
                   ? campaignData.image

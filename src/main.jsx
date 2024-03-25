@@ -6,6 +6,7 @@ import Login from "./routes/Login";
 import Notes from "./routes/Notes";
 import Campaigns from "./routes/Campaigns";
 import CampaignDetail from "./routes/CampaignDetail";
+import CharacterDetail from "./routes/CharacterDetail.jsx";
 import Characters from "./routes/Characters";
 import Locations from "./routes/Locations";
 import Items from "./routes/Items";
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
       { path: "campaigns", element: <Campaigns /> },
       { path: "campaign", element: <CampaignDetail /> },
       { path: "characters", element: <Characters /> },
+      { path: "character", element: <CharacterDetail /> },
       { path: "locations", element: <Locations /> },
       { path: "objects", element: <Items /> },
     ],
