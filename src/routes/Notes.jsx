@@ -1,5 +1,8 @@
+import CollapsedNoteScrollbar from "../components/CollapsedNoteScrollBar";
 import NoteLayout from "../components/NoteLayout";
-import NoteScrollBar from "../components/NoteScrollBar";
+import NoteScrollbar from "../components/NoteScrollbar";
+import { useState } from "react";
+import { NotesContext } from "../Contexts";
 
 const testNotes = [
   { date: "12.05.2024", noteId: 1 },
@@ -44,10 +47,24 @@ const testNotesFull = [
 ];
 
 const Notes = () => {
+  const [showScrollbar, setShowNavBar] = useState(true);
+
+  const toggleScrollbar = () => {
+    setShowNavBar((prev) => !prev);
+  };
+
+  const providerValue = { isExpanded: showScrollbar, toggleScrollbar };
+
   return (
     <div className="flex items-center w-full h-screen">
       <NoteLayout notes={testNotesFull} />
-      <NoteScrollBar notes={testNotes} />
+      <NotesContext.Provider value={providerValue}>
+        {showScrollbar ? (
+          <NoteScrollbar notes={testNotes} />
+        ) : (
+          <CollapsedNoteScrollbar />
+        )}
+      </NotesContext.Provider>
     </div>
   );
 };

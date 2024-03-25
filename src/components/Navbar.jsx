@@ -1,20 +1,27 @@
 import NavLink from "./NavLink";
 import CollapseButton from "./basic-ui/CollapseButton";
 import Searchbar from "./basic-ui/Searchbar";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { NavbarContext } from "../Contexts";
 
-const NavBar = ({hideNavBar}) => {
+const Navbar = () => {
   const [activePage, setActivePage] = useState("Dashboard");
 
   const clickHandler = (event) => {
     setActivePage(event.target.textContent);
   };
 
+  const providerValues = useContext(NavbarContext);
+
   return (
     <nav className="flex flex-col justify-start items-start gap-2 bg-wgray-200 h-screen list-none pl-2 max-w-60">
       <li>
-        <div className="flex gap-3 pt-4 pe-4">
-          <CollapseButton toggleCollapse={hideNavBar}/>
+        <div className="flex gap-3 pt-2 pe-2">
+          <CollapseButton
+            toggleCollapse={providerValues.toggleNavbar}
+            isExpanded={providerValues.isExpanded}
+            isPageRight={false}
+          />
           <Searchbar />
         </div>
       </li>
@@ -62,4 +69,4 @@ const NavBar = ({hideNavBar}) => {
   );
 };
 
-export default NavBar;
+export default Navbar;

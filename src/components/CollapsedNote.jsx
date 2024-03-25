@@ -3,7 +3,7 @@ const CollapsedNote = ({ date, onClick }) => {
     <button
       type="button"
       onClick={onClick}
-      className="bg-wgray-300 w-full h-12 rounded shadow hover:shadow-md"
+      className="bg-wgray-300 w-full h-10 rounded shadow hover:shadow-md"
     >
       {date}
     </button>
