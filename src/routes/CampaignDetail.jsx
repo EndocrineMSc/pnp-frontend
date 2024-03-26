@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import DetailButton from "../components/basic-ui/DetailButton";
+import EditButton from "../components/basic-ui/EditButton";
+import DeleteButton from "../components/basic-ui/DeleteButton";
 
 const CampaignDetailView = ({ campaignId }) => {
   const [campaignData, setCampaignData] = useState(null);
@@ -9,7 +10,7 @@ const CampaignDetailView = ({ campaignId }) => {
   useEffect(() => {
     const fetchCampaign = async () => {
       let response = await fetch(
-        `https://pnp-packend.fly.dev/api/v1/${campaignId}`,
+        `https://pnp-backend.fly.dev/api/v1/${campaignId}`,
       );
       // try again after possible token refresh
       if (response.status === 401) {
@@ -17,7 +18,7 @@ const CampaignDetailView = ({ campaignId }) => {
         if (response.status === 200) {
           localStorage.setItem("accessToken", "Bearer " + newAccessToken);
           response = await fetch(
-            `https://pnp-packend.fly.dev/api/v1/${campaignId}`,
+            `https://pnp-backend.fly.dev/api/v1/${campaignId}`,
           );
         }
       }
@@ -58,8 +59,8 @@ const CampaignDetailView = ({ campaignId }) => {
           <div className="flex justify-between">
             <h2 className="text-3xl font-bold">{campaignData.name}</h2>
             <div className="flex gap-2">
-              <DetailButton type="edit" />
-              <DetailButton type="delete" />
+              <EditButton type="campaign" />
+              <DeleteButton />
             </div>
           </div>
           <div className="bg-wgray-200 p-2 rounded">

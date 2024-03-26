@@ -11,7 +11,7 @@ const LocationDetailView = () => {
   useEffect(() => {
     const fetchCharacter = async () => {
       let response = await fetch(
-        `https://pnp-packend.fly.dev/api/v1/${apiContext.locationId}`,
+        `https://pnp-backend.fly.dev/api/v1/${apiContext.locationId}`,
       );
       // try again after possible token refresh
       if (response.status === 401) {
@@ -19,7 +19,7 @@ const LocationDetailView = () => {
         if (response.status === 200) {
           localStorage.setItem("accessToken", "Bearer " + newAccessToken);
           response = await fetch(
-            `https://pnp-packend.fly.dev/api/v1/${apiContext.locationId}`,
+            `https://pnp-backend.fly.dev/api/v1/${apiContext.locationId}`,
           );
         }
       }

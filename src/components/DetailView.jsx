@@ -1,4 +1,5 @@
-import DetailButton from "./basic-ui/DetailButton";
+import DeleteButton from "./basic-ui/DeleteButton";
+import EditButton from "./basic-ui/EditButton";
 
 /**Detail view component for Items and Locations, Campaigns and Characters are separate */
 const DetailView = ({ viewData, type }) => {
@@ -15,8 +16,8 @@ const DetailView = ({ viewData, type }) => {
         <div className="flex justify-between">
           <h2 className="text-3xl font-bold">{viewData.name}</h2>
           <div className="flex gap-2">
-            <DetailButton type="edit" />
-            <DetailButton type="delete" />
+            <EditButton type={type} />
+            <DeleteButton />
           </div>
         </div>
         <div className="flex flex-col w-full gap-2">

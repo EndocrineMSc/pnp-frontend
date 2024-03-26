@@ -9,9 +9,9 @@ const ItemDetailView = () => {
 
   /*
   useEffect(() => {
-    const fetchCharacter = async () => {
+    const fetchItem = async () => {
       let response = await fetch(
-        `https://pnp-packend.fly.dev/api/v1/${apiContext.itemId}`,
+        `https://pnp-backend.fly.dev/api/v1/${apiContext.itemId}`,
       );
       // try again after possible token refresh
       if (response.status === 401) {
@@ -19,7 +19,7 @@ const ItemDetailView = () => {
         if (response.status === 200) {
           localStorage.setItem("accessToken", "Bearer " + newAccessToken);
           response = await fetch(
-            `https://pnp-packend.fly.dev/api/v1/${apiContext.itemId}`,
+            `https://pnp-backend.fly.dev/api/v1/${apiContext.itemId}`,
           );
         }
       }
@@ -30,7 +30,7 @@ const ItemDetailView = () => {
         setIsLoading(false);
       }
     };
-    fetchCharacter();
+    fetchItem();
   }, [apiContext.itemId]);
   */
 

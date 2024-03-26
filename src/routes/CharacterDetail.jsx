@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
-import DetailButton from "../components/basic-ui/DetailButton";
 import { ApiContext } from "../Contexts";
+import EditButton from "../components/basic-ui/EditButton";
+import DeleteButton from "../components/basic-ui/DeleteButton";
 
 const CharacterDetailView = () => {
   const [characterData, setCharacterData] = useState(null);
@@ -11,7 +12,7 @@ const CharacterDetailView = () => {
   useEffect(() => {
     const fetchCharacter = async () => {
       let response = await fetch(
-        `https://pnp-packend.fly.dev/api/v1/characters/${apiContext.characterId}`,
+        `https://pnp-backend.fly.dev/api/v1/characters/${apiContext.characterId}`,
       );
       // try again after possible token refresh
       if (response.status === 401) {
@@ -19,7 +20,7 @@ const CharacterDetailView = () => {
         if (response.status === 200) {
           localStorage.setItem("accessToken", "Bearer " + newAccessToken);
           response = await fetch(
-            `https://pnp-packend.fly.dev/api/v1/characters/${apiContext.characterId}`,
+            `https://pnp-backend.fly.dev/api/v1/characters/${apiContext.characterId}`,
           );
         }
       }
@@ -76,8 +77,8 @@ const CharacterDetailView = () => {
           <div className="flex justify-between">
             <h2 className="text-3xl font-bold">{characterData.name}</h2>
             <div className="flex gap-2">
-              <DetailButton type="edit" />
-              <DetailButton type="delete" />
+              <EditButton type="character" />
+              <DeleteButton />
             </div>
           </div>
           <div className="flex flex-col w-full gap-2">
