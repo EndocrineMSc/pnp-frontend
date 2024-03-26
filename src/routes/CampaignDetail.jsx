@@ -51,11 +51,7 @@ const CampaignDetailView = ({ campaignId }) => {
           <div className="flex justify-center align-center w-full">
             <img
               className="w-[150px] aspect-square bg-wgray-400 rounded-xl"
-              src={
-                campaignData.image
-                  ? campaignData.image
-                  : "./public/campaign.svg"
-              }
+              src={campaignData.image ? campaignData.image : "./campaign.svg"}
               alt="campaign"
             />
           </div>

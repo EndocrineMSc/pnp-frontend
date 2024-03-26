@@ -6,10 +6,12 @@ import Login from "./routes/Login";
 import Notes from "./routes/Notes";
 import Campaigns from "./routes/Campaigns";
 import CampaignDetail from "./routes/CampaignDetail";
-import CharacterDetail from "./routes/CharacterDetail.jsx";
+import CharacterDetail from "./routes/CharacterDetail";
 import Characters from "./routes/Characters";
 import Locations from "./routes/Locations";
+import LocationDetail from "./routes/LocationDetail";
 import Items from "./routes/Items";
+import ItemDetail from "./routes/ItemDetail.jsx";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -24,7 +26,9 @@ const router = createBrowserRouter([
       { path: "characters", element: <Characters /> },
       { path: "character", element: <CharacterDetail /> },
       { path: "locations", element: <Locations /> },
+      { path: "location", element: <LocationDetail /> },
       { path: "objects", element: <Items /> },
+      { path: "object", element: <ItemDetail /> },
     ],
   },
 ]);

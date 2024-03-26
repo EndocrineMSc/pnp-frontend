@@ -58,9 +58,7 @@ const CharacterDetailView = () => {
             <img
               className="w-[150px] aspect-square bg-wgray-400 rounded-xl"
               src={
-                characterData.image
-                  ? characterData.image
-                  : "./public/character.svg"
+                characterData.image ? characterData.image : "./character.svg"
               }
               alt="character"
             />

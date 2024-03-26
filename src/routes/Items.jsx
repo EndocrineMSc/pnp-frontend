@@ -10,7 +10,7 @@ const testitems = [
 ];
 
 const Items = () => {
-  return <EntryCardLayout cards={testitems} type="item" title="Objects" />;
+  return <EntryCardLayout cards={testitems} type="object" title="Objects" />;
 };
 
 export default Items;
