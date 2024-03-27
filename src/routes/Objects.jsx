@@ -2,32 +2,30 @@ import EntryCardLayout from "../components/EntryCardLayout";
 import { getRequest } from "../hooks/getRequest";
 import { useState, useEffect } from "react";
 
-const Locations = () => {
+const Objects = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [locations, setLocations] = useState(null);
+  const [objects, setObjects] = useState(null);
 
   useEffect(() => {
     const campaignId = localStorage.getItem("campaignId");
-    const fetchLocations = async () => {
+    const fetchObjects = async () => {
       const result = await getRequest(
-        `https://pnp-backend.fly.dev/api/v1/${campaignId}/locations`,
+        `https://pnp-backend.fly.dev/api/v1/${campaignId}/objects`,
       );
 
       if (result) {
-        setLocations(result);
+        setObjects(result);
         setIsLoading(false);
       }
     };
-    fetchLocations();
+    fetchObjects();
   }, []);
 
   if (isLoading) {
     return <></>;
   }
 
-  return (
-    <EntryCardLayout cards={locations} type="location" title="Locations" />
-  );
+  return <EntryCardLayout cards={objects} type="object" title="Objects" />;
 };
 
-export default Locations;
+export default Objects;

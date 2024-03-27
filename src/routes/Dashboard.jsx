@@ -8,7 +8,6 @@ const Dashboard = () => {
   const [showNavbar, setShowNavbar] = useState(true);
 
   const toggleNavbar = () => {
-    console.log("Click");
     setShowNavbar((prev) => !prev);
   };
 

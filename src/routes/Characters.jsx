@@ -1,17 +1,32 @@
 import EntryCardLayout from "../components/EntryCardLayout";
-
-const testCharas = [
-  { name: "Sephiroth", image: null },
-  { name: "Cloud", image: null },
-  { name: "Tifa", image: null },
-  { name: "Zidane", image: null },
-  { name: "Lightning", image: null },
-  { name: "Behemoth", image: null },
-];
+import { getRequest } from "../hooks/getRequest";
+import { useState, useEffect } from "react";
 
 const Characters = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [characters, setCharacters] = useState(null);
+
+  useEffect(() => {
+    const campaignId = localStorage.getItem("campaignId");
+    const fetchCharacters = async () => {
+      const result = await getRequest(
+        `https://pnp-backend.fly.dev/api/v1/${campaignId}/characters`,
+      );
+
+      if (result) {
+        setCharacters(result);
+        setIsLoading(false);
+      }
+    };
+    fetchCharacters();
+  }, []);
+
+  if (isLoading) {
+    return <></>;
+  }
+
   return (
-    <EntryCardLayout cards={testCharas} type="character" title="Characters" />
+    <EntryCardLayout cards={characters} type="character" title="Characters" />
   );
 };
 

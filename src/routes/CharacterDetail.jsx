@@ -1,53 +1,28 @@
-import { useState, useEffect, useContext } from "react";
-import { ApiContext } from "../Contexts";
+import { useState, useEffect } from "react";
 import EditButton from "../components/basic-ui/EditButton";
 import DeleteButton from "../components/basic-ui/DeleteButton";
+import { getRequest } from "../hooks/getRequest";
+import { useParams } from "react-router-dom";
 
 const CharacterDetailView = () => {
   const [characterData, setCharacterData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const apiContext = useContext(ApiContext);
 
-  /*
+  const { id } = useParams();
+
   useEffect(() => {
     const fetchCharacter = async () => {
-      let response = await fetch(
-        `https://pnp-backend.fly.dev/api/v1/characters/${apiContext.characterId}`,
+      const character = await getRequest(
+        `https://pnp-backend.fly.dev/api/v1/character/${id}`,
       );
-      // try again after possible token refresh
-      if (response.status === 401) {
-        const newAccessToken = await response.json();
-        if (response.status === 200) {
-          localStorage.setItem("accessToken", "Bearer " + newAccessToken);
-          response = await fetch(
-            `https://pnp-backend.fly.dev/api/v1/characters/${apiContext.characterId}`,
-          );
-        }
-      }
 
-      if (response.status === 200) {
-        const campaign = await response.json();
-        setCharacterData(campaign);
+      if (character) {
+        setCharacterData(character);
         setIsLoading(false);
       }
     };
     fetchCharacter();
-  }, [apiContext.characterId]);
-  */
-
-  //testing
-  useEffect(() => {
-    setCharacterData({
-      name: "Test character",
-      short_description:
-        "Upon a wednesday night, doves danced above the moonlight.",
-      long_description:
-        "Upon a wednesday night, doves danced above the moonlight. And swarmed the beaches of normandy, defeating many of soldier with white-greyish pp",
-      location: "Udersbrechter Brücke",
-      occupation: "Blacksmith",
-    });
-    setIsLoading(false);
-  }, []);
+  }, [id]);
 
   if (isLoading) {
     return <></>;

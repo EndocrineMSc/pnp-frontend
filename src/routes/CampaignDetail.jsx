@@ -1,47 +1,29 @@
 import { useState, useEffect } from "react";
 import EditButton from "../components/basic-ui/EditButton";
 import DeleteButton from "../components/basic-ui/DeleteButton";
+import { getRequest } from "../hooks/getRequest";
+import { useParams } from "react-router-dom";
 
-const CampaignDetailView = ({ campaignId }) => {
+const CampaignDetailView = () => {
   const [campaignData, setCampaignData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  /*
+  const { id } = useParams();
+
   useEffect(() => {
     const fetchCampaign = async () => {
-      let response = await fetch(
-        `https://pnp-backend.fly.dev/api/v1/${campaignId}`,
+      const campaign = await getRequest(
+        `https://pnp-backend.fly.dev/api/v1/campaign/${id}`,
       );
-      // try again after possible token refresh
-      if (response.status === 401) {
-        const newAccessToken = await response.json();
-        if (response.status === 200) {
-          localStorage.setItem("accessToken", "Bearer " + newAccessToken);
-          response = await fetch(
-            `https://pnp-backend.fly.dev/api/v1/${campaignId}`,
-          );
-        }
-      }
 
-      if (response.status === 200) {
-        const campaign = await response.json();
+      if (campaign) {
         setCampaignData(campaign);
-        setLoading(false)
+        setIsLoading(false);
+        localStorage.setItem("campaignId", id);
       }
     };
     fetchCampaign();
-  }, [campaignId]);
-  */
-
-  //testing
-  useEffect(() => {
-    setCampaignData({
-      name: "Test campaign",
-      description:
-        "Upon a wednesday night, doves danced above the moonlight. And swarmed the beaches of normandy, defeating many of soldier with white-greyish pp",
-    });
-    setIsLoading(false);
-  }, []);
+  }, [id]);
 
   if (isLoading) {
     return <></>;
@@ -52,7 +34,7 @@ const CampaignDetailView = ({ campaignId }) => {
           <div className="flex justify-center align-center w-full">
             <img
               className="w-[150px] aspect-square bg-wgray-400 rounded-xl"
-              src={campaignData.image ? campaignData.image : "./campaign.svg"}
+              src={campaignData.image ? campaignData.image : "/campaign.svg"}
               alt="campaign"
             />
           </div>

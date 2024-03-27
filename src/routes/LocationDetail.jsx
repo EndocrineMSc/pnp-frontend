@@ -1,52 +1,27 @@
-import { useState, useEffect, useContext } from "react";
-import { ApiContext } from "../Contexts";
+import { useState, useEffect } from "react";
 import DetailView from "../components/DetailView";
+import { getRequest } from "../hooks/getRequest";
+import { useParams } from "react-router-dom";
 
 const LocationDetailView = () => {
   const [locationData, setLocationData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const apiContext = useContext(ApiContext);
 
-  /*
+  const { id } = useParams();
+
   useEffect(() => {
-    const fetchCharacter = async () => {
-      let response = await fetch(
-        `https://pnp-backend.fly.dev/api/v1/${apiContext.locationId}`,
+    const fetchCampaign = async () => {
+      const location = await getRequest(
+        `https://pnp-backend.fly.dev/api/v1/location/${id}`,
       );
-      // try again after possible token refresh
-      if (response.status === 401) {
-        const newAccessToken = await response.json();
-        if (response.status === 200) {
-          localStorage.setItem("accessToken", "Bearer " + newAccessToken);
-          response = await fetch(
-            `https://pnp-backend.fly.dev/api/v1/${apiContext.locationId}`,
-          );
-        }
-      }
 
-      if (response.status === 200) {
-        const location = await response.json();
+      if (location) {
         setLocationData(location);
         setIsLoading(false);
       }
     };
-    fetchCharacter();
-  }, [apiContext.locationId]);
-  */
-
-  //testing
-  useEffect(() => {
-    setLocationData({
-      name: "Test location",
-      short_description:
-        "Upon a wednesday night, doves danced above the moonlight.",
-      long_description:
-        "Upon a wednesday night, doves danced above the moonlight. And swarmed the beaches of normandy, defeating many of soldier with white-greyish pp",
-      location: "Udersbrechter Brücke",
-      occupation: "Blacksmith",
-    });
-    setIsLoading(false);
-  }, []);
+    fetchCampaign();
+  }, [id]);
 
   if (isLoading) {
     return <></>;

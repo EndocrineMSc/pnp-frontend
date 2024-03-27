@@ -9,10 +9,10 @@ const EntryCardLayout = ({ title, cards, type }) => {
           return (
             <EntryCard
               name={card.name}
-              cardId={card.id}
+              cardId={card._id}
               image={card.image}
               type={type}
-              key={card.id}
+              key={card._id}
             />
           );
         })}

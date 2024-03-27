@@ -10,8 +10,8 @@ import CharacterDetail from "./routes/CharacterDetail";
 import Characters from "./routes/Characters";
 import Locations from "./routes/Locations";
 import LocationDetail from "./routes/LocationDetail";
-import Items from "./routes/Items";
-import ItemDetail from "./routes/ItemDetail.jsx";
+import Items from "./routes/Objects.jsx";
+import ItemDetail from "./routes/ObjectDetail.jsx";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -22,13 +22,13 @@ const router = createBrowserRouter([
       { path: "login", element: <Login /> },
       { path: "notes", element: <Notes /> },
       { path: "campaigns", element: <Campaigns /> },
-      { path: "campaign", element: <CampaignDetail /> },
+      { path: "campaign/:id", element: <CampaignDetail /> },
       { path: "characters", element: <Characters /> },
-      { path: "character", element: <CharacterDetail /> },
+      { path: "character/:id", element: <CharacterDetail /> },
       { path: "locations", element: <Locations /> },
-      { path: "location", element: <LocationDetail /> },
+      { path: "location/:id", element: <LocationDetail /> },
       { path: "objects", element: <Items /> },
-      { path: "object", element: <ItemDetail /> },
+      { path: "object/:id", element: <ItemDetail /> },
     ],
   },
 ]);
