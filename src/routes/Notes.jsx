@@ -48,17 +48,23 @@ const testNotesFull = [
 
 const Notes = () => {
   const [showScrollbar, setShowNavBar] = useState(true);
+  const [detailNoteIds, setDetailNoteIds] = useState(null);
 
   const toggleScrollbar = () => {
     setShowNavBar((prev) => !prev);
   };
 
-  const providerValue = { isExpanded: showScrollbar, toggleScrollbar };
+  const providerValue = {
+    isExpanded: showScrollbar,
+    toggleScrollbar,
+    detailNoteIds,
+    setDetailNoteIds,
+  };
 
   return (
     <div className="flex items-center w-full h-screen">
-      <NoteLayout notes={testNotesFull} />
       <NotesContext.Provider value={providerValue}>
+        <NoteLayout notes={testNotesFull} />
         {showScrollbar ? (
           <NoteScrollbar notes={testNotes} />
         ) : (

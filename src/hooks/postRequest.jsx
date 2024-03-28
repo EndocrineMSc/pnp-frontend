@@ -27,7 +27,7 @@ export const postRequest = async (url, data) => {
         },
       });
     }
-
-    return await response.json();
   }
+  const result = response.json();
+  return result;
 };

@@ -26,8 +26,6 @@ export const getRequest = async (url) => {
       });
     }
   }
-  console.log(response);
   const result = await response.json();
-  console.log("get result: " + result);
   return result;
 };

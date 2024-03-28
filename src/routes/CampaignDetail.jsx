@@ -41,7 +41,7 @@ const CampaignDetailView = () => {
           <div className="flex justify-between">
             <h2 className="text-3xl font-bold">{campaignData.name}</h2>
             <div className="flex gap-2">
-              <EditButton type="campaign" />
+              <EditButton type="campaign" data={campaignData} />
               <DeleteButton />
             </div>
           </div>

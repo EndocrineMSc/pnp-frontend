@@ -1,11 +1,11 @@
 import Icon from "@mdi/react";
-import EditForm from "../modals/EditForm";
-import CharacterEditForm from "../modals/CharacterEditForm";
-import { mdiPencil } from "@mdi/js";
+import { mdiPlusCircle } from "@mdi/js";
 import { useState } from "react";
+import CharacterEditForm from "../modals/CharacterEditForm";
 import CampaignEntryForm from "../modals/CampaignEntryForm";
+import EditForm from "../modals/EditForm";
 
-const EditButton = ({ type, data }) => {
+const AddButton = ({ type, data }) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
 
   const toggleEdit = () => {
@@ -18,23 +18,23 @@ const EditButton = ({ type, data }) => {
     } else if (type === "object" || type === "location") {
       return <EditForm type={type} prevData={data} onClose={toggleEdit} />;
     } else {
-      return <CampaignEntryForm prevData={data} onClose={toggleEdit} />;
+      return <CampaignEntryForm mode="create" onClose={toggleEdit} />;
     }
   };
 
   return (
     <>
       <button
-        className="flex justify-center items-center rounded-xl 
-                  hover:bg-wgray-500 focus:bg-wgray-500  
-                  focus:outline-none aspect-square w-9"
+        className="flex justify-center items-center
+                  absolute right-2 bottom-2 rounded-full drop-shadow-md
+                  aspect-square w-24 hover:brightness-125 hover:drop-shadow-xl"
         onClick={toggleEdit}
       >
-        <Icon path={mdiPencil} size={1.1} />
+        <Icon path={mdiPlusCircle} color="#6a7fc1" />
       </button>
       {isEditOpen ? form() : <></>}
     </>
   );
 };
 
-export default EditButton;
+export default AddButton;

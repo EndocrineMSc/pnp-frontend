@@ -2,6 +2,7 @@ import EntryCardLayout from "../components/EntryCardLayout";
 import { getRequest } from "../hooks/getRequest";
 import { useState, useEffect, useContext } from "react";
 import { ApiContext } from "../Contexts";
+import AddButton from "../components/basic-ui/AddButton";
 
 const Campaigns = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -27,7 +28,10 @@ const Campaigns = () => {
   }
 
   return (
-    <EntryCardLayout cards={campaigns} type="campaign" title="Campaigns" />
+    <>
+      <EntryCardLayout cards={campaigns} type="campaign" title="Campaigns" />
+      <AddButton type="campaign" />
+    </>
   );
 };
 
