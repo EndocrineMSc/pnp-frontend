@@ -2,18 +2,21 @@ import { useState } from "react";
 import QuillEditor from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import SubmitButton from "./basic-ui/SubmitButton";
+import sanitizeHtml from "sanitize-html";
 
 const Editor = ({ text, endEdit }) => {
   const [editorContent, setEditorContent] = useState(text);
 
   const handler = () => {
-    endEdit(editorContent);
+    console.log("raw Editor: " + editorContent);
+    const newContent = sanitizeHtml(editorContent);
+    console.log("sanitized Editor: " + newContent);
+    endEdit(newContent);
   };
 
   return (
-    <div className="flex flex-col items-end py-2 px-3">
+    <div>
       <QuillEditor
-        className="mt-4 mb-2"
         theme="snow"
         value={editorContent}
         onChange={(newValue) => setEditorContent(newValue)}

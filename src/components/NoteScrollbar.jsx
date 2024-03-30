@@ -16,15 +16,15 @@ const NoteScrollbar = ({ notes }) => {
         />
         <Searchbar />
       </div>
-      {notes.map((note) => {
-        return (
-          <CollapsedNote
-            key={note.noteId}
-            date={note.date}
-            onClick={() => console.log("Click: " + note.noteId)}
-          />
-        );
-      })}
+      {notes ? (
+        notes.map((note) => {
+          return (
+            <CollapsedNote key={note._id} date={note.date} noteId={note._id} />
+          );
+        })
+      ) : (
+        <></>
+      )}
     </nav>
   );
 };
