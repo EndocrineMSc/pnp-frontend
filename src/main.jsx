@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.jsx";
 import Login from "./routes/Login";
+import Register from "./routes/Register";
 import Notes from "./routes/Notes";
 import Campaigns from "./routes/Campaigns";
 import CampaignDetail from "./routes/CampaignDetail";
@@ -13,13 +14,16 @@ import LocationDetail from "./routes/LocationDetail";
 import Items from "./routes/Objects.jsx";
 import ItemDetail from "./routes/ObjectDetail.jsx";
 import "./index.css";
+import LandingPage from "./routes/LandingPage.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
+      { path: "welcome", element: <LandingPage /> },
       { path: "login", element: <Login /> },
+      { path: "register", element: <Register /> },
       { path: "notes", element: <Notes /> },
       { path: "campaigns", element: <Campaigns /> },
       { path: "campaign/:id", element: <CampaignDetail /> },

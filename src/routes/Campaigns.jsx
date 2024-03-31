@@ -7,12 +7,12 @@ import AddButton from "../components/basic-ui/AddButton";
 const Campaigns = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [campaigns, setCampaigns] = useState(null);
-  const userId = useContext(ApiContext).userId;
+  const apiContext = useContext(ApiContext);
 
   useEffect(() => {
     const fetchCampaigns = async () => {
       const result = await getRequest(
-        `https://pnp-backend.fly.dev/api/v1/${userId}/campaigns`,
+        `https://pnp-backend.fly.dev/api/v1/${apiContext.userId}/campaigns`,
       );
 
       if (result) {
@@ -21,7 +21,11 @@ const Campaigns = () => {
       }
     };
     fetchCampaigns();
-  }, [userId]);
+  }, [apiContext.userId]);
+
+  const addNewCampaign = (campaign) => {
+    setCampaigns([...campaigns, campaign]);
+  };
 
   if (isLoading) {
     return <></>;
@@ -30,7 +34,7 @@ const Campaigns = () => {
   return (
     <>
       <EntryCardLayout cards={campaigns} type="campaign" title="Campaigns" />
-      <AddButton type="campaign" />
+      <AddButton type="campaign" updateParent={addNewCampaign} />
     </>
   );
 };

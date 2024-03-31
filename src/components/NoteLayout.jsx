@@ -6,7 +6,7 @@ import AddButton from "./basic-ui/AddButton";
  */
 const NoteLayout = ({ notes }) => {
   return (
-    <div className="relative grid grid-cols-notefit justify-center justify-items-center items-center py-4 px-2 gap-3 w-full h-screen">
+    <div className="relative grid grid-cols-notefit justify-center justify-items-center items-center py-4 px-2 gap-10 w-full h-screen overflow-clip">
       {notes ? (
         notes.map((note) => {
           return <Note key={note._id} note={note} />;

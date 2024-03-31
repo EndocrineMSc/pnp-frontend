@@ -1,12 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import EditButton from "../components/basic-ui/EditButton";
 import DeleteButton from "../components/basic-ui/DeleteButton";
 import { getRequest } from "../hooks/getRequest";
 import { useParams } from "react-router-dom";
+import { ApiContext } from "../Contexts";
 
 const CampaignDetailView = () => {
   const [campaignData, setCampaignData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const apiContext = useContext(ApiContext);
 
   const { id } = useParams();
 
@@ -19,11 +21,11 @@ const CampaignDetailView = () => {
       if (campaign) {
         setCampaignData(campaign);
         setIsLoading(false);
-        localStorage.setItem("campaignId", id);
+        apiContext.setCampaignId(id);
       }
     };
     fetchCampaign();
-  }, [id]);
+  }, [apiContext, id]);
 
   if (isLoading) {
     return <></>;

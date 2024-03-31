@@ -4,16 +4,17 @@ import { useState, useContext } from "react";
 import CharacterEditForm from "../modals/CharacterEditForm";
 import CampaignEntryForm from "../modals/CampaignEntryForm";
 import EditForm from "../modals/EditForm";
-import { NotesContext } from "../../Contexts";
+import { ApiContext, NotesContext } from "../../Contexts";
 import { postRequest } from "../../hooks/postRequest";
 
 /** Default Button for adding any type of entry, will position itself bottom right (absolute)
  * @param {string} type - "character", "object", "location", "campaign", "note" - determines the type of
  * entry form connected to the button "note" will add a new empty note directly instead
  */
-const AddButton = ({ type }) => {
+const AddButton = ({ type, updateParent }) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const notesContext = useContext(NotesContext);
+  const apiContext = useContext(ApiContext);
 
   const toggleEdit = () => {
     setIsEditOpen((prev) => !prev);
@@ -25,17 +26,22 @@ const AddButton = ({ type }) => {
     } else if (type === "object" || type === "location") {
       return <EditForm type={type} onClose={toggleEdit} />;
     } else if (type === "campaign") {
-      return <CampaignEntryForm mode="create" onClose={toggleEdit} />;
+      return (
+        <CampaignEntryForm
+          mode="create"
+          onClose={toggleEdit}
+          updateParent={updateParent}
+        />
+      );
     }
   };
 
   const addNote = () => {
     if (type === "note") {
-      const campaignId = localStorage.getItem("campaignId");
       const noteBody = { date: new Date() };
       const createNewNote = async () => {
         const newNote = await postRequest(
-          `https://pnp-backend.fly.dev/api/v1/${campaignId}/note/create`,
+          `https://pnp-backend.fly.dev/api/v1/${apiContext.campaignId}/note/create`,
           noteBody,
         );
         notesContext.setDetailNoteIds([

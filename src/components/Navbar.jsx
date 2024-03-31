@@ -1,15 +1,38 @@
 import NavLink from "./NavLink";
 import CollapseButton from "./basic-ui/CollapseButton";
 import Searchbar from "./basic-ui/Searchbar";
-import { useState, useContext } from "react";
-import { NavbarContext } from "../Contexts";
+import { useState, useContext, useEffect } from "react";
+import { ApiContext, NavbarContext } from "../Contexts";
+import { getRequest } from "../hooks/getRequest";
 
 const Navbar = () => {
   const [activePage, setActivePage] = useState("Dashboard");
+  const [imagePath, setImagePath] = useState("../campaign.svg");
+  const [campaignName, setCampaignName] = useState("");
+  const apiContext = useContext(ApiContext);
 
   const clickHandler = (event) => {
     setActivePage(event.target.textContent);
   };
+
+  useEffect(() => {
+    const getImage = async () => {
+      if (apiContext.campaignId !== "") {
+        const campaign = await getRequest(
+          `https://pnp-backend.fly.dev/api/v1/campaign/${apiContext.campaignId}`,
+        );
+
+        const path = campaign.image;
+        const name = campaign.name;
+
+        setCampaignName(name);
+        if (path) {
+          setImagePath(path);
+        }
+      }
+    };
+    getImage();
+  }, [apiContext.campaignId]);
 
   const providerValues = useContext(NavbarContext);
 
@@ -26,13 +49,9 @@ const Navbar = () => {
         </div>
       </li>
       <li className="relative flex flex-col items-center w-full">
-        <img
-          className="mr-2 bg-wgray-400 rounded-xl"
-          src="../public/campaign.svg"
-          alt=""
-        />
+        <img className="mr-2 bg-wgray-400 rounded-xl" src={imagePath} alt="" />
         <div className="absolute text-center text-pretty text-wgray-50 font-bold text-xl mr-2 bottom-1">
-          Current Campaign
+          {campaignName}
         </div>
       </li>
       <NavLink

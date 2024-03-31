@@ -1,16 +1,17 @@
+import { ApiContext } from "../Contexts";
 import EntryCardLayout from "../components/EntryCardLayout";
 import { getRequest } from "../hooks/getRequest";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 const Characters = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [characters, setCharacters] = useState(null);
+  const apiContext = useContext(ApiContext);
 
   useEffect(() => {
-    const campaignId = localStorage.getItem("campaignId");
     const fetchCharacters = async () => {
       const result = await getRequest(
-        `https://pnp-backend.fly.dev/api/v1/${campaignId}/characters`,
+        `https://pnp-backend.fly.dev/api/v1/${apiContext.campaignId}/characters`,
       );
 
       if (result) {
@@ -19,7 +20,7 @@ const Characters = () => {
       }
     };
     fetchCharacters();
-  }, []);
+  }, [apiContext.campaignId]);
 
   if (isLoading) {
     return <></>;

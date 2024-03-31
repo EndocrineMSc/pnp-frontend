@@ -27,23 +27,28 @@ const Note = ({ note }) => {
   };
 
   useEffect(() => {
-    const dangerousText = unescape(noteText);
-    console.log("dangerous: " + dangerousText);
-    const safeText = sanitizeHtml(dangerousText);
-    console.log("safe: " + safeText);
-    const parsedText = parse(safeText);
-    setSanitizedText(parsedText);
+    if (noteText) {
+      const dangerousText = unescape(noteText);
+      console.log("dangerous: " + dangerousText);
+      const safeText = sanitizeHtml(dangerousText);
+      console.log("safe: " + safeText);
+      const parsedText = parse(safeText);
+      setSanitizedText(parsedText);
+    }
   }, [noteText]);
 
   const buildEditorText = (text) => {
-    const dangerousText = unescape(text);
-    const safeText = sanitizeHtml(dangerousText);
-    return safeText;
+    if (text) {
+      const dangerousText = unescape(text);
+      const safeText = sanitizeHtml(dangerousText);
+      return safeText;
+    }
+    return "";
   };
 
   return (
     <div
-      className="relative flex flex-col shadow-md bg-wgray-100 overflow-y-auto w-full aspect-square rounded"
+      className="relative flex flex-col shadow-md bg-wgray-100 overflow-y-auto w-full max-w-screen-sm aspect-square rounded"
       onDoubleClick={clickToEdit}
     >
       <div className="h-full">

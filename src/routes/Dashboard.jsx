@@ -1,11 +1,33 @@
 import { Outlet } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import Navbar from "../components/Navbar";
 import CollapsedNavbar from "../components/CollapsedNavbar";
-import { NavbarContext } from "../Contexts";
+import { ApiContext, NavbarContext } from "../Contexts";
+import { Navigate } from "react-router-dom";
+import { getRequest } from "../hooks/getRequest";
 
-const Dashboard = () => {
+const Dashboard = ({ isLoggedIn }) => {
   const [showNavbar, setShowNavbar] = useState(true);
+  const apiContext = useContext(ApiContext);
+
+  useEffect(() => {
+    const setDefaultCampaignId = async () => {
+      const campaigns = await getRequest(
+        `https://pnp-backend.fly.dev/api/v1/${apiContext.userId}/campaigns`,
+      );
+
+      if (campaigns) {
+        const defaultId = campaigns[0]._id;
+        apiContext.setCampaignId(defaultId);
+      }
+    };
+
+    if (isLoggedIn && apiContext.campaignId === "") {
+      setDefaultCampaignId();
+    } else if (!isLoggedIn && window.location.pathname !== "/login") {
+      window.location.pathname = "/login";
+    }
+  }, [apiContext, isLoggedIn]);
 
   const toggleNavbar = () => {
     setShowNavbar((prev) => !prev);
@@ -13,14 +35,20 @@ const Dashboard = () => {
 
   const providerValues = { isExpanded: showNavbar, toggleNavbar };
 
-  return (
-    <div className="flex justify-start items-start w-full h-full text-wgray-950 bg-wgray-50 dark:bg-wgray-950">
-      <NavbarContext.Provider value={providerValues}>
-        {showNavbar ? <Navbar /> : <CollapsedNavbar />}
-      </NavbarContext.Provider>
-      <Outlet />
-    </div>
-  );
+  const currentPath = window.location.pathname;
+
+  if (currentPath === "/") {
+    return <Navigate replace to="/welcome" />;
+  } else {
+    return (
+      <div className="flex justify-start items-start w-full h-full text-wgray-950 bg-wgray-50 dark:bg-wgray-950">
+        <NavbarContext.Provider value={providerValues}>
+          {showNavbar ? <Navbar /> : <CollapsedNavbar />}
+        </NavbarContext.Provider>
+        <Outlet />
+      </div>
+    );
+  }
 };
 
 export default Dashboard;
