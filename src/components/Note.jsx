@@ -1,15 +1,24 @@
 import Editor from "./NoteEditor";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { formatDate } from "../hooks/formatDate";
 import { postRequest } from "../hooks/postRequest";
 import { unescape } from "html-escaper";
 import sanitizeHtml from "sanitize-html";
 import parse from "html-react-parser";
+import CloseButton from "./basic-ui/CloseButton";
+import { NotesContext } from "../Contexts";
 
 const Note = ({ note }) => {
   const [editMode, setEditMode] = useState(false);
   const [noteText, setNoteText] = useState(note.text);
   const [sanitizedText, setSanitizedText] = useState("");
+
+  const noteContext = useContext(NotesContext);
+
+  const closeNote = () => {
+    const newArray = noteContext.detailNoteIds.filter((id) => id !== note._id);
+    noteContext.setDetailNoteIds(newArray);
+  };
 
   const clickToEdit = () => {
     if (!editMode) setEditMode(true);
@@ -29,9 +38,7 @@ const Note = ({ note }) => {
   useEffect(() => {
     if (noteText) {
       const dangerousText = unescape(noteText);
-      console.log("dangerous: " + dangerousText);
       const safeText = sanitizeHtml(dangerousText);
-      console.log("safe: " + safeText);
       const parsedText = parse(safeText);
       setSanitizedText(parsedText);
     }
@@ -52,9 +59,10 @@ const Note = ({ note }) => {
       onDoubleClick={clickToEdit}
     >
       <div className="h-full">
-        <h3 className="text-center p-1 text-xl bg-gradient-to-b from-wgray-300 to-wgray-400">
-          {formatDate(note.date)}
-        </h3>
+        <div className="relative bg-gradient-to-b from-wgray-300 to-wgray-400">
+          <h3 className="text-center p-1 text-xl">{formatDate(note.date)}</h3>
+          <CloseButton onClose={closeNote} size={1.5} />
+        </div>
         {editMode ? (
           <Editor text={buildEditorText(noteText)} endEdit={endEdit} />
         ) : (
