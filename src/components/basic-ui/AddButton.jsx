@@ -1,7 +1,7 @@
 import Icon from "@mdi/react";
 import { mdiPlusCircle } from "@mdi/js";
 import { useState, useContext } from "react";
-import CharacterEditForm from "../modals/CharacterEditForm";
+import CharacterEntryForm from "../modals/CharacterEntryForm";
 import CampaignEntryForm from "../modals/CampaignEntryForm";
 import EditForm from "../modals/EditForm";
 import { ApiContext, NotesContext } from "../../Contexts";
@@ -9,6 +9,7 @@ import { postRequest } from "../../hooks/postRequest";
 
 /** Default Button for adding any type of entry, will position itself bottom right (absolute)
  * @param {string} type - "character", "object", "location", "campaign", "note" - determines the type of
+ * @param {function} updateParent - function to trigger rerender of parent with new entry
  * entry form connected to the button "note" will add a new empty note directly instead
  */
 const AddButton = ({ type, updateParent }) => {
@@ -22,7 +23,13 @@ const AddButton = ({ type, updateParent }) => {
 
   const form = function () {
     if (type === "character") {
-      return <CharacterEditForm onClose={toggleEdit} />;
+      return (
+        <CharacterEntryForm
+          mode="create"
+          onClose={toggleEdit}
+          updateParent={updateParent}
+        />
+      );
     } else if (type === "object" || type === "location") {
       return <EditForm type={type} onClose={toggleEdit} />;
     } else if (type === "campaign") {

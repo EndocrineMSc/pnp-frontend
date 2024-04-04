@@ -1,6 +1,6 @@
 import Icon from "@mdi/react";
 import EditForm from "../modals/EditForm";
-import CharacterEditForm from "../modals/CharacterEditForm";
+import CharacterEntryForm from "../modals/CharacterEntryForm";
 import { mdiPencil } from "@mdi/js";
 import { useState } from "react";
 import CampaignEntryForm from "../modals/CampaignEntryForm";
@@ -14,7 +14,7 @@ const EditButton = ({ type, data }) => {
 
   const form = function () {
     if (type === "character") {
-      return <CharacterEditForm prevData={data} onClose={toggleEdit} />;
+      return <CharacterEntryForm prevData={data} onClose={toggleEdit} />;
     } else if (type === "object" || type === "location") {
       return <EditForm type={type} prevData={data} onClose={toggleEdit} />;
     } else {
