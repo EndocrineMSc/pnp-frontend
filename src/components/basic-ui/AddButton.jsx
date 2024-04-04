@@ -3,7 +3,7 @@ import { mdiPlusCircle } from "@mdi/js";
 import { useState, useContext } from "react";
 import CharacterEntryForm from "../modals/CharacterEntryForm";
 import CampaignEntryForm from "../modals/CampaignEntryForm";
-import EditForm from "../modals/EditForm";
+import EntryForm from "../modals/EntryForm";
 import { ApiContext, NotesContext } from "../../Contexts";
 import { postRequest } from "../../hooks/postRequest";
 
@@ -31,7 +31,14 @@ const AddButton = ({ type, updateParent }) => {
         />
       );
     } else if (type === "object" || type === "location") {
-      return <EditForm type={type} onClose={toggleEdit} />;
+      return (
+        <EntryForm
+          type={type}
+          mode="create"
+          updateParent={updateParent}
+          onClose={toggleEdit}
+        />
+      );
     } else if (type === "campaign") {
       return (
         <CampaignEntryForm

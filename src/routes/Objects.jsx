@@ -2,6 +2,7 @@ import { ApiContext } from "../Contexts";
 import EntryCardLayout from "../components/EntryCardLayout";
 import { getRequest } from "../hooks/getRequest";
 import { useState, useEffect, useContext } from "react";
+import AddButton from "../components/basic-ui/AddButton";
 
 const Objects = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -26,7 +27,12 @@ const Objects = () => {
     return <></>;
   }
 
-  return <EntryCardLayout cards={objects} type="object" title="Objects" />;
+  return (
+    <div>
+      <EntryCardLayout cards={objects} type="object" title="Objects" />
+      <AddButton type="object" />
+    </div>
+  );
 };
 
 export default Objects;
