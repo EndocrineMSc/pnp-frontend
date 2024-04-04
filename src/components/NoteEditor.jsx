@@ -8,9 +8,7 @@ const Editor = ({ text, endEdit }) => {
   const [editorContent, setEditorContent] = useState(text);
 
   const handler = () => {
-    console.log("raw Editor: " + editorContent);
     const newContent = sanitizeHtml(editorContent);
-    console.log("sanitized Editor: " + newContent);
     endEdit(newContent);
   };
 

@@ -26,7 +26,6 @@ const Note = ({ note }) => {
 
   const endEdit = (newText) => {
     const updatedNote = { ...note, text: newText };
-    console.log("New note text: " + updatedNote.text);
     postRequest(
       `https://pnp-backend.fly.dev/api/v1/note/${note._id}/update`,
       updatedNote,
