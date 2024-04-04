@@ -1,8 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useContext, useState } from "react";
+import { ApiContext } from "../../Contexts";
+import { formPostRequest } from "../../hooks/formPostRequest";
+import { Navigate } from "react-router-dom";
 
-/** Update Form for Locations and Items. Characters and Campaigns are separate. */
-const EditForm = ({ type, prevData, onClose }) => {
-  //const uri = `https://pnp-backend.fly.dev/api/v1/${type}/${prevData._id}`;
+/** Update Form for Locations and Items. Characters and Campaigns are separate.
+ * @param {string} type - "location"/"object" type of database entry that should be created/updated
+ * @param {string} mode - "create"/"update" type of CRUD action to be performed on entry
+ * @param {function} updateParent - function to rerender parent
+ * @param {function} onClose - parent function to close form
+ * @param {object} prevData - previously displayed entry data only needed in update action
+ */
+const EntryForm = ({ type, mode, updateParent, onClose, prevData }) => {
+  const apiContext = useContext(ApiContext);
+  const [entryCreated, setEntryCreated] = useState(false);
+  const uri =
+    mode === "create"
+      ? `https://pnp-backend.fly.dev/api/v1/${apiContext.campaignId}/${type}/create`
+      : `https://pnp-backend.fly.dev/api/v1/${type}/${prevData._id}/update`;
+
   useEffect(() => {
     const closeForm = (event) => {
       if (event.key === "Escape") {
@@ -16,6 +31,21 @@ const EditForm = ({ type, prevData, onClose }) => {
     };
   }, [onClose]);
 
+  const handleFormSubmission = async (event) => {
+    const result = await formPostRequest(event, uri);
+
+    if (result[0]) {
+      console.error(result[0].msg);
+    } else {
+      console.log(result);
+      updateParent(result);
+      setEntryCreated(true);
+    }
+  };
+
+  if (entryCreated) {
+    <Navigate to={`/${type}s`} />;
+  }
   return (
     <div className="flex justify-center items-start absolute left-0 top-0 w-full h-screen pt-5">
       <div
@@ -24,7 +54,8 @@ const EditForm = ({ type, prevData, onClose }) => {
       ></div>
       <form
         className="relative flex flex-wrap max-w-screen-sm gap-5 bg-wgray-300 p-5 rounded-xl"
-        action="" /*{uri}*/
+        action=""
+        onSubmit={handleFormSubmission}
       >
         <div className="flex flex-col justify-start gap-1">
           <label className="font-bold" htmlFor="name">
@@ -86,4 +117,4 @@ const EditForm = ({ type, prevData, onClose }) => {
   );
 };
 
-export default EditForm;
+export default EntryForm;

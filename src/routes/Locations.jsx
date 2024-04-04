@@ -2,6 +2,7 @@ import { ApiContext } from "../Contexts";
 import EntryCardLayout from "../components/EntryCardLayout";
 import { getRequest } from "../hooks/getRequest";
 import { useState, useEffect, useContext } from "react";
+import AddButton from "../components/basic-ui/AddButton";
 
 const Locations = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -27,7 +28,10 @@ const Locations = () => {
   }
 
   return (
-    <EntryCardLayout cards={locations} type="location" title="Locations" />
+    <div>
+      <EntryCardLayout cards={locations} type="location" title="Locations" />
+      <AddButton type="location" />
+    </div>
   );
 };
 

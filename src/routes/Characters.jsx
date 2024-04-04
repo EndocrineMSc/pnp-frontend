@@ -1,5 +1,6 @@
 import { ApiContext } from "../Contexts";
 import EntryCardLayout from "../components/EntryCardLayout";
+import AddButton from "../components/basic-ui/AddButton";
 import { getRequest } from "../hooks/getRequest";
 import { useState, useEffect, useContext } from "react";
 
@@ -27,7 +28,10 @@ const Characters = () => {
   }
 
   return (
-    <EntryCardLayout cards={characters} type="character" title="Characters" />
+    <div>
+      <EntryCardLayout cards={characters} type="character" title="Characters" />
+      <AddButton type="character" />
+    </div>
   );
 };
 

@@ -18,7 +18,7 @@ function App() {
         setLoggedIn,
       }}
     >
-      <Dashboard isLoggedIn={isLoggedIn} setLoggedIn={setLoggedIn} />;
+      <Dashboard isLoggedIn={isLoggedIn} setLoggedIn={setLoggedIn} />
     </ApiContext.Provider>
   );
 }

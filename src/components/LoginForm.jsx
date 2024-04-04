@@ -18,8 +18,6 @@ const LoginForm = () => {
     } else {
       localStorage.setItem("accessToken", "Bearer " + result.accessToken);
       localStorage.setItem("refreshToken", result.refreshToken);
-      console.log(result);
-      console.log(result.user_id);
       apiContext.setUserId(result.user._id);
       apiContext.setLoggedIn(true);
     }

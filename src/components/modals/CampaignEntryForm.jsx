@@ -7,6 +7,7 @@ import { Navigate } from "react-router-dom";
  * @param {string} mode - "create" or "update" -> update shows previous Data as default Values
  * @param {function} onClose - toggle function for showing the form in the parent
  * @param {object} prevData - previous campaign data, only needed in update mode
+ * @param {function} updateParent - function to trigger rerender of parent with new entry
  */
 const CampaignEntryForm = ({ mode, onClose, prevData, updateParent }) => {
   const apiContext = useContext(ApiContext);

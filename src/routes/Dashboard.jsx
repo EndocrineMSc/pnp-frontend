@@ -24,8 +24,6 @@ const Dashboard = ({ isLoggedIn }) => {
 
     if (isLoggedIn && apiContext.campaignId === "") {
       setDefaultCampaignId();
-    } else if (!isLoggedIn && window.location.pathname !== "/login") {
-      window.location.pathname = "/login";
     }
   }, [apiContext, isLoggedIn]);
 
@@ -34,7 +32,6 @@ const Dashboard = ({ isLoggedIn }) => {
   };
 
   const providerValues = { isExpanded: showNavbar, toggleNavbar };
-
   const currentPath = window.location.pathname;
 
   if (currentPath === "/") {
