@@ -18,7 +18,7 @@ const LoginForm = () => {
     } else {
       localStorage.setItem("accessToken", "Bearer " + result.accessToken);
       localStorage.setItem("refreshToken", result.refreshToken);
-      apiContext.setUserId(result.user._id);
+      localStorage.setItem("userId", result.user._id);
       apiContext.setLoggedIn(true);
     }
   };

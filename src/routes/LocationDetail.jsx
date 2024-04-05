@@ -25,17 +25,6 @@ const LocationDetailView = () => {
     fetchCampaign();
   }, [id]);
 
-  const deleteCharacter = async () => {
-    const result = await postRequest(
-      `https://pnp-backend.fly.dev/api/v1/location/${id}/delete`,
-    );
-
-    console.log(result);
-    if (result) {
-      navigate("/characters");
-    }
-  };
-
   if (isLoading) {
     return <></>;
   } else {

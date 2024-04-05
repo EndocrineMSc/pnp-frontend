@@ -4,7 +4,6 @@ import { ApiContext } from "../Contexts";
 import { formPostRequest } from "../hooks/formPostRequest";
 
 const RegisterForm = () => {
-  const apiContext = useContext(ApiContext);
   const [isRegistered, setRegistered] = useState(false);
 
   const handleFormSubmission = async (event) => {
@@ -19,7 +18,7 @@ const RegisterForm = () => {
     } else {
       localStorage.setItem("accessToken", "Bearer " + result.accessToken);
       localStorage.setItem("refreshToken", result.refreshToken);
-      apiContext.setUserId(result.user._id);
+      localStorage.setItem("userId", result.user._id);
       setRegistered(true);
     }
   };

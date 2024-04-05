@@ -9,11 +9,12 @@ import { getRequest } from "../hooks/getRequest";
 const Dashboard = ({ isLoggedIn }) => {
   const [showNavbar, setShowNavbar] = useState(true);
   const apiContext = useContext(ApiContext);
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     const setDefaultCampaignId = async () => {
       const campaigns = await getRequest(
-        `https://pnp-backend.fly.dev/api/v1/${apiContext.userId}/campaigns`,
+        `https://pnp-backend.fly.dev/api/v1/${userId}/campaigns`,
       );
 
       if (campaigns) {
@@ -25,7 +26,7 @@ const Dashboard = ({ isLoggedIn }) => {
     if (isLoggedIn && apiContext.campaignId === "") {
       setDefaultCampaignId();
     }
-  }, [apiContext, isLoggedIn]);
+  }, [apiContext, isLoggedIn, userId]);
 
   const toggleNavbar = () => {
     setShowNavbar((prev) => !prev);

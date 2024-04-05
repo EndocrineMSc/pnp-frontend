@@ -1,5 +1,4 @@
-import { useState, useEffect, useContext } from "react";
-import { ApiContext } from "../../Contexts";
+import { useState, useEffect } from "react";
 import { formPostRequest } from "../../hooks/formPostRequest";
 import { Navigate } from "react-router-dom";
 
@@ -10,11 +9,11 @@ import { Navigate } from "react-router-dom";
  * @param {function} updateParent - function to trigger rerender of parent with new entry
  */
 const CampaignEntryForm = ({ mode, onClose, prevData, updateParent }) => {
-  const apiContext = useContext(ApiContext);
   const [campaignCreated, setCampaignCreated] = useState(false);
+  const userId = localStorage.getItem("userId");
   const uri =
     mode === "create"
-      ? `https://pnp-backend.fly.dev/api/v1/${apiContext.userId}/campaign/create`
+      ? `https://pnp-backend.fly.dev/api/v1/${userId}/campaign/create`
       : `https://pnp-backend.fly.dev/api/v1/campaign/${prevData._id}/update`;
 
   useEffect(() => {

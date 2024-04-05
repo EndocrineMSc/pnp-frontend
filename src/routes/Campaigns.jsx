@@ -1,18 +1,17 @@
 import EntryCardLayout from "../components/EntryCardLayout";
 import { getRequest } from "../hooks/getRequest";
-import { useState, useEffect, useContext } from "react";
-import { ApiContext } from "../Contexts";
+import { useState, useEffect } from "react";
 import AddButton from "../components/basic-ui/AddButton";
 
 const Campaigns = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [campaigns, setCampaigns] = useState(null);
-  const apiContext = useContext(ApiContext);
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     const fetchCampaigns = async () => {
       const result = await getRequest(
-        `https://pnp-backend.fly.dev/api/v1/${apiContext.userId}/campaigns`,
+        `https://pnp-backend.fly.dev/api/v1/${userId}/campaigns`,
       );
 
       if (result) {
@@ -21,7 +20,7 @@ const Campaigns = () => {
       }
     };
     fetchCampaigns();
-  }, [apiContext.userId]);
+  }, [userId]);
 
   const addNewCampaign = (campaign) => {
     setCampaigns([...campaigns, campaign]);
