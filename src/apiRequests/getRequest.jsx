@@ -1,3 +1,4 @@
+/**Send a get request with authorization handling */
 export const getRequest = async (url) => {
   const accessToken = localStorage.getItem("accessToken");
   const refreshToken = localStorage.getItem("refreshToken");

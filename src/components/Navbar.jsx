@@ -3,8 +3,9 @@ import CollapseButton from "./basic-ui/CollapseButton";
 import Searchbar from "./basic-ui/Searchbar";
 import { useState, useContext, useEffect } from "react";
 import { ApiContext, NavbarContext } from "../Contexts";
-import { getRequest } from "../hooks/getRequest";
+import { getRequest } from "../apiRequests/getRequest";
 
+/**Navigation component for the different single-page app routes */
 const Navbar = () => {
   const [activePage, setActivePage] = useState("Dashboard");
   const [imagePath, setImagePath] = useState("../campaign.svg");

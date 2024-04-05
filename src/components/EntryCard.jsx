@@ -1,5 +1,12 @@
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
+/**Card for top-level display of entries
+ * @param {string} name
+ * @param {string} cardId - Mongoose ObjectId of entry,
+ * @param {string} [image} - Optional. Path to image for entry.
+ * @param {string} type - "object","location","campaign" - Type of entry to display.
+ */
 const EntryCard = ({ name, cardId, image, type }) => {
   const imagePath = image ? image : `/${type}.svg`;
 
@@ -19,6 +26,13 @@ const EntryCard = ({ name, cardId, image, type }) => {
       />
     </Link>
   );
+};
+
+EntryCard.propTypes = {
+  name: PropTypes.string.isRequired,
+  cardId: PropTypes.string.isRequired,
+  image: PropTypes.string,
+  type: PropTypes.string,
 };
 
 export default EntryCard;

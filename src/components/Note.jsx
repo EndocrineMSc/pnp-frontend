@@ -1,14 +1,18 @@
 import Editor from "./NoteEditor";
 import { useState, useEffect, useContext } from "react";
-import { formatDate } from "../hooks/formatDate";
-import { postRequest } from "../hooks/postRequest";
+import { formatDate } from "../utilityFunctions/formatDate";
+import { postRequest } from "../apiRequests/postRequest";
 import { unescape } from "html-escaper";
 import sanitizeHtml from "sanitize-html";
 import parse from "html-react-parser";
 import CloseButton from "./basic-ui/CloseButton";
 import DeleteButton from "./basic-ui/DeleteButton";
 import { NotesContext } from "../Contexts";
+import PropTypes from "prop-types";
 
+/**Note with full detail and text editor
+ * @param {object} note - Note data to be displayed.
+ */
 const Note = ({ note }) => {
   const [editMode, setEditMode] = useState(false);
   const [noteText, setNoteText] = useState(note.text);
@@ -87,6 +91,10 @@ const Note = ({ note }) => {
       </div>
     </div>
   );
+};
+
+Note.propTypes = {
+  note: PropTypes.object.isRequired,
 };
 
 export default Note;

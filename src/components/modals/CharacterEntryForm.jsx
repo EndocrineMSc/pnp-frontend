@@ -1,12 +1,13 @@
 import { useContext, useEffect } from "react";
 import { ApiContext } from "../../Contexts";
-import { formPostRequest } from "../../hooks/formPostRequest";
+import { formPostRequest } from "../../apiRequests/formPostRequest";
+import PropTypes from "prop-types";
 
 /** Entry Form for characters.
- * @param {string} mode - "create" or "update" -> update shows previous Data as default values
- * @param {function} onClose - toggle function for showing the form in the parent
- * @param {object} prevData - previous character data, only needed in update mode
- * @param {function} updateParent - function to trigger rerender of parent with new entry
+ * @param {string} mode - "create" or "update" -> update shows previous Data as default values.
+ * @param {function} onClose - toggle function for showing the form in the parent.
+ * @param {object} [prevData] - previous character data, only needed in update mode.
+ * @param {function} updateParent - function to trigger rerender of parent with new entry.
  */
 const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
   const apiContext = useContext(ApiContext);
@@ -132,6 +133,13 @@ const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
       </form>
     </div>
   );
+};
+
+CharacterEntryForm.propTypes = {
+  mode: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired,
+  prevData: PropTypes.object,
+  updateParent: PropTypes.func.isRequired,
 };
 
 export default CharacterEntryForm;

@@ -1,7 +1,7 @@
 import { ApiContext } from "../Contexts";
 import EntryCardLayout from "../components/EntryCardLayout";
 import AddButton from "../components/basic-ui/AddButton";
-import { getRequest } from "../hooks/getRequest";
+import { getRequest } from "../apiRequests/getRequest";
 import { useState, useEffect, useContext } from "react";
 
 const Characters = () => {

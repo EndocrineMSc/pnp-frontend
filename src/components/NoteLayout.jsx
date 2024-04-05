@@ -1,8 +1,8 @@
 import Note from "./Note";
 import AddButton from "./basic-ui/AddButton";
 
-/**Arrangement of the Notes on screen, changes grid
- * layout by amount of Notes, and client screen size.
+/**Arrangement of the Notes on screen, changes grid layout by amount of Notes, and client screen size.
+ *  @param {Array.<object>} notes - Array of note objects to display.
  */
 const NoteLayout = ({ notes }) => {
   return (
@@ -17,6 +17,10 @@ const NoteLayout = ({ notes }) => {
       <AddButton type="note" />
     </div>
   );
+};
+
+NoteLayout.defaultProps = {
+  notes: [],
 };
 
 export default NoteLayout;

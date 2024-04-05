@@ -1,10 +1,10 @@
 import { useState, useEffect, useContext } from "react";
 import EditButton from "../components/basic-ui/EditButton";
 import DeleteButton from "../components/basic-ui/DeleteButton";
-import { getRequest } from "../hooks/getRequest";
+import { getRequest } from "../apiRequests/getRequest";
 import { useParams } from "react-router-dom";
 import { ApiContext } from "../Contexts";
-import { postRequest } from "../hooks/postRequest";
+import { postRequest } from "../apiRequests/postRequest";
 import { useNavigate } from "react-router-dom";
 
 /**Displayes detail data of a single campaign to the user */

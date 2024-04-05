@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import DetailView from "../components/DetailView";
-import { getRequest } from "../hooks/getRequest";
-import { postRequest } from "../hooks/postRequest";
+import { getRequest } from "../apiRequests/getRequest";
+import { postRequest } from "../apiRequests/postRequest";
 import { useParams, useNavigate } from "react-router-dom";
 
 const LocationDetailView = () => {

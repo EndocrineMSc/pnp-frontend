@@ -1,9 +1,13 @@
 import DeleteButton from "./basic-ui/DeleteButton";
 import EditButton from "./basic-ui/EditButton";
-import { postRequest } from "../hooks/postRequest";
+import { postRequest } from "../apiRequests/postRequest";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
-/**Detail view component for Items and Locations, Campaigns and Characters are separate */
+/**Detail view component for Items and Locations, Campaigns and Characters are separate
+ * @param {object} viewData - Entry data to display.
+ * @param {string} type - "object" or "location" - Type of entry to display.
+ */
 const DetailView = ({ viewData, type }) => {
   const navigate = useNavigate();
 
@@ -31,7 +35,7 @@ const DetailView = ({ viewData, type }) => {
         <div className="flex justify-between">
           <h2 className="text-3xl font-bold">{viewData.name}</h2>
           <div className="flex gap-2">
-            <EditButton type={type} />
+            <EditButton type={type} data={viewData} />
             <DeleteButton text={`Delete ${type}?`} deleteEntry={deleteEntry} />
           </div>
         </div>
@@ -48,6 +52,11 @@ const DetailView = ({ viewData, type }) => {
       </div>
     </div>
   );
+};
+
+DetailView.propTypes = {
+  viewData: PropTypes.object.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default DetailView;

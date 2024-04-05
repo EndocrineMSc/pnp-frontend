@@ -1,5 +1,11 @@
 import EntryCard from "./EntryCard";
+import PropTypes from "prop-types";
 
+/**Container component for Entry Cards.
+ * @param {string} title
+ * @param {Array.<Object>} cards - Data objects of entries to be displayed.
+ * @param {string} type - "campaign","location","object" - Type of entry to be displayed.
+ */
 const EntryCardLayout = ({ title, cards, type }) => {
   return (
     <div className="static flex flex-col pl-4 pr-4 gap-5 w-full h-full">
@@ -24,6 +30,12 @@ const EntryCardLayout = ({ title, cards, type }) => {
       </div>
     </div>
   );
+};
+
+EntryCardLayout.propTypes = {
+  title: PropTypes.string.isRequired,
+  cards: PropTypes.array.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default EntryCardLayout;

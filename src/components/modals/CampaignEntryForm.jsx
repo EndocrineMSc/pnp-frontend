@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
-import { formPostRequest } from "../../hooks/formPostRequest";
+import { formPostRequest } from "../../apiRequests/formPostRequest";
 import { Navigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 /** Entry Form for campaigns.
- * @param {string} mode - "create" or "update" -> update shows previous Data as default Values
- * @param {function} onClose - toggle function for showing the form in the parent
- * @param {object} prevData - previous campaign data, only needed in update mode
- * @param {function} updateParent - function to trigger rerender of parent with new entry
+ * @param {string} mode - "create" or "update" -> update shows previous Data as default values.
+ * @param {function} onClose - toggle function for showing the form in the parent.
+ * @param {object} [prevData] - previous campaign data, only needed in update mode.
+ * @param {function} updateParent - function to trigger rerender of parent with new entry.
  */
 const CampaignEntryForm = ({ mode, onClose, prevData, updateParent }) => {
   const [campaignCreated, setCampaignCreated] = useState(false);
@@ -99,6 +100,13 @@ const CampaignEntryForm = ({ mode, onClose, prevData, updateParent }) => {
       </div>
     );
   }
+};
+
+CampaignEntryForm.propTypes = {
+  mode: PropTypes.string.isRequired,
+  onClose: PropTypes.func,
+  prevData: PropTypes.object,
+  updateParent: PropTypes.func.isRequired,
 };
 
 export default CampaignEntryForm;

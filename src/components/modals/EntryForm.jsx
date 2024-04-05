@@ -1,14 +1,15 @@
 import { useEffect, useContext, useState } from "react";
 import { ApiContext } from "../../Contexts";
-import { formPostRequest } from "../../hooks/formPostRequest";
+import { formPostRequest } from "../../apiRequests/formPostRequest";
 import { Navigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 /** Update Form for Locations and Items. Characters and Campaigns are separate.
- * @param {string} type - "location"/"object" type of database entry that should be created/updated
- * @param {string} mode - "create"/"update" type of CRUD action to be performed on entry
- * @param {function} updateParent - function to rerender parent
- * @param {function} onClose - parent function to close form
- * @param {object} prevData - previously displayed entry data only needed in update action
+ * @param {string} type - "location"/"object" type of database entry that should be created/updated.
+ * @param {string} mode - "create"/"update" type of CRUD action to be performed on entry.
+ * @param {function} updateParent - function to rerender parent.
+ * @param {function} onClose - parent function to close form.
+ * @param {object} [prevData] - previously displayed entry data only needed in update action.
  */
 const EntryForm = ({ type, mode, updateParent, onClose, prevData }) => {
   const apiContext = useContext(ApiContext);
@@ -115,6 +116,14 @@ const EntryForm = ({ type, mode, updateParent, onClose, prevData }) => {
       </form>
     </div>
   );
+};
+
+EntryForm.propTypes = {
+  type: PropTypes.string.isRequired,
+  mode: PropTypes.string.isRequired,
+  updateParent: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  prevData: PropTypes.object,
 };
 
 export default EntryForm;

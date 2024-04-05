@@ -5,7 +5,13 @@ import {
   mdiArrowCollapseLeft,
   mdiArrowCollapseRight,
 } from "@mdi/js";
+import PropTypes from "prop-types";
 
+/**Button to collapse an element to the side
+ * @param {bool} isExpanded
+ * @param {function} toggleCollapse - Parent function to toggle isExpanded
+ * @param {bool} isPageRight - Whether or not the collapsible element is left or right
+ */
 const CollapseButton = ({ isExpanded, toggleCollapse, isPageRight }) => {
   const iconPath = () => {
     if (isExpanded) {
@@ -26,6 +32,12 @@ const CollapseButton = ({ isExpanded, toggleCollapse, isPageRight }) => {
       <Icon path={iconPath()} size={1.1} />
     </button>
   );
+};
+
+CollapseButton.propTypes = {
+  isExpanded: PropTypes.bool.isRequired,
+  toggleCollapse: PropTypes.func.isRequired,
+  isPageRight: PropTypes.bool.isRequired,
 };
 
 export default CollapseButton;

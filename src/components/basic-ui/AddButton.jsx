@@ -5,12 +5,12 @@ import CharacterEntryForm from "../modals/CharacterEntryForm";
 import CampaignEntryForm from "../modals/CampaignEntryForm";
 import EntryForm from "../modals/EntryForm";
 import { ApiContext, NotesContext } from "../../Contexts";
-import { postRequest } from "../../hooks/postRequest";
+import { postRequest } from "../../apiRequests/postRequest";
+import PropTypes from "prop-types";
 
 /** Default Button for adding any type of entry, will position itself bottom right (absolute)
- * @param {string} type - "character", "object", "location", "campaign", "note" - determines the type of
+ * @param {string} type - "character", "object", "location", "campaign", "note" - determines the type of entry form connected to the button "note" will add a new empty note directly instead
  * @param {function} updateParent - function to trigger rerender of parent with new entry
- * entry form connected to the button "note" will add a new empty note directly instead
  */
 const AddButton = ({ type, updateParent }) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
@@ -84,6 +84,11 @@ const AddButton = ({ type, updateParent }) => {
       {isEditOpen ? form() : <></>}
     </>
   );
+};
+
+AddButton.propTypes = {
+  type: PropTypes.string.isRequired,
+  updateParent: PropTypes.func,
 };
 
 export default AddButton;

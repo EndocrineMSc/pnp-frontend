@@ -4,6 +4,9 @@ import Searchbar from "./basic-ui/Searchbar";
 import { NotesContext } from "../Contexts";
 import { useContext } from "react";
 
+/**Collapsible scrollbar container for displaying top-level representation of notes (collapsed notes)
+ * @param {Array.<object>} notes - Array of note data to be displayed.
+ */
 const NoteScrollbar = ({ notes }) => {
   const providerValues = useContext(NotesContext);
   return (
@@ -27,6 +30,10 @@ const NoteScrollbar = ({ notes }) => {
       )}
     </nav>
   );
+};
+
+NoteScrollbar.defaultProps = {
+  notes: [],
 };
 
 export default NoteScrollbar;

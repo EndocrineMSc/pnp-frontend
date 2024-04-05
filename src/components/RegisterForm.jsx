@@ -1,8 +1,8 @@
 import { Link, Navigate } from "react-router-dom";
-import { useState, useContext } from "react";
-import { ApiContext } from "../Contexts";
-import { formPostRequest } from "../hooks/formPostRequest";
+import { useState } from "react";
+import { formPostRequest } from "../apiRequests/formPostRequest";
 
+/**Form to register new user, will also login new user immediatly, saving Access Token, Refresh Token and user id to localStorage */
 const RegisterForm = () => {
   const [isRegistered, setRegistered] = useState(false);
 

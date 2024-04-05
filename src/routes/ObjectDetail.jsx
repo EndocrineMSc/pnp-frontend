@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import DetailView from "../components/DetailView";
 import { useParams } from "react-router-dom";
-import { getRequest } from "../hooks/getRequest";
+import { getRequest } from "../apiRequests/getRequest";
 
 const ObjectDetailView = () => {
   const [objectData, setObjectData] = useState(null);

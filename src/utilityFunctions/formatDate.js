@@ -1,3 +1,7 @@
+/**Convert js date to string
+ * @param {string} date String in any valid js date format
+ * @returns {string} Formatted date string dd. Mon. yyyy
+ */
 export const formatDate = (date) => {
   const monthName = [
     "Jan",

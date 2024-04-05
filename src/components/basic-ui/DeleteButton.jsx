@@ -2,12 +2,13 @@ import Icon from "@mdi/react";
 import { mdiTrashCanOutline } from "@mdi/js";
 import { useState } from "react";
 import ConfirmationBox from "../modals/ConfirmationBox";
+import PropTypes from "prop-types";
 
-/**Button that lets user delete an entry, will show a confirmation modal before deleting
- * @param {string} text - Text to show in the confirmation modal, defaults to "Are you sure?"
- * @param {function():void} deleteEntry - Parent function that will delete the entry
+/**Button that lets user delete an entry, will show a confirmation modal before deleting.
+ * @param {string} [text="Are you sure?"] - Text to show in the confirmation modal, defaults to "Are you sure?".
+ * @param {function} deleteEntry - Parent function that will delete the entry.
  */
-const DeleteButton = ({ text = "Are you sure?", deleteEntry }) => {
+const DeleteButton = ({ text, deleteEntry }) => {
   const [isModalOpen, setModalOpen] = useState(false);
 
   const toggleModal = () => {
@@ -36,6 +37,15 @@ const DeleteButton = ({ text = "Are you sure?", deleteEntry }) => {
       )}
     </>
   );
+};
+
+DeleteButton.defaultProps = {
+  text: "Are you sure?",
+};
+
+DeleteButton.propTypes = {
+  text: PropTypes.string,
+  deleteEntry: PropTypes.func.isRequired,
 };
 
 export default DeleteButton;

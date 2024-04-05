@@ -4,7 +4,12 @@ import CharacterEntryForm from "../modals/CharacterEntryForm";
 import { mdiPencil } from "@mdi/js";
 import { useState } from "react";
 import CampaignEntryForm from "../modals/CampaignEntryForm";
+import PropTypes from "prop-types";
 
+/**Button component to edit entries
+ * @param {string} type - "character", "object", "location", "campaign", "note" - Determines the type of entry form connected to the button.
+ * @param {object} data - previously displayed data of the entry
+ */
 const EditButton = ({ type, data }) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
 
@@ -35,6 +40,11 @@ const EditButton = ({ type, data }) => {
       {isEditOpen ? form() : <></>}
     </>
   );
+};
+
+EditButton.propTypes = {
+  type: PropTypes.string.isRequired,
+  data: PropTypes.object.isRequired,
 };
 
 export default EditButton;

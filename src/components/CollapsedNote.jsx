@@ -1,7 +1,12 @@
-import { formatDate } from "../hooks/formatDate";
+import { formatDate } from "../utilityFunctions/formatDate";
 import { useContext, useState, useEffect } from "react";
 import { NotesContext } from "../Contexts";
+import PropTypes from "prop-types";
 
+/**Collapsed representation of a note, toggles full note to display.
+ * @param {string} date
+ * @param {string} noteId - Mongoose ObjectId of the note.
+ */
 const CollapsedNote = ({ date, noteId }) => {
   const [toggledOn, setToggledOn] = useState(false);
   const noteContext = useContext(NotesContext);
@@ -31,6 +36,11 @@ const CollapsedNote = ({ date, noteId }) => {
       {formatDate(date)}
     </button>
   );
+};
+
+CollapsedNote.propTypes = {
+  date: PropTypes.string.isRequired,
+  noteId: PropTypes.string.isRequired,
 };
 
 export default CollapsedNote;

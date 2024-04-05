@@ -1,6 +1,6 @@
 import { ApiContext } from "../Contexts";
 import EntryCardLayout from "../components/EntryCardLayout";
-import { getRequest } from "../hooks/getRequest";
+import { getRequest } from "../apiRequests/getRequest";
 import { useState, useEffect, useContext } from "react";
 import AddButton from "../components/basic-ui/AddButton";
 

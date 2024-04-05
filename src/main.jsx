@@ -15,7 +15,9 @@ import Items from "./routes/Objects.jsx";
 import ItemDetail from "./routes/ObjectDetail.jsx";
 import "./index.css";
 import LandingPage from "./routes/LandingPage.jsx";
+import LogRocket from "logrocket";
 
+LogRocket.init("ccujpl/rpg-adventure-journal");
 const router = createBrowserRouter([
   {
     path: "/",

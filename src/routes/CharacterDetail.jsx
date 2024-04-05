@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import EditButton from "../components/basic-ui/EditButton";
 import DeleteButton from "../components/basic-ui/DeleteButton";
-import { getRequest } from "../hooks/getRequest";
+import { getRequest } from "../apiRequests/getRequest";
 import { useParams, useNavigate } from "react-router-dom";
-import { postRequest } from "../hooks/postRequest";
+import { postRequest } from "../apiRequests/postRequest";
 
 const CharacterDetailView = () => {
   const [characterData, setCharacterData] = useState(null);

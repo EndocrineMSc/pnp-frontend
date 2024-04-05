@@ -1,5 +1,5 @@
 import EntryCardLayout from "../components/EntryCardLayout";
-import { getRequest } from "../hooks/getRequest";
+import { getRequest } from "../apiRequests/getRequest";
 import { useState, useEffect } from "react";
 import AddButton from "../components/basic-ui/AddButton";
 

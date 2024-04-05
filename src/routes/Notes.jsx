@@ -3,7 +3,7 @@ import NoteLayout from "../components/NoteLayout";
 import NoteScrollbar from "../components/NoteScrollbar";
 import { useState, useEffect, useContext } from "react";
 import { ApiContext, NotesContext } from "../Contexts";
-import { getRequest } from "../hooks/getRequest";
+import { getRequest } from "../apiRequests/getRequest";
 
 const Notes = () => {
   const [showScrollbar, setShowNavBar] = useState(true);

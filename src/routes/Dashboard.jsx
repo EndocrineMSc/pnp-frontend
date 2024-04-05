@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import CollapsedNavbar from "../components/CollapsedNavbar";
 import { ApiContext, NavbarContext } from "../Contexts";
 import { Navigate } from "react-router-dom";
-import { getRequest } from "../hooks/getRequest";
+import { getRequest } from "../apiRequests/getRequest";
 
 const Dashboard = ({ isLoggedIn }) => {
   const [showNavbar, setShowNavbar] = useState(true);

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import PropTypes from "prop-types";
 
 /**Modal pop-up to confirm user action
  * @param {string} text - Warning/Confirmation text
@@ -41,6 +42,12 @@ const Button = ({ text, onClick }) => {
       {text}
     </button>
   );
+};
+
+ConfirmationBox.propTypes = {
+  text: PropTypes.string.isRequired,
+  deleteEntry: PropTypes.func.isRequired,
+  onAbort: PropTypes.func.isRequired,
 };
 
 export default ConfirmationBox;
