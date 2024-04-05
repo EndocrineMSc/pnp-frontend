@@ -2,13 +2,15 @@ import { useState, useEffect } from "react";
 import EditButton from "../components/basic-ui/EditButton";
 import DeleteButton from "../components/basic-ui/DeleteButton";
 import { getRequest } from "../hooks/getRequest";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { postRequest } from "../hooks/postRequest";
 
 const CharacterDetailView = () => {
   const [characterData, setCharacterData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCharacter = async () => {
@@ -23,6 +25,17 @@ const CharacterDetailView = () => {
     };
     fetchCharacter();
   }, [id]);
+
+  const deleteCharacter = async () => {
+    const result = await postRequest(
+      `https://pnp-backend.fly.dev/api/v1/character/${id}/delete`,
+    );
+
+    console.log(result);
+    if (result) {
+      navigate("/characters");
+    }
+  };
 
   if (isLoading) {
     return <></>;
@@ -53,7 +66,10 @@ const CharacterDetailView = () => {
             <h2 className="text-3xl font-bold">{characterData.name}</h2>
             <div className="flex gap-2">
               <EditButton type="character" />
-              <DeleteButton />
+              <DeleteButton
+                text="Delete Character?"
+                deleteEntry={deleteCharacter}
+              />
             </div>
           </div>
           <div className="flex flex-col w-full gap-2">

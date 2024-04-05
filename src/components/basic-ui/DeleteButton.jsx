@@ -5,7 +5,7 @@ import ConfirmationBox from "../modals/ConfirmationBox";
 
 /**Button that lets user delete an entry, will show a confirmation modal before deleting
  * @param {string} text - Text to show in the confirmation modal, defaults to "Are you sure?"
- * @param {function} deleteEntry - Parent function that will delete the entry
+ * @param {function():void} deleteEntry - Parent function that will delete the entry
  */
 const DeleteButton = ({ text = "Are you sure?", deleteEntry }) => {
   const [isModalOpen, setModalOpen] = useState(false);

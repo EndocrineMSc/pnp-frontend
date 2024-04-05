@@ -1,7 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { ApiContext } from "../../Contexts";
 import { formPostRequest } from "../../hooks/formPostRequest";
-import { Navigate } from "react-router-dom";
 
 /** Entry Form for characters.
  * @param {string} mode - "create" or "update" -> update shows previous Data as default values
@@ -11,7 +10,6 @@ import { Navigate } from "react-router-dom";
  */
 const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
   const apiContext = useContext(ApiContext);
-  const [characterCreated, setCharacterCreated] = useState(false);
   const uri =
     mode === "create"
       ? `https://pnp-backend.fly.dev/api/v1/${apiContext.campaignId}/character/create`
@@ -38,13 +36,10 @@ const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
     } else {
       console.log(result);
       updateParent(result);
-      setCharacterCreated(true);
+      onClose();
     }
   };
 
-  if (characterCreated) {
-    <Navigate to="/characters" />;
-  }
   return (
     <div className="flex justify-center items-start absolute left-0 top-0 w-full h-screen pt-5">
       <div

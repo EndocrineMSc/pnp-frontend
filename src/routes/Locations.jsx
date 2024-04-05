@@ -23,6 +23,10 @@ const Locations = () => {
     fetchLocations();
   }, [apiContext.campaignId]);
 
+  const onLocationAdded = (location) => {
+    setLocations([...locations, location]);
+  };
+
   if (isLoading) {
     return <></>;
   }
@@ -30,7 +34,7 @@ const Locations = () => {
   return (
     <div>
       <EntryCardLayout cards={locations} type="location" title="Locations" />
-      <AddButton type="location" />
+      <AddButton type="location" updateParent={onLocationAdded} />
     </div>
   );
 };

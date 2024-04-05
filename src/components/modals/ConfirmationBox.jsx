@@ -20,10 +20,10 @@ const ConfirmationBox = ({ text, deleteEntry, onAbort }) => {
   return (
     <dialog
       ref={modalRef}
-      className="flex flex-col justify-center items-center gap-5 min-w-60 min-h-32 bg-wgray-400 rounded shadow-lg"
+      className="flex flex-col justify-center items-center max-w-96 p-5 gap-5 bg-wgray-400 rounded shadow-lg backdrop:bg-wgray-950/70"
     >
-      <div>{text}</div>
-      <div className="flex w-full justify-around">
+      <div className="text-wrap text-center">{text}</div>
+      <div className="flex w-full justify-around gap-3">
         <Button text="Confirm" onClick={onDelete} />
         <Button text="Abort" onClick={onAbort} />
       </div>

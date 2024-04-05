@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import DetailView from "../components/DetailView";
 import { getRequest } from "../hooks/getRequest";
-import { useParams } from "react-router-dom";
+import { postRequest } from "../hooks/postRequest";
+import { useParams, useNavigate } from "react-router-dom";
 
 const LocationDetailView = () => {
   const [locationData, setLocationData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   const { id } = useParams();
 
@@ -22,6 +24,17 @@ const LocationDetailView = () => {
     };
     fetchCampaign();
   }, [id]);
+
+  const deleteCharacter = async () => {
+    const result = await postRequest(
+      `https://pnp-backend.fly.dev/api/v1/location/${id}/delete`,
+    );
+
+    console.log(result);
+    if (result) {
+      navigate("/characters");
+    }
+  };
 
   if (isLoading) {
     return <></>;

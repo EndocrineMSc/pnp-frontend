@@ -23,6 +23,10 @@ const Characters = () => {
     fetchCharacters();
   }, [apiContext.campaignId]);
 
+  const onCharacterAdded = (character) => {
+    setCharacters([...characters, character]);
+  };
+
   if (isLoading) {
     return <></>;
   }
@@ -30,7 +34,7 @@ const Characters = () => {
   return (
     <div>
       <EntryCardLayout cards={characters} type="character" title="Characters" />
-      <AddButton type="character" />
+      <AddButton type="character" updateParent={onCharacterAdded} />
     </div>
   );
 };

@@ -23,6 +23,10 @@ const Objects = () => {
     fetchObjects();
   }, [apiContext.campaignId]);
 
+  const onObjectAdded = (object) => {
+    setObjects([...objects, object]);
+  };
+
   if (isLoading) {
     return <></>;
   }
@@ -30,7 +34,7 @@ const Objects = () => {
   return (
     <div>
       <EntryCardLayout cards={objects} type="object" title="Objects" />
-      <AddButton type="object" />
+      <AddButton type="object" updateParent={onObjectAdded} />
     </div>
   );
 };

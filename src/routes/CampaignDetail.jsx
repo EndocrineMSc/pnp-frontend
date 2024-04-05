@@ -4,11 +4,15 @@ import DeleteButton from "../components/basic-ui/DeleteButton";
 import { getRequest } from "../hooks/getRequest";
 import { useParams } from "react-router-dom";
 import { ApiContext } from "../Contexts";
+import { postRequest } from "../hooks/postRequest";
+import { useNavigate } from "react-router-dom";
 
+/**Displayes detail data of a single campaign to the user */
 const CampaignDetailView = () => {
   const [campaignData, setCampaignData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const apiContext = useContext(ApiContext);
+  const navigate = useNavigate();
 
   const { id } = useParams();
 
@@ -27,6 +31,18 @@ const CampaignDetailView = () => {
     fetchCampaign();
   }, [apiContext, id]);
 
+  const deleteCampaign = async () => {
+    const result = await postRequest(
+      `https://pnp-backend.fly.dev/api/v1/campaign/${id}/delete`,
+    );
+
+    console.log(result);
+    if (result) {
+      apiContext.setCampaignId("");
+      navigate("/campaigns");
+    }
+  };
+
   if (isLoading) {
     return <></>;
   } else {
@@ -40,11 +56,14 @@ const CampaignDetailView = () => {
               alt="campaign"
             />
           </div>
-          <div className="flex justify-between">
+          <div className="flex gap-3 justify-between">
             <h2 className="text-3xl font-bold">{campaignData.name}</h2>
             <div className="flex gap-2">
               <EditButton type="campaign" data={campaignData} />
-              <DeleteButton />
+              <DeleteButton
+                text="Warning: All characters, locations and items of the campaign will be deleted as well!"
+                deleteEntry={deleteCampaign}
+              />
             </div>
           </div>
           <div className="bg-wgray-200 p-2 rounded">

@@ -15,7 +15,7 @@ const CampaignEntryForm = ({ mode, onClose, prevData, updateParent }) => {
   const uri =
     mode === "create"
       ? `https://pnp-backend.fly.dev/api/v1/${apiContext.userId}/campaign/create`
-      : `https://pnp-backend.fly.dev/api/v1/campaign/update/${prevData._id}`;
+      : `https://pnp-backend.fly.dev/api/v1/campaign/${prevData._id}/update`;
 
   useEffect(() => {
     const closeForm = (event) => {
