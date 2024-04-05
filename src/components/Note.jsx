@@ -6,6 +6,7 @@ import { unescape } from "html-escaper";
 import sanitizeHtml from "sanitize-html";
 import parse from "html-react-parser";
 import CloseButton from "./basic-ui/CloseButton";
+import DeleteButton from "./basic-ui/DeleteButton";
 import { NotesContext } from "../Contexts";
 
 const Note = ({ note }) => {
@@ -52,6 +53,17 @@ const Note = ({ note }) => {
     return "";
   };
 
+  const deleteNote = async () => {
+    const result = await postRequest(
+      `https://pnp-backend.fly.dev/api/v1/note/${note._id}/delete`,
+    );
+
+    console.log(result);
+    if (result) {
+      closeNote();
+    }
+  };
+
   return (
     <div
       className="relative flex flex-col shadow-md bg-wgray-100 overflow-y-auto w-full max-w-screen-sm aspect-square rounded"
@@ -60,7 +72,10 @@ const Note = ({ note }) => {
       <div className="h-full">
         <div className="relative bg-gradient-to-b from-wgray-300 to-wgray-400">
           <h3 className="text-center p-1 text-xl">{formatDate(note.date)}</h3>
-          <CloseButton onClose={closeNote} size={1.5} />
+          <div className="flex gap-1 absolute right-0 top-0">
+            <DeleteButton text="Delete this note?" deleteEntry={deleteNote} />
+            <CloseButton onClose={closeNote} size={1.5} />
+          </div>
         </div>
         {editMode ? (
           <Editor text={buildEditorText(noteText)} endEdit={endEdit} />

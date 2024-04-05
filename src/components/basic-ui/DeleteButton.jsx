@@ -1,16 +1,40 @@
 import Icon from "@mdi/react";
 import { mdiTrashCanOutline } from "@mdi/js";
+import { useState } from "react";
+import ConfirmationBox from "../modals/ConfirmationBox";
 
-const DeleteButton = ({ onClick }) => {
+/**Button that lets user delete an entry, will show a confirmation modal before deleting
+ * @param {string} text - Text to show in the confirmation modal, defaults to "Are you sure?"
+ * @param {function} deleteEntry - Parent function that will delete the entry
+ */
+const DeleteButton = ({ text = "Are you sure?", deleteEntry }) => {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setModalOpen(!isModalOpen);
+  };
+
   return (
-    <button
-      className="flex justify-center items-center rounded-xl 
-                hover:bg-wgray-500 focus:bg-wgray-500  
-                focus:outline-none aspect-square w-9"
-      onClick={onClick}
-    >
-      <Icon path={mdiTrashCanOutline} size={1.1} />
-    </button>
+    <>
+      <button
+        className="flex justify-center items-center rounded-xl 
+                    hover:brightness-110
+                    hover:bg-wgray-500 focus:bg-wgray-500  
+                    focus:outline-none aspect-square w-9"
+        onClick={toggleModal}
+      >
+        <Icon path={mdiTrashCanOutline} size={1.1} />
+      </button>
+      {isModalOpen ? (
+        <ConfirmationBox
+          text={text}
+          deleteEntry={deleteEntry}
+          onAbort={toggleModal}
+        />
+      ) : (
+        <></>
+      )}
+    </>
   );
 };
 
