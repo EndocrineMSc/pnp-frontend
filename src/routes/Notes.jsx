@@ -27,12 +27,14 @@ const Notes = () => {
 
   useEffect(() => {
     const getShortNotes = async () => {
-      const notes = await getRequest(
-        `https://pnp-backend.fly.dev/api/v1/${campaignId}/notes`,
-      );
-      setShortNotes(notes);
+      if (campaignId !== "") {
+        const notes = await getRequest(
+          `https://pnp-backend.fly.dev/api/v1/${campaignId}/notes`,
+        );
+        setShortNotes(notes);
 
-      if (!detailNoteIds && notes[0]) setDetailNoteIds(notes[0]._id);
+        if (!detailNoteIds && notes[0]) setDetailNoteIds(notes[0]._id);
+      }
     };
     getShortNotes();
   }, [detailNoteIds, campaignId]);

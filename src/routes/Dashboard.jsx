@@ -9,16 +9,16 @@ import PropTypes from "prop-types";
 import useCampaignId from "../hooks/useCampaignId";
 import storeCampaignId from "../utilityFunctions/storeCampaignId";
 
-/**Main page of the webapp, displays a navbar and the currently selected page view (Outlet)
- * @param {boolean} isLoggedIn
- */
-const Dashboard = ({ isLoggedIn }) => {
+/**Main page of the webapp, displays a navbar and the currently selected page view (Outlet) */
+const Dashboard = () => {
   const [showNavbar, setShowNavbar] = useState(true);
   const userId = localStorage.getItem("userId");
   const campaignId = useCampaignId();
 
-  useEffect(() => {
-    const setDefaultCampaignId = async () => {
+  const setDefaultCampaignId = async () => {
+    console.log("select default campaign of user: " + userId);
+    console.log("Current campaignId is: " + campaignId);
+    if (userId && campaignId === "") {
       const campaigns = await getRequest(
         `https://pnp-backend.fly.dev/api/v1/${userId}/campaigns`,
       );
@@ -27,12 +27,15 @@ const Dashboard = ({ isLoggedIn }) => {
         const defaultId = campaigns[0]._id;
         storeCampaignId(defaultId);
       }
-    };
-
-    if (isLoggedIn && campaignId === "") {
-      setDefaultCampaignId();
     }
-  }, [campaignId, isLoggedIn, userId]);
+  };
+
+  window.addEventListener("load", setDefaultCampaignId);
+  useEffect(() => {
+    return () => {
+      window.removeEventListener("load", setDefaultCampaignId);
+    };
+  });
 
   const toggleNavbar = () => {
     setShowNavbar((prev) => !prev);

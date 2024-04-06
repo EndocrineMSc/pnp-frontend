@@ -50,13 +50,15 @@ const CharacterDetailView = () => {
               src={characterData.image ? characterData.image : "/character.svg"}
               alt="character"
             />
-            <div className="flex gap-10 text-xl">
+            <div className="flex gap-5 text-xl">
               <div className="flex flex-col gap-7">
                 <h3 className="font-semibold">Location: </h3>
                 <h3 className="font-semibold">Occupation: </h3>
               </div>
               <div className="flex flex-col gap-7">
-                <div>{characterData.location}</div>
+                <div>
+                  {characterData.location ? characterData.location : "n.a."}
+                </div>
                 <div>{characterData.occupation}</div>
               </div>
             </div>
