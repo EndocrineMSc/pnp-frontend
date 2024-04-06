@@ -28,8 +28,8 @@ const Dashboard = () => {
         const defaultId = campaigns[0]._id;
         storeCampaignId(defaultId);
       }
+      navigate("/notes");
     }
-    navigate("/notes");
   };
 
   window.addEventListener("load", setDefaultCampaignId);
