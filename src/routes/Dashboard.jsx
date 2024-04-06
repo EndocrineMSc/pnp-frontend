@@ -19,7 +19,8 @@ const Dashboard = () => {
   const setDefaultCampaignId = async () => {
     console.log("select default campaign of user: " + userId);
     console.log("Current campaignId is: " + campaignId);
-    if (userId && campaignId === "") {
+    if (userId && !campaignId) {
+      console.log("I shouldn't do stuff");
       const campaigns = await getRequest(
         `https://pnp-backend.fly.dev/api/v1/${userId}/campaigns`,
       );
