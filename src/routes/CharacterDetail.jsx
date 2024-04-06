@@ -47,9 +47,7 @@ const CharacterDetailView = () => {
           <div className="flex justify-start items-start gap-10">
             <img
               className="w-[150px] aspect-square bg-wgray-400 rounded-xl"
-              src={
-                characterData.image ? characterData.image : "./character.svg"
-              }
+              src={characterData.image ? characterData.image : "/character.svg"}
               alt="character"
             />
             <div className="flex gap-10 text-xl">
