@@ -1,7 +1,7 @@
-import { useContext, useEffect } from "react";
-import { ApiContext } from "../../Contexts";
+import { useEffect } from "react";
 import { formPostRequest } from "../../apiRequests/formPostRequest";
 import PropTypes from "prop-types";
+import useCampaignId from "../../hooks/useCampaignId";
 
 /** Entry Form for characters.
  * @param {string} mode - "create" or "update" -> update shows previous Data as default values.
@@ -10,10 +10,10 @@ import PropTypes from "prop-types";
  * @param {function} updateParent - function to trigger rerender of parent with new entry.
  */
 const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
-  const apiContext = useContext(ApiContext);
+  const campaignId = useCampaignId();
   const uri =
     mode === "create"
-      ? `https://pnp-backend.fly.dev/api/v1/${apiContext.campaignId}/character/create`
+      ? `https://pnp-backend.fly.dev/api/v1/${campaignId}/character/create`
       : `https://pnp-backend.fly.dev/api/v1/character/${prevData._id}`;
 
   useEffect(() => {

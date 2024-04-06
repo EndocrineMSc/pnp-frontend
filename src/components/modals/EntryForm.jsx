@@ -1,8 +1,8 @@
-import { useEffect, useContext } from "react";
-import { ApiContext } from "../../Contexts";
+import { useEffect } from "react";
 import { formPostRequest } from "../../apiRequests/formPostRequest";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import useCampaignId from "../../hooks/useCampaignId";
 
 /** Update Form for Locations and Items. Characters and Campaigns are separate.
  * @param {string} type - "location"/"object" type of database entry that should be created/updated.
@@ -12,11 +12,11 @@ import PropTypes from "prop-types";
  * @param {object} [prevData] - previously displayed entry data only needed in update action.
  */
 const EntryForm = ({ type, mode, onClose, updateParent, prevData }) => {
-  const apiContext = useContext(ApiContext);
+  const campaignId = useCampaignId();
   const navigate = useNavigate();
   const uri =
     mode === "create"
-      ? `https://pnp-backend.fly.dev/api/v1/${apiContext.campaignId}/${type}/create`
+      ? `https://pnp-backend.fly.dev/api/v1/${campaignId}/${type}/create`
       : `https://pnp-backend.fly.dev/api/v1/${type}/${prevData._id}/update`;
 
   useEffect(() => {

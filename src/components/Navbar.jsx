@@ -2,15 +2,16 @@ import NavLink from "./NavLink";
 import CollapseButton from "./basic-ui/CollapseButton";
 import Searchbar from "./basic-ui/Searchbar";
 import { useState, useContext, useEffect } from "react";
-import { ApiContext, NavbarContext } from "../Contexts";
+import { NavbarContext } from "../Contexts";
 import { getRequest } from "../apiRequests/getRequest";
+import useCampaignId from "../hooks/useCampaignId";
 
 /**Navigation component for the different single-page app routes */
 const Navbar = () => {
   const [activePage, setActivePage] = useState("Dashboard");
   const [imagePath, setImagePath] = useState("../campaign.svg");
   const [campaignName, setCampaignName] = useState("");
-  const apiContext = useContext(ApiContext);
+  const campaignId = useCampaignId();
 
   const clickHandler = (event) => {
     setActivePage(event.target.textContent);
@@ -18,9 +19,9 @@ const Navbar = () => {
 
   useEffect(() => {
     const getImage = async () => {
-      if (apiContext.campaignId !== "") {
+      if (campaignId !== "") {
         const campaign = await getRequest(
-          `https://pnp-backend.fly.dev/api/v1/campaign/${apiContext.campaignId}`,
+          `https://pnp-backend.fly.dev/api/v1/campaign/${campaignId}`,
         );
 
         const path = campaign.image;
@@ -33,7 +34,7 @@ const Navbar = () => {
       }
     };
     getImage();
-  }, [apiContext.campaignId]);
+  }, [campaignId]);
 
   const providerValues = useContext(NavbarContext);
 

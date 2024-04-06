@@ -1,9 +1,10 @@
 import CollapsedNoteScrollbar from "../components/CollapsedNoteScrollBar";
 import NoteLayout from "../components/NoteLayout";
 import NoteScrollbar from "../components/NoteScrollbar";
-import { useState, useEffect, useContext } from "react";
-import { ApiContext, NotesContext } from "../Contexts";
+import { useState, useEffect } from "react";
+import { NotesContext } from "../Contexts";
 import { getRequest } from "../apiRequests/getRequest";
+import useCampaignId from "../hooks/useCampaignId";
 
 /**Overview page for notes, includes a scrollbar for all notes. */
 const Notes = () => {
@@ -11,7 +12,7 @@ const Notes = () => {
   const [detailNoteIds, setDetailNoteIds] = useState([]);
   const [shortNotes, setShortNotes] = useState(null);
   const [fullNotes, setFullNotes] = useState(null);
-  const apiContext = useContext(ApiContext);
+  const campaignId = useCampaignId();
 
   const toggleScrollbar = () => {
     setShowNavBar((prev) => !prev);
@@ -27,14 +28,14 @@ const Notes = () => {
   useEffect(() => {
     const getShortNotes = async () => {
       const notes = await getRequest(
-        `https://pnp-backend.fly.dev/api/v1/${apiContext.campaignId}/notes`,
+        `https://pnp-backend.fly.dev/api/v1/${campaignId}/notes`,
       );
       setShortNotes(notes);
 
       if (!detailNoteIds && notes[0]) setDetailNoteIds(notes[0]._id);
     };
     getShortNotes();
-  }, [detailNoteIds, apiContext.campaignId]);
+  }, [detailNoteIds, campaignId]);
 
   useEffect(() => {
     const getFullNotes = async () => {

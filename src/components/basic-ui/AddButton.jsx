@@ -4,9 +4,10 @@ import { useState, useContext } from "react";
 import CharacterEntryForm from "../modals/CharacterEntryForm";
 import CampaignEntryForm from "../modals/CampaignEntryForm";
 import EntryForm from "../modals/EntryForm";
-import { ApiContext, NotesContext } from "../../Contexts";
+import { NotesContext } from "../../Contexts";
 import { postRequest } from "../../apiRequests/postRequest";
 import PropTypes from "prop-types";
+import useCampaignId from "../../hooks/useCampaignId";
 
 /** Default Button for adding any type of entry, will position itself bottom right (absolute)
  * @param {string} type - "character", "object", "location", "campaign", "note" - determines the type of entry form connected to the button "note" will add a new empty note directly instead
@@ -15,7 +16,7 @@ import PropTypes from "prop-types";
 const AddButton = ({ type, updateParent }) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const notesContext = useContext(NotesContext);
-  const apiContext = useContext(ApiContext);
+  const campaignId = useCampaignId();
 
   const toggleEdit = () => {
     setIsEditOpen((prev) => !prev);
@@ -55,7 +56,7 @@ const AddButton = ({ type, updateParent }) => {
       const noteBody = { date: new Date() };
       const createNewNote = async () => {
         const newNote = await postRequest(
-          `https://pnp-backend.fly.dev/api/v1/${apiContext.campaignId}/note/create`,
+          `https://pnp-backend.fly.dev/api/v1/${campaignId}/note/create`,
           noteBody,
         );
         notesContext.setDetailNoteIds([

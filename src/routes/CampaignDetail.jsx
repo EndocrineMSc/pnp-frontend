@@ -6,8 +6,9 @@ import { useParams } from "react-router-dom";
 import { ApiContext } from "../Contexts";
 import { postRequest } from "../apiRequests/postRequest";
 import { useNavigate } from "react-router-dom";
+import storeCampaignId from "../utilityFunctions/storeCampaignId";
 
-/**Displayes detail data of a single campaign to the user */
+/**Displays detail data of a single campaign to the user- Allows for editing or deleting the entry. */
 const CampaignDetailView = () => {
   const [campaignData, setCampaignData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -25,7 +26,7 @@ const CampaignDetailView = () => {
       if (campaign) {
         setCampaignData(campaign);
         setIsLoading(false);
-        apiContext.setCampaignId(id);
+        storeCampaignId(id);
       }
     };
     fetchCampaign();
@@ -38,7 +39,7 @@ const CampaignDetailView = () => {
 
     console.log(result);
     if (result) {
-      apiContext.setCampaignId("");
+      storeCampaignId("");
       navigate("/campaigns");
     }
   };

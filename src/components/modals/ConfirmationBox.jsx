@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
-/**Modal pop-up to confirm user action
- * @param {string} text - Warning/Confirmation text
- * @param {function} deleteEntry - Parent function that deletes the entry
- * @param {function} onAbort - Parent function that "closes" the modal without action
+/**Modal pop-up to confirm user action.
+ * @param {string} text - Warning/Confirmation text.
+ * @param {function} deleteEntry - Parent function that deletes the entry.
+ * @param {function} onAbort - Parent function that "closes" the modal without action.
  */
 const ConfirmationBox = ({ text, deleteEntry, onAbort }) => {
   const modalRef = useRef();

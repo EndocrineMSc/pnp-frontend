@@ -2,7 +2,7 @@ import CollapseButton from "./basic-ui/CollapseButton";
 import { NotesContext } from "../Contexts";
 import { useContext } from "react";
 
-/**Container to display collapsed notes */
+/**Container to display collapsed notes. */
 const CollapsedNoteScrollbar = () => {
   const providerValues = useContext(NotesContext);
   return (

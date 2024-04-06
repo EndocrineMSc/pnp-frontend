@@ -3,6 +3,7 @@ import { getRequest } from "../apiRequests/getRequest";
 import { useState, useEffect } from "react";
 import AddButton from "../components/basic-ui/AddButton";
 
+/**Overview page for campaigns. */
 const Campaigns = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [campaigns, setCampaigns] = useState(null);

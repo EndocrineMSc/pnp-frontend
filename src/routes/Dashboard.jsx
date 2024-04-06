@@ -1,19 +1,21 @@
 import { Outlet } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import CollapsedNavbar from "../components/CollapsedNavbar";
-import { ApiContext, NavbarContext } from "../Contexts";
+import { NavbarContext } from "../Contexts";
 import { Navigate } from "react-router-dom";
 import { getRequest } from "../apiRequests/getRequest";
 import PropTypes from "prop-types";
+import useCampaignId from "../hooks/useCampaignId";
+import storeCampaignId from "../utilityFunctions/storeCampaignId";
 
 /**Main page of the webapp, displays a navbar and the currently selected page view (Outlet)
  * @param {boolean} isLoggedIn
  */
 const Dashboard = ({ isLoggedIn }) => {
   const [showNavbar, setShowNavbar] = useState(true);
-  const apiContext = useContext(ApiContext);
   const userId = localStorage.getItem("userId");
+  const campaignId = useCampaignId();
 
   useEffect(() => {
     const setDefaultCampaignId = async () => {
@@ -23,14 +25,14 @@ const Dashboard = ({ isLoggedIn }) => {
 
       if (campaigns) {
         const defaultId = campaigns[0]._id;
-        apiContext.setCampaignId(defaultId);
+        storeCampaignId(defaultId);
       }
     };
 
-    if (isLoggedIn && apiContext.campaignId === "") {
+    if (isLoggedIn && campaignId === "") {
       setDefaultCampaignId();
     }
-  }, [apiContext, isLoggedIn, userId]);
+  }, [campaignId, isLoggedIn, userId]);
 
   const toggleNavbar = () => {
     setShowNavbar((prev) => !prev);
