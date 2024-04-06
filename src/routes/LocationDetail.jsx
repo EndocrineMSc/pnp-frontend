@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import DetailView from "../components/DetailView";
 import { getRequest } from "../apiRequests/getRequest";
-import { postRequest } from "../apiRequests/postRequest";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
+/**Displays detail data of a single location to the user- Allows for editing or deleting the entry. */
 const LocationDetailView = () => {
   const [locationData, setLocationData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
 
   const { id } = useParams();
 

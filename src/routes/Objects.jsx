@@ -4,6 +4,7 @@ import { getRequest } from "../apiRequests/getRequest";
 import { useState, useEffect, useContext } from "react";
 import AddButton from "../components/basic-ui/AddButton";
 
+/**Overview page for objects. */
 const Objects = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [objects, setObjects] = useState(null);

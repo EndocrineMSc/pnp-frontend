@@ -5,7 +5,11 @@ import CollapsedNavbar from "../components/CollapsedNavbar";
 import { ApiContext, NavbarContext } from "../Contexts";
 import { Navigate } from "react-router-dom";
 import { getRequest } from "../apiRequests/getRequest";
+import PropTypes from "prop-types";
 
+/**Main page of the webapp, displays a navbar and the currently selected page view (Outlet)
+ * @param {boolean} isLoggedIn
+ */
 const Dashboard = ({ isLoggedIn }) => {
   const [showNavbar, setShowNavbar] = useState(true);
   const apiContext = useContext(ApiContext);
@@ -47,6 +51,10 @@ const Dashboard = ({ isLoggedIn }) => {
       </div>
     );
   }
+};
+
+Dashboard.propTypes = {
+  isLoggedIn: PropTypes.bool,
 };
 
 export default Dashboard;

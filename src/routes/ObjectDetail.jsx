@@ -3,6 +3,7 @@ import DetailView from "../components/DetailView";
 import { useParams } from "react-router-dom";
 import { getRequest } from "../apiRequests/getRequest";
 
+/**Displays detail data of a single object to the user- Allows for editing or deleting the entry. */
 const ObjectDetailView = () => {
   const [objectData, setObjectData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);

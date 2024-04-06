@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+/**Default view for logged-out users, displays app change-log */
 const LandingPage = () => {
   return (
     <div className="p-5">

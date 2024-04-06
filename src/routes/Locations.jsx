@@ -4,6 +4,7 @@ import { getRequest } from "../apiRequests/getRequest";
 import { useState, useEffect, useContext } from "react";
 import AddButton from "../components/basic-ui/AddButton";
 
+/**Overview page for locations. */
 const Locations = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [locations, setLocations] = useState(null);

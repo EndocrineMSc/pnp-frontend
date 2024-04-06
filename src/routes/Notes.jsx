@@ -5,6 +5,7 @@ import { useState, useEffect, useContext } from "react";
 import { ApiContext, NotesContext } from "../Contexts";
 import { getRequest } from "../apiRequests/getRequest";
 
+/**Overview page for notes, includes a scrollbar for all notes. */
 const Notes = () => {
   const [showScrollbar, setShowNavBar] = useState(true);
   const [detailNoteIds, setDetailNoteIds] = useState([]);

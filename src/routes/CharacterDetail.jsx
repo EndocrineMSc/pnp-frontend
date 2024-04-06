@@ -5,6 +5,7 @@ import { getRequest } from "../apiRequests/getRequest";
 import { useParams, useNavigate } from "react-router-dom";
 import { postRequest } from "../apiRequests/postRequest";
 
+/**Displays detail data of a single character to the user- Allows for editing or deleting the entry. */
 const CharacterDetailView = () => {
   const [characterData, setCharacterData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
