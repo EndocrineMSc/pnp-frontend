@@ -10,6 +10,7 @@ export const postRequest = async (url, data) => {
       authorization: accessToken,
       refresh: refreshToken,
     },
+    credentials: "include",
   });
 
   // try again after possible token refresh
@@ -24,6 +25,7 @@ export const postRequest = async (url, data) => {
           "Content-Type": "application/json",
           authorization: accessToken,
           refresh: refreshToken,
+          credentials: "include",
         },
       });
     }

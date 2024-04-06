@@ -10,6 +10,7 @@ const Campaigns = () => {
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {
+    console.log("campaigns use effect trigerred");
     const fetchCampaigns = async () => {
       const result = await getRequest(
         `https://pnp-backend.fly.dev/api/v1/${userId}/campaigns`,
