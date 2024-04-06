@@ -1,7 +1,7 @@
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext } from "react";
 import { ApiContext } from "../../Contexts";
 import { formPostRequest } from "../../apiRequests/formPostRequest";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
 /** Update Form for Locations and Items. Characters and Campaigns are separate.
@@ -11,9 +11,9 @@ import PropTypes from "prop-types";
  * @param {function} onClose - parent function to close form.
  * @param {object} [prevData] - previously displayed entry data only needed in update action.
  */
-const EntryForm = ({ type, mode, updateParent, onClose, prevData }) => {
+const EntryForm = ({ type, mode, onClose, updateParent, prevData }) => {
   const apiContext = useContext(ApiContext);
-  const [entryCreated, setEntryCreated] = useState(false);
+  const navigate = useNavigate();
   const uri =
     mode === "create"
       ? `https://pnp-backend.fly.dev/api/v1/${apiContext.campaignId}/${type}/create`
@@ -38,15 +38,14 @@ const EntryForm = ({ type, mode, updateParent, onClose, prevData }) => {
     if (result[0]) {
       console.error(result[0].msg);
     } else {
-      console.log(result);
       updateParent(result);
-      setEntryCreated(true);
+      onClose();
+      mode === "create"
+        ? navigate(`/${type}s`)
+        : navigate(`/${type}/${prevData._id}`);
     }
   };
 
-  if (entryCreated) {
-    <Navigate to={`/${type}s`} />;
-  }
   return (
     <div className="flex justify-center items-start absolute left-0 top-0 w-full h-screen pt-5">
       <div

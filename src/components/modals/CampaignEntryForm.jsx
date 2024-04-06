@@ -36,7 +36,6 @@ const CampaignEntryForm = ({ mode, onClose, prevData, updateParent }) => {
     if (result[0]) {
       console.error(result[0].msg);
     } else {
-      console.log(result);
       updateParent(result);
       setCampaignCreated(true);
     }

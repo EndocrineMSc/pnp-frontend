@@ -6,11 +6,12 @@ import { useState } from "react";
 import CampaignEntryForm from "../modals/CampaignEntryForm";
 import PropTypes from "prop-types";
 
-/**Button component to edit entries
+/**Button component to edit entries.
  * @param {string} type - "character", "object", "location", "campaign", "note" - Determines the type of entry form connected to the button.
- * @param {object} data - previously displayed data of the entry
+ * @param {object} data - previously displayed data of the entry.
+ * @param {function(object)} updateParent - Parent callback to update with new data on edit.
  */
-const EditButton = ({ type, data }) => {
+const EditButton = ({ type, data, updateParent }) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
 
   const toggleEdit = () => {
@@ -21,7 +22,15 @@ const EditButton = ({ type, data }) => {
     if (type === "character") {
       return <CharacterEntryForm prevData={data} onClose={toggleEdit} />;
     } else if (type === "object" || type === "location") {
-      return <EntryForm type={type} prevData={data} onClose={toggleEdit} />;
+      return (
+        <EntryForm
+          type={type}
+          prevData={data}
+          onClose={toggleEdit}
+          updateParent={updateParent}
+          mode="update"
+        />
+      );
     } else {
       return <CampaignEntryForm prevData={data} onClose={toggleEdit} />;
     }
