@@ -62,6 +62,7 @@ const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
             type="text"
             id="name"
             name="name"
+            defaultValue={prevData ? prevData.name : ""}
             required
           />
         </div>
@@ -74,6 +75,7 @@ const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
             type="text"
             id="occupation"
             name="occupation"
+            defaultValue={prevData ? prevData.occupation : ""}
           />
         </div>
         <div className="flex flex-col justify-start gap-1">
@@ -85,6 +87,7 @@ const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
             type="text"
             id="location"
             name="location"
+            defaultValue={prevData ? prevData.location : ""}
           />
         </div>
         <div className="flex flex-col justify-start gap-1">
@@ -109,6 +112,7 @@ const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
               cols="100"
               id="short_description"
               name="short_description"
+              defaultValue={prevData ? prevData.short_description : ""}
             />
           </div>
           <div className="flex flex-col justify-start gap-1">
@@ -121,6 +125,7 @@ const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
               cols="100"
               id="long_description"
               name="long_description"
+              defaultValue={prevData ? prevData.long_description : ""}
             />
           </div>
         </div>

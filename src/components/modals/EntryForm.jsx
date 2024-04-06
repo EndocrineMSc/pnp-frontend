@@ -67,6 +67,7 @@ const EntryForm = ({ type, mode, updateParent, onClose, prevData }) => {
             type="text"
             id="name"
             name="name"
+            defaultValue={prevData ? prevData.name : ""}
             required
           />
         </div>
@@ -92,6 +93,7 @@ const EntryForm = ({ type, mode, updateParent, onClose, prevData }) => {
               cols="100"
               id="short_description"
               name="short_description"
+              defaultValue={prevData ? prevData.short_description : ""}
             />
           </div>
           <div className="flex flex-col justify-start gap-1">
@@ -104,6 +106,7 @@ const EntryForm = ({ type, mode, updateParent, onClose, prevData }) => {
               cols="100"
               id="long_description"
               name="long_description"
+              defaultValue={prevData ? prevData.long_description : ""}
             />
           </div>
         </div>

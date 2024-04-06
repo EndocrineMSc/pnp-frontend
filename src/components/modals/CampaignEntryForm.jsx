@@ -66,6 +66,7 @@ const CampaignEntryForm = ({ mode, onClose, prevData, updateParent }) => {
               type="text"
               id="name"
               name="name"
+              defaultValue={prevData ? prevData.name : ""}
               required
             />
           </div>
@@ -89,6 +90,7 @@ const CampaignEntryForm = ({ mode, onClose, prevData, updateParent }) => {
             cols="100"
             id="description"
             name="description"
+            defaultValue={prevData ? prevData.description : ""}
           />
           <button
             className="absolute right-2 bottom-2 rounded bg-wgray-500 w-20 h-8 shadow-md"
