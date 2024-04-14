@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { formPostRequest } from "../../apiRequests/formPostRequest";
 import { Navigate } from "react-router-dom";
+import ImagePicker from "../basic-ui/ImagePicker";
 import PropTypes from "prop-types";
 
 /** Entry Form for campaigns.
@@ -69,17 +70,7 @@ const CampaignEntryForm = ({ mode, onClose, prevData, updateParent }) => {
               required
             />
           </div>
-          <div className="flex flex-col justify-start gap-1">
-            <label className="font-bold" htmlFor="image">
-              Image (150x150px png/jpeg/gif)
-            </label>
-            <input
-              type="file"
-              accept="image/png, image/jpeg, image/gif"
-              id="image"
-              name="image"
-            />
-          </div>
+          <ImagePicker entryType="campaign" prevImageUrl={prevData.image} />
           <label className="font-bold" htmlFor="description">
             Description
           </label>

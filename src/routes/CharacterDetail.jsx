@@ -66,7 +66,7 @@ const CharacterDetailView = () => {
           <div className="flex justify-between">
             <h2 className="text-3xl font-bold">{characterData.name}</h2>
             <div className="flex gap-2">
-              <EditButton type="character" />
+              <EditButton type="character" data={characterData} />
               <DeleteButton
                 text="Delete Character?"
                 deleteEntry={deleteCharacter}

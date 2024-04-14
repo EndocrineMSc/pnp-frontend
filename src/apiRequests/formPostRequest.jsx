@@ -10,7 +10,6 @@ import { postRequest } from "./postRequest";
 export const formPostRequest = async (event, uri) => {
   event.preventDefault();
   const data = new FormData(event.target);
-  data.delete("image");
   const dataObject = {};
   for (const [key, value] of data.entries()) {
     dataObject[key] = value;

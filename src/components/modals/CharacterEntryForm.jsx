@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { formPostRequest } from "../../apiRequests/formPostRequest";
 import PropTypes from "prop-types";
 import useCampaignId from "../../hooks/useCampaignId";
+import ImagePicker from "../basic-ui/ImagePicker";
 
 /** Entry Form for characters.
  * @param {string} mode - "create" or "update" -> update shows previous Data as default values.
@@ -14,7 +15,7 @@ const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
   const uri =
     mode === "create"
       ? `https://pnp-backend.fly.dev/api/v1/${campaignId}/character/create`
-      : `https://pnp-backend.fly.dev/api/v1/character/${prevData._id}`;
+      : `https://pnp-backend.fly.dev/api/v1/character/${prevData._id}/update`;
 
   useEffect(() => {
     const closeForm = (event) => {
@@ -89,17 +90,7 @@ const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
             defaultValue={prevData ? prevData.location : ""}
           />
         </div>
-        <div className="flex flex-col justify-start gap-1">
-          <label className="font-bold" htmlFor="image">
-            Image (150x150px png/jpeg/gif)
-          </label>
-          <input
-            type="file"
-            accept="image/png, image/jpeg, image/gif"
-            id="image"
-            name="image"
-          />
-        </div>
+        <ImagePicker entryType="character" prevImageUrl={prevData.image} />
         <div className="flex flex-col mb-10 w-full gap-3">
           <div className="flex flex-col justify-start gap-1">
             <label className="font-bold" htmlFor="short_description">

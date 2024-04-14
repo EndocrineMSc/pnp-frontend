@@ -12,8 +12,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@cloudinary/react": "^1.13.0",
+    "@cloudinary/url-gen": "^1.19.0",
     "@mdi/js": "^7.4.47",
     "@mdi/react": "^1.6.1",
+    "cloudinary": "^2.1.0",
+    "dotenv": "^16.4.5",
     "html-escaper": "^3.0.3",
     "html-react-parser": "^5.1.10",
     "logrocket": "^8.1.0",
