@@ -42,10 +42,11 @@ const Dashboard = () => {
 
   const toggleNavbar = () => {
     setShowNavbar((prev) => !prev);
+    console.log("Toggle Dashboard!");
   };
 
-  const providerValues = { isExpanded: showNavbar, toggleNavbar };
   const currentPath = window.location.pathname;
+  const providerValues = { isExpanded: showNavbar, toggleNavbar };
 
   useEffect(() => {
     if (userId === "") {
