@@ -33,7 +33,6 @@ const CharacterDetailView = () => {
       `https://pnp-backend.fly.dev/api/v1/character/${id}/delete`,
     );
 
-    console.log(result);
     if (result) {
       navigate("/characters");
     }

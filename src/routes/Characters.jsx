@@ -11,17 +11,13 @@ const Characters = () => {
   const campaignId = useCampaignId();
 
   useEffect(() => {
-    console.log("characters useEffect triggered");
-    console.log("characters has campaignId: " + campaignId);
     const fetchCharacters = async () => {
-      console.log("triggered fetch characters with campaignId : " + campaignId);
       if (campaignId !== "") {
         const result = await apiRequest(
           "GET",
           `https://pnp-backend.fly.dev/api/v1/${campaignId}/characters`,
         );
 
-        console.log(result);
         if (result) {
           setCharacters(result);
           setIsLoading(false);
@@ -36,7 +32,6 @@ const Characters = () => {
   };
 
   if (isLoading) {
-    console.log("characters loading!");
     return <></>;
   }
 

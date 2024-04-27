@@ -17,10 +17,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   const setDefaultCampaignId = async () => {
-    console.log("select default campaign of user: " + userId);
-    console.log("Current campaignId is: " + campaignId);
     if (userId && !campaignId) {
-      console.log("I shouldn't do stuff");
       const campaigns = await apiRequest(
         "GET",
         `https://pnp-backend.fly.dev/api/v1/${userId}/campaigns`,
@@ -43,7 +40,6 @@ const Dashboard = () => {
 
   const toggleNavbar = () => {
     setShowNavbar((prev) => !prev);
-    console.log("Toggle Dashboard!");
   };
 
   const currentPath = window.location.pathname;

@@ -14,7 +14,6 @@ import PropTypes from "prop-types";
  */
 const CollapseButton = ({ isExpanded, toggleCollapse, isPageRight }) => {
   const iconPath = () => {
-    console.log(isExpanded);
     if (isExpanded) {
       return isPageRight ? mdiArrowCollapseRight : mdiArrowCollapseLeft;
     }

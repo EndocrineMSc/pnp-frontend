@@ -36,7 +36,6 @@ const CampaignDetailView = () => {
       `https://pnp-backend.fly.dev/api/v1/campaign/${id}/delete`,
     );
 
-    console.log(result);
     if (result) {
       storeCampaignId("");
       navigate("/campaigns");
