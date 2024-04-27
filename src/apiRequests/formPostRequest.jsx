@@ -1,4 +1,4 @@
-import { postRequest } from "./postRequest";
+import { apiRequest } from "./apiRequest";
 
 /**
  * Transforms form body to an object to send an api request to the backend with authorization handling.
@@ -14,6 +14,6 @@ export const formPostRequest = async (event, uri) => {
   for (const [key, value] of data.entries()) {
     dataObject[key] = value;
   }
-  const result = await postRequest(uri, dataObject);
+  const result = await apiRequest("POST", uri, dataObject);
   return result;
 };

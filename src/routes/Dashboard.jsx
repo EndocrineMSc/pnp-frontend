@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import CollapsedNavbar from "../components/CollapsedNavbar";
 import { NavbarContext } from "../Contexts";
 import { useNavigate } from "react-router-dom";
-import { getRequest } from "../apiRequests/getRequest";
+import { apiRequest } from "../apiRequests/apiRequest";
 import PropTypes from "prop-types";
 import useCampaignId from "../hooks/useCampaignId";
 import storeCampaignId from "../utilityFunctions/storeCampaignId";
@@ -21,7 +21,8 @@ const Dashboard = () => {
     console.log("Current campaignId is: " + campaignId);
     if (userId && !campaignId) {
       console.log("I shouldn't do stuff");
-      const campaigns = await getRequest(
+      const campaigns = await apiRequest(
+        "GET",
         `https://pnp-backend.fly.dev/api/v1/${userId}/campaigns`,
       );
 

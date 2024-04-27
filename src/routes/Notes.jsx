@@ -3,7 +3,7 @@ import NoteLayout from "../components/NoteLayout";
 import NoteScrollbar from "../components/NoteScrollbar";
 import { useState, useEffect } from "react";
 import { NotesContext } from "../Contexts";
-import { getRequest } from "../apiRequests/getRequest";
+import { apiRequest } from "../apiRequests/apiRequest";
 import useCampaignId from "../hooks/useCampaignId";
 
 /**Overview page for notes, includes a scrollbar for all notes. */
@@ -28,7 +28,8 @@ const Notes = () => {
   useEffect(() => {
     const getShortNotes = async () => {
       if (campaignId !== "") {
-        const notes = await getRequest(
+        const notes = await apiRequest(
+          "GET",
           `https://pnp-backend.fly.dev/api/v1/${campaignId}/notes`,
         );
         setShortNotes(notes);
@@ -44,7 +45,10 @@ const Notes = () => {
       if (detailNoteIds) {
         const notes = await Promise.all(
           detailNoteIds.map(async (id) => {
-            return getRequest(`https://pnp-backend.fly.dev/api/v1/note/${id}`);
+            return apiRequest(
+              "GET",
+              `https://pnp-backend.fly.dev/api/v1/note/${id}`,
+            );
           }),
         );
         setFullNotes(notes);

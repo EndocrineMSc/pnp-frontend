@@ -1,6 +1,6 @@
 import DeleteButton from "./basic-ui/DeleteButton";
 import EditButton from "./basic-ui/EditButton";
-import { postRequest } from "../apiRequests/postRequest";
+import { apiRequest } from "../apiRequests/apiRequest";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useState } from "react";
@@ -14,7 +14,8 @@ const DetailView = ({ viewData, type }) => {
   const navigate = useNavigate();
 
   const deleteEntry = async () => {
-    const result = await postRequest(
+    const result = await apiRequest(
+      "POST",
       `https://pnp-backend.fly.dev/api/v1/${type}/${viewData._id}/delete`,
     );
 

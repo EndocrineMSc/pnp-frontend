@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import DetailView from "../components/DetailView";
 import { useParams } from "react-router-dom";
-import { getRequest } from "../apiRequests/getRequest";
+import { apiRequest } from "../apiRequests/apiRequest";
 
 /**Displays detail data of a single object to the user- Allows for editing or deleting the entry. */
 const ObjectDetailView = () => {
@@ -12,7 +12,8 @@ const ObjectDetailView = () => {
 
   useEffect(() => {
     const fetchObject = async () => {
-      const object = await getRequest(
+      const object = await apiRequest(
+        "GET",
         `https://pnp-backend.fly.dev/api/v1/object/${id}`,
       );
 

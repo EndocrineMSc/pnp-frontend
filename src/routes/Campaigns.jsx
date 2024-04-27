@@ -1,5 +1,5 @@
 import EntryCardLayout from "../components/EntryCardLayout";
-import { getRequest } from "../apiRequests/getRequest";
+import { apiRequest } from "../apiRequests/apiRequest";
 import { useState, useEffect } from "react";
 import AddButton from "../components/basic-ui/AddButton";
 
@@ -12,7 +12,8 @@ const Campaigns = () => {
   useEffect(() => {
     console.log("campaigns use effect trigerred");
     const fetchCampaigns = async () => {
-      const result = await getRequest(
+      const result = await apiRequest(
+        "GET",
         `https://pnp-backend.fly.dev/api/v1/${userId}/campaigns`,
       );
 

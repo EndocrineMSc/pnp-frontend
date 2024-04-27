@@ -3,7 +3,7 @@ import CollapseButton from "./basic-ui/CollapseButton";
 import Searchbar from "./basic-ui/Searchbar";
 import { useState, useContext, useEffect } from "react";
 import { NavbarContext } from "../Contexts";
-import { getRequest } from "../apiRequests/getRequest";
+import { apiRequest } from "../apiRequests/apiRequest";
 import useCampaignId from "../hooks/useCampaignId";
 
 /**Navigation component for the different single-page app routes */
@@ -20,7 +20,8 @@ const Navbar = () => {
   useEffect(() => {
     const getImage = async () => {
       if (campaignId !== "") {
-        const campaign = await getRequest(
+        const campaign = await apiRequest(
+          "GET",
           `https://pnp-backend.fly.dev/api/v1/campaign/${campaignId}`,
         );
 
