@@ -18,7 +18,7 @@ const LoginForm = () => {
     } else {
       localStorage.setItem("accessToken", "Bearer " + result.accessToken);
       localStorage.setItem("refreshToken", result.refreshToken);
-      localStorage.setItem("userId", result.user._id);
+      localStorage.setItem("userId", result.user);
       navigate("/notes");
     }
   };

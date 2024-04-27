@@ -13,23 +13,9 @@ export const postRequest = async (url, data) => {
     credentials: "include",
   });
 
-  // try again after possible token refresh
-  if (response.status === 401) {
-    const newAccessToken = await response.json();
-    if (response.status === 200) {
-      localStorage.setItem("accessToken", "Bearer " + newAccessToken);
-      response = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-          authorization: accessToken,
-          refresh: refreshToken,
-          credentials: "include",
-        },
-      });
-    }
-  }
   const result = response.json();
+  if (result.accessToken) {
+    localStorage.setItem("accessToken", result.accessToken);
+  }
   return result;
 };
