@@ -1,10 +1,8 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import EditButton from "../components/basic-ui/EditButton";
 import DeleteButton from "../components/basic-ui/DeleteButton";
-import { getRequest } from "../apiRequests/getRequest";
 import { useParams } from "react-router-dom";
-import { ApiContext } from "../Contexts";
-import { postRequest } from "../apiRequests/postRequest";
+import { apiRequest } from "../apiRequests/apiRequest";
 import { useNavigate } from "react-router-dom";
 import storeCampaignId from "../utilityFunctions/storeCampaignId";
 
@@ -12,14 +10,14 @@ import storeCampaignId from "../utilityFunctions/storeCampaignId";
 const CampaignDetailView = () => {
   const [campaignData, setCampaignData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const apiContext = useContext(ApiContext);
   const navigate = useNavigate();
 
   const { id } = useParams();
 
   useEffect(() => {
     const fetchCampaign = async () => {
-      const campaign = await getRequest(
+      const campaign = await apiRequest(
+        "GET",
         `https://pnp-backend.fly.dev/api/v1/campaign/${id}`,
       );
 
@@ -30,14 +28,14 @@ const CampaignDetailView = () => {
       }
     };
     fetchCampaign();
-  }, [apiContext, id]);
+  }, [id]);
 
   const deleteCampaign = async () => {
-    const result = await postRequest(
+    const result = await apiRequest(
+      "POST",
       `https://pnp-backend.fly.dev/api/v1/campaign/${id}/delete`,
     );
 
-    console.log(result);
     if (result) {
       storeCampaignId("");
       navigate("/campaigns");

@@ -7,7 +7,7 @@ const CollapsedNavbar = () => {
   const providerValues = useContext(NavbarContext);
 
   return (
-    <div className="absolute left-2 top-2">
+    <div className="absolute left-2 top-2 z-10">
       <CollapseButton
         toggleCollapse={providerValues.toggleNavbar}
         isExpanded={providerValues.isExpanded}

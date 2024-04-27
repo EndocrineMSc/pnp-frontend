@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import EditButton from "../components/basic-ui/EditButton";
 import DeleteButton from "../components/basic-ui/DeleteButton";
-import { getRequest } from "../apiRequests/getRequest";
 import { useParams, useNavigate } from "react-router-dom";
-import { postRequest } from "../apiRequests/postRequest";
+import { apiRequest } from "../apiRequests/apiRequest";
 
 /**Displays detail data of a single character to the user- Allows for editing or deleting the entry. */
 const CharacterDetailView = () => {
@@ -15,7 +14,8 @@ const CharacterDetailView = () => {
 
   useEffect(() => {
     const fetchCharacter = async () => {
-      const character = await getRequest(
+      const character = await apiRequest(
+        "GET",
         `https://pnp-backend.fly.dev/api/v1/character/${id}`,
       );
 
@@ -28,11 +28,11 @@ const CharacterDetailView = () => {
   }, [id]);
 
   const deleteCharacter = async () => {
-    const result = await postRequest(
+    const result = await apiRequest(
+      "POST",
       `https://pnp-backend.fly.dev/api/v1/character/${id}/delete`,
     );
 
-    console.log(result);
     if (result) {
       navigate("/characters");
     }
@@ -66,7 +66,7 @@ const CharacterDetailView = () => {
           <div className="flex justify-between">
             <h2 className="text-3xl font-bold">{characterData.name}</h2>
             <div className="flex gap-2">
-              <EditButton type="character" />
+              <EditButton type="character" data={characterData} />
               <DeleteButton
                 text="Delete Character?"
                 deleteEntry={deleteCharacter}

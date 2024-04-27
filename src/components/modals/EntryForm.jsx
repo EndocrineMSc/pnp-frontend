@@ -3,6 +3,7 @@ import { formPostRequest } from "../../apiRequests/formPostRequest";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import useCampaignId from "../../hooks/useCampaignId";
+import ImagePicker from "../basic-ui/ImagePicker";
 
 /** Update Form for Locations and Items. Characters and Campaigns are separate.
  * @param {string} type - "location"/"object" type of database entry that should be created/updated.
@@ -33,6 +34,7 @@ const EntryForm = ({ type, mode, onClose, updateParent, prevData }) => {
   }, [onClose]);
 
   const handleFormSubmission = async (event) => {
+    console.log(event);
     const result = await formPostRequest(event, uri);
 
     if (result[0]) {
@@ -70,17 +72,7 @@ const EntryForm = ({ type, mode, onClose, updateParent, prevData }) => {
             required
           />
         </div>
-        <div className="flex flex-col justify-start gap-1">
-          <label className="font-bold" htmlFor="image">
-            Image (150x150px png/jpeg/gif)
-          </label>
-          <input
-            type="file"
-            accept="image/png, image/jpeg, image/gif"
-            id="image"
-            name="image"
-          />
-        </div>
+        <ImagePicker entryType={type} prevImageUrl={prevData.image} />
         <div className="flex flex-col mb-10 w-full gap-3">
           <div className="flex flex-col justify-start gap-1">
             <label className="font-bold" htmlFor="short_description">

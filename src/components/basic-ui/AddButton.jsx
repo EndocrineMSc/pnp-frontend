@@ -5,7 +5,7 @@ import CharacterEntryForm from "../modals/CharacterEntryForm";
 import CampaignEntryForm from "../modals/CampaignEntryForm";
 import EntryForm from "../modals/EntryForm";
 import { NotesContext } from "../../Contexts";
-import { postRequest } from "../../apiRequests/postRequest";
+import { apiRequest } from "../../apiRequests/apiRequest";
 import PropTypes from "prop-types";
 import useCampaignId from "../../hooks/useCampaignId";
 
@@ -55,7 +55,8 @@ const AddButton = ({ type, updateParent }) => {
     if (type === "note") {
       const noteBody = { date: new Date() };
       const createNewNote = async () => {
-        const newNote = await postRequest(
+        const newNote = await apiRequest(
+          "POST",
           `https://pnp-backend.fly.dev/api/v1/${campaignId}/note/create`,
           noteBody,
         );
