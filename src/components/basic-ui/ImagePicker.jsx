@@ -1,6 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import { CLOUDINARY_NAME } from "../../devSecrets";
-import { CLOUDINARY_IMAGE_PRESET } from "../../devSecrets";
 import PropTypes from "prop-types";
 
 /**Allows for uploading and image to cloudinary,
@@ -19,9 +17,8 @@ const ImagePicker = ({ prevImageUrl, entryType }) => {
   useEffect(() => {
     widgetRef.current = window.cloudinary.createUploadWidget(
       {
-        cloudName: process.env.CLOUDINARY_NAME || CLOUDINARY_NAME,
-        uploadPreset:
-          process.env.CLOUDINARY_IMAGE_PRESET || CLOUDINARY_IMAGE_PRESET,
+        cloudName: process.env.CLOUDINARY_NAME,
+        uploadPreset: process.env.CLOUDINARY_IMAGE_PRESET,
       },
       function (error, result) {
         if (error) console.error(error);
