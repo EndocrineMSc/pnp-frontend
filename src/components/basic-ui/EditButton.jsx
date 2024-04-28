@@ -5,6 +5,7 @@ import { mdiPencil } from "@mdi/js";
 import { useState } from "react";
 import CampaignEntryForm from "../modals/CampaignEntryForm";
 import PropTypes from "prop-types";
+import deleteImageByUrl from "../../utilityFunctions/deleteImageByUrl";
 
 /**Button component to edit entries.
  * @param {string} type - "character", "object", "location", "campaign", "note" - Determines the type of entry form connected to the button.
@@ -14,25 +15,48 @@ import PropTypes from "prop-types";
 const EditButton = ({ type, data, updateParent }) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
 
-  const toggleEdit = () => {
-    setIsEditOpen((prev) => !prev);
+  const openModal = () => {
+    setIsEditOpen(true);
+  };
+
+  const closeModal = (imageUrl) => {
+    console.log(imageUrl);
+    if (imageUrl) {
+      console.log("Trying to delete image");
+      deleteImageByUrl(imageUrl);
+    }
+    setIsEditOpen(false);
   };
 
   const form = function () {
     if (type === "character") {
-      return <CharacterEntryForm prevData={data} onClose={toggleEdit} />;
+      return (
+        <CharacterEntryForm
+          prevData={data}
+          onClose={closeModal}
+          updateParent={updateParent}
+          mode="update"
+        />
+      );
     } else if (type === "object" || type === "location") {
       return (
         <EntryForm
           type={type}
           prevData={data}
-          onClose={toggleEdit}
+          onClose={closeModal}
           updateParent={updateParent}
           mode="update"
         />
       );
     } else {
-      return <CampaignEntryForm prevData={data} onClose={toggleEdit} />;
+      return (
+        <CampaignEntryForm
+          prevData={data}
+          onClose={closeModal}
+          updateParent={updateParent}
+          mode="update"
+        />
+      );
     }
   };
 
@@ -42,7 +66,7 @@ const EditButton = ({ type, data, updateParent }) => {
         className="flex justify-center items-center rounded-xl 
                   hover:bg-wgray-500 focus:bg-wgray-500  
                   focus:outline-none aspect-square w-9"
-        onClick={toggleEdit}
+        onClick={openModal}
       >
         <Icon path={mdiPencil} size={1.1} />
       </button>

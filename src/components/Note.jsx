@@ -64,7 +64,6 @@ const Note = ({ note }) => {
       `https://pnp-backend.fly.dev/api/v1/note/${note._id}/delete`,
     );
 
-    console.log(result);
     if (result) {
       closeNote();
     }

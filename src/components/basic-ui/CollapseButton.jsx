@@ -22,7 +22,6 @@ const CollapseButton = ({ isExpanded, toggleCollapse, isPageRight }) => {
 
   const handleButtonClick = () => {
     toggleCollapse();
-    console.log("Toggle Button!");
   };
 
   return (
