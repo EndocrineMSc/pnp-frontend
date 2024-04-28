@@ -5,8 +5,9 @@ import PropTypes from "prop-types";
  * hidden input will hold the returned cloudinary url as its value
  * @param {String} prevImageUrl
  * @param {String} entryType - "campaign", "character", "location", "object"
+ * @param {function} setImageUrl - parent state setter for image id
  */
-const ImagePicker = ({ prevImageUrl, entryType }) => {
+const ImagePicker = ({ prevImageUrl, entryType, setImageUrl }) => {
   const [imagePath, setImagePath] = useState(
     prevImageUrl ? prevImageUrl : `/${entryType}.svg`,
   );
@@ -17,19 +18,23 @@ const ImagePicker = ({ prevImageUrl, entryType }) => {
   useEffect(() => {
     widgetRef.current = window.cloudinary.createUploadWidget(
       {
-        cloudName: process.env.CLOUDINARY_NAME,
-        uploadPreset: process.env.CLOUDINARY_IMAGE_PRESET,
+        cloudName:
+          process.env.CLOUDINARY_NAME || import.meta.env.VITE_CLOUDINARY_NAME,
+        uploadPreset:
+          process.env.CLOUDINARY_IMAGE_PRESET ||
+          import.meta.env.VITE_CLOUDINARY_IMAGE_PRESET,
       },
       function (error, result) {
         if (error) console.error(error);
+
         if (result.info.secure_url) {
-          console.log(result);
+          setImageUrl(result.info.secure_url);
           setImagePath(result.info.secure_url);
           inputRef.current.value = result.info.secure_url;
         }
       },
     );
-  }, []);
+  }, [setImageUrl]);
 
   return (
     <div className="flex flex-col justify-start gap-1">
@@ -56,6 +61,7 @@ const ImagePicker = ({ prevImageUrl, entryType }) => {
 ImagePicker.propTypes = {
   prevImageUrl: PropTypes.string,
   entryType: PropTypes.string.isRequired,
+  setImageUrl: PropTypes.func.isRequired,
 };
 
 export default ImagePicker;

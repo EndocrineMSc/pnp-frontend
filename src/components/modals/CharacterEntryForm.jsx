@@ -1,5 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { formPostRequest } from "../../apiRequests/formPostRequest";
+import { useNavigate } from "react-router-dom";
+import deleteImageByUrl from "../../utilityFunctions/deleteImageByUrl";
 import PropTypes from "prop-types";
 import useCampaignId from "../../hooks/useCampaignId";
 import ImagePicker from "../basic-ui/ImagePicker";
@@ -12,6 +14,33 @@ import ImagePicker from "../basic-ui/ImagePicker";
  */
 const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
   const campaignId = useCampaignId();
+  const navigate = useNavigate();
+  const [imageUrl, setImageUrl] = useState("");
+  const [prevRenderUrl, setPrevRenderUrl] = useState("");
+
+  const handleUrlChange = (url) => {
+    if (!prevRenderUrl) {
+      setPrevRenderUrl(url);
+    } else if (url !== prevRenderUrl) {
+      deleteImageByUrl(prevRenderUrl);
+      setPrevRenderUrl(url);
+    }
+
+    setImageUrl(url);
+  };
+
+  const handleSubmissionClose = () => {
+    if (prevData.image && prevData.image !== imageUrl) {
+      onClose(prevData.image);
+    } else {
+      onClose();
+    }
+  };
+
+  const handleAbortClose = () => {
+    imageUrl ? onClose(imageUrl) : onClose();
+  };
+
   const uri =
     mode === "create"
       ? `https://pnp-backend.fly.dev/api/v1/${campaignId}/character/create`
@@ -20,7 +49,7 @@ const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
   useEffect(() => {
     const closeForm = (event) => {
       if (event.key === "Escape") {
-        onClose();
+        imageUrl ? onClose(imageUrl) : onClose();
       }
     };
     window.addEventListener("keydown", closeForm);
@@ -28,7 +57,7 @@ const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
     return () => {
       window.removeEventListener("keydown", closeForm);
     };
-  }, [onClose]);
+  }, [imageUrl, onClose]);
 
   const handleFormSubmission = async (event) => {
     const result = await formPostRequest(event, uri);
@@ -37,7 +66,10 @@ const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
       console.error(result[0].msg);
     } else {
       updateParent(result);
-      onClose();
+      handleSubmissionClose();
+      mode === "create"
+        ? navigate(`/$characters`)
+        : navigate(`/$character/${prevData._id}`);
     }
   };
 
@@ -45,7 +77,7 @@ const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
     <div className="flex justify-center items-start absolute left-0 top-0 w-full h-screen pt-5">
       <div
         className="absolute w-full h-full bg-wgray-950/80 -mt-5"
-        onClick={onClose}
+        onClick={handleAbortClose}
       ></div>
       <form
         className="relative flex flex-wrap max-w-screen-sm gap-5 bg-wgray-300 p-5 rounded-xl"
@@ -90,7 +122,11 @@ const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
             defaultValue={prevData ? prevData.location : ""}
           />
         </div>
-        <ImagePicker entryType="character" prevImageUrl={prevData.image} />
+        <ImagePicker
+          entryType="character"
+          prevImageUrl={prevData.image}
+          setImageUrl={handleUrlChange}
+        />
         <div className="flex flex-col mb-10 w-full gap-3">
           <div className="flex flex-col justify-start gap-1">
             <label className="font-bold" htmlFor="short_description">
