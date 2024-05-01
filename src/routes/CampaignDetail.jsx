@@ -58,7 +58,11 @@ const CampaignDetailView = () => {
           <div className="flex gap-3 justify-between">
             <h2 className="text-3xl font-bold">{campaignData.name}</h2>
             <div className="flex gap-2">
-              <EditButton type="campaign" data={campaignData} />
+              <EditButton
+                type="campaign"
+                data={campaignData}
+                updateParent={setCampaignData}
+              />
               <DeleteButton
                 text="Warning: All characters, locations and items of the campaign will be deleted as well!"
                 deleteEntry={deleteCampaign}
