@@ -26,7 +26,7 @@ const ConfirmationBox = ({ text, onConfirm, onAbort }) => {
       <div className="text-wrap text-center">{text}</div>
       <div className="flex w-full justify-around gap-3">
         <Button text="Confirm" onClick={onDelete} />
-        <Button text="Abort" onClick={onAbort} />
+        <Button text="Cancel" onClick={onAbort} />
       </div>
     </dialog>
   );
