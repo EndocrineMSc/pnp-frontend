@@ -33,7 +33,7 @@ const DetailView = ({ viewData, type }) => {
       <div className="flex flex-col gap-3 p-4 bg-wgray-300 rounded-xl max-w-screen-sm">
         <div className="flex justify-center items-start gap-10">
           <img
-            className="w-[150px] aspect-square bg-wgray-400 rounded-xl"
+            className="w-card-image aspect-square bg-wgray-400 rounded-xl"
             src={data.image ? data.image : `/${type}.svg`}
             alt="location"
           />

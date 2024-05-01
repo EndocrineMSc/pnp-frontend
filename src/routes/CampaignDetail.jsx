@@ -50,7 +50,7 @@ const CampaignDetailView = () => {
         <div className="flex flex-col gap-3 p-4 bg-wgray-300 rounded-xl max-w-screen-sm">
           <div className="flex justify-center align-center w-full">
             <img
-              className="w-[150px] aspect-square bg-wgray-400 rounded-xl"
+              className="w-card-image aspect-square bg-wgray-400 rounded-xl"
               src={campaignData.image ? campaignData.image : "/campaign.svg"}
               alt="campaign"
             />
@@ -58,7 +58,11 @@ const CampaignDetailView = () => {
           <div className="flex gap-3 justify-between">
             <h2 className="text-3xl font-bold">{campaignData.name}</h2>
             <div className="flex gap-2">
-              <EditButton type="campaign" data={campaignData} />
+              <EditButton
+                type="campaign"
+                data={campaignData}
+                updateParent={setCampaignData}
+              />
               <DeleteButton
                 text="Warning: All characters, locations and items of the campaign will be deleted as well!"
                 deleteEntry={deleteCampaign}

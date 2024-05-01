@@ -38,12 +38,12 @@ const ImagePicker = ({ prevImageUrl, entryType, setImageUrl }) => {
 
   return (
     <div className="flex flex-col justify-start gap-1">
-      <div className="font-bold">Image (150x150px png/jpeg/gif)</div>
+      <div className="font-bold">Image (200x200px png/jpeg/gif)</div>
       <div
         style={{
           backgroundImage: `url(${imagePath})`,
         }}
-        className="w-[150px] h-[150px] hover:bg-wgray-600 hover:opacity-60 rounded bg-no-repeat bg-center"
+        className="w-card-image h-card-image hover:bg-wgray-600 hover:opacity-60 rounded bg-no-repeat bg-center"
         aria-label={`${entryType} image`}
         onClick={() => widgetRef.current.open()}
       />

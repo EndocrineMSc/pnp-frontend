@@ -77,7 +77,7 @@ const EntryForm = ({ type, mode, onClose, updateParent, prevData }) => {
   return (
     <div className="flex justify-center items-start absolute left-0 top-0 w-full h-screen pt-5">
       <div
-        className="absolute w-full h-full bg-wgray-950/80 -mt-5"
+        className="absolute w-full h-full -mt-5"
         onClick={handleAbortClose}
       ></div>
       <form

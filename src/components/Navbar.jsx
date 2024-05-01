@@ -37,6 +37,16 @@ const Navbar = () => {
     getImage();
   }, [campaignId]);
 
+  const shortCampaignName = () => {
+    const nameArr = campaignName.split("");
+
+    if (nameArr.length <= 20) return campaignName;
+
+    const truncArr = nameArr.slice(0, 17);
+    truncArr.push("...");
+    return truncArr.join("");
+  };
+
   const providerValues = useContext(NavbarContext);
 
   return (
@@ -52,9 +62,13 @@ const Navbar = () => {
         </div>
       </li>
       <li className="relative flex flex-col items-center w-full">
-        <img className="mr-2 bg-wgray-400 rounded-xl" src={imagePath} alt="" />
+        <img
+          className="mr-2 bg-wgray-400 rounded-xl w-card-image h-card-image"
+          src={imagePath}
+          alt=""
+        />
         <div className="absolute text-center text-pretty text-wgray-50 font-bold text-xl mr-2 bottom-1">
-          {campaignName}
+          {shortCampaignName()}
         </div>
       </li>
       <NavLink
