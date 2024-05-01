@@ -46,7 +46,7 @@ const Dashboard = () => {
   const providerValues = { isExpanded: showNavbar, toggleNavbar };
 
   useEffect(() => {
-    if (userId === "") {
+    if (currentPath === "/" && userId === "") {
       navigate("/welcome");
     } else if (currentPath === "/") {
       navigate("/notes");

@@ -1,20 +1,33 @@
 import NavLink from "./NavLink";
 import CollapseButton from "./basic-ui/CollapseButton";
 import Searchbar from "./basic-ui/Searchbar";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useReducer } from "react";
+import { useNavigate } from "react-router-dom";
 import { NavbarContext } from "../Contexts";
 import { apiRequest } from "../apiRequests/apiRequest";
 import useCampaignId from "../hooks/useCampaignId";
+import ConfirmationBox from "./modals/ConfirmationBox";
+import logoutUser from "../utilityFunctions/logoutUser";
 
 /**Navigation component for the different single-page app routes */
 const Navbar = () => {
   const [activePage, setActivePage] = useState("Dashboard");
   const [imagePath, setImagePath] = useState("../campaign.svg");
   const [campaignName, setCampaignName] = useState("");
+  const [showLogoutModal, toggleLogoutModal] = useReducer(
+    (prev) => !prev,
+    false,
+  );
   const campaignId = useCampaignId();
+  const navigate = useNavigate();
 
   const clickHandler = (event) => {
     setActivePage(event.target.textContent);
+  };
+
+  const handleLogout = () => {
+    logoutUser();
+    navigate("/welcome");
   };
 
   useEffect(() => {
@@ -101,6 +114,20 @@ const Navbar = () => {
         onClick={clickHandler}
         className={activePage === "Objects" ? "bg-wgray-400" : ""}
       />
+      <button
+        className="w-full h-16 flex items-center pl-4 rounded-l-xl text-2xl leading-loose hover:bg-wgray-400 active:bg-wgray-400"
+        onClick={toggleLogoutModal}
+        type="button"
+      >
+        Log Out
+      </button>
+      {showLogoutModal ? (
+        <ConfirmationBox
+          text="Log Out?"
+          onConfirm={handleLogout}
+          onAbort={toggleLogoutModal}
+        />
+      ) : null}
     </nav>
   );
 };

@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 
 /**Modal pop-up to confirm user action.
  * @param {string} text - Warning/Confirmation text.
- * @param {function} deleteEntry - Parent function that deletes the entry.
+ * @param {function} onConfirm - Parent function that executes on confirmation.
  * @param {function} onAbort - Parent function that "closes" the modal without action.
  */
-const ConfirmationBox = ({ text, deleteEntry, onAbort }) => {
+const ConfirmationBox = ({ text, onConfirm, onAbort }) => {
   const modalRef = useRef();
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const ConfirmationBox = ({ text, deleteEntry, onAbort }) => {
   }, []);
 
   const onDelete = () => {
-    deleteEntry();
+    onConfirm();
     onAbort();
   };
 
@@ -46,7 +46,7 @@ const Button = ({ text, onClick }) => {
 
 ConfirmationBox.propTypes = {
   text: PropTypes.string.isRequired,
-  deleteEntry: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired,
   onAbort: PropTypes.func.isRequired,
 };
 

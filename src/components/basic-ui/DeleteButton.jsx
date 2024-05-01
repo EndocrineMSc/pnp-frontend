@@ -29,7 +29,7 @@ const DeleteButton = ({ text, deleteEntry }) => {
       {isModalOpen ? (
         <ConfirmationBox
           text={text}
-          deleteEntry={deleteEntry}
+          onConfirm={deleteEntry}
           onAbort={toggleModal}
         />
       ) : (
