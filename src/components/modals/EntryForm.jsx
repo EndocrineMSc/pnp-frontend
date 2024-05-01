@@ -1,8 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { formPostRequest } from "../../apiRequests/formPostRequest";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import useCampaignId from "../../hooks/useCampaignId";
+import ImagePicker from "../basic-ui/ImagePicker";
+import deleteImageByUrl from "../../utilityFunctions/deleteImageByUrl";
 
 /** Update Form for Locations and Items. Characters and Campaigns are separate.
  * @param {string} type - "location"/"object" type of database entry that should be created/updated.
@@ -14,6 +16,32 @@ import useCampaignId from "../../hooks/useCampaignId";
 const EntryForm = ({ type, mode, onClose, updateParent, prevData }) => {
   const campaignId = useCampaignId();
   const navigate = useNavigate();
+  const [imageUrl, setImageUrl] = useState("");
+  const [prevRenderUrl, setPrevRenderUrl] = useState("");
+
+  const handleUrlChange = (url) => {
+    if (!prevRenderUrl) {
+      setPrevRenderUrl(url);
+    } else if (url !== prevRenderUrl) {
+      deleteImageByUrl(prevRenderUrl);
+      setPrevRenderUrl(url);
+    }
+
+    setImageUrl(url);
+  };
+
+  const handleSubmissionClose = () => {
+    if (prevData.image && prevData.image !== imageUrl) {
+      onClose(prevData.image);
+    } else {
+      onClose();
+    }
+  };
+
+  const handleAbortClose = () => {
+    imageUrl ? onClose(imageUrl) : onClose();
+  };
+
   const uri =
     mode === "create"
       ? `https://pnp-backend.fly.dev/api/v1/${campaignId}/${type}/create`
@@ -22,7 +50,7 @@ const EntryForm = ({ type, mode, onClose, updateParent, prevData }) => {
   useEffect(() => {
     const closeForm = (event) => {
       if (event.key === "Escape") {
-        onClose();
+        imageUrl ? onClose(imageUrl) : onClose();
       }
     };
     window.addEventListener("keydown", closeForm);
@@ -30,7 +58,7 @@ const EntryForm = ({ type, mode, onClose, updateParent, prevData }) => {
     return () => {
       window.removeEventListener("keydown", closeForm);
     };
-  }, [onClose]);
+  }, [imageUrl, onClose]);
 
   const handleFormSubmission = async (event) => {
     const result = await formPostRequest(event, uri);
@@ -39,7 +67,7 @@ const EntryForm = ({ type, mode, onClose, updateParent, prevData }) => {
       console.error(result[0].msg);
     } else {
       updateParent(result);
-      onClose();
+      handleSubmissionClose();
       mode === "create"
         ? navigate(`/${type}s`)
         : navigate(`/${type}/${prevData._id}`);
@@ -49,8 +77,8 @@ const EntryForm = ({ type, mode, onClose, updateParent, prevData }) => {
   return (
     <div className="flex justify-center items-start absolute left-0 top-0 w-full h-screen pt-5">
       <div
-        className="absolute w-full h-full bg-wgray-950/80 -mt-5"
-        onClick={onClose}
+        className="absolute w-full h-full -mt-5"
+        onClick={handleAbortClose}
       ></div>
       <form
         className="relative flex flex-wrap max-w-screen-sm gap-5 bg-wgray-300 p-5 rounded-xl"
@@ -70,17 +98,11 @@ const EntryForm = ({ type, mode, onClose, updateParent, prevData }) => {
             required
           />
         </div>
-        <div className="flex flex-col justify-start gap-1">
-          <label className="font-bold" htmlFor="image">
-            Image (150x150px png/jpeg/gif)
-          </label>
-          <input
-            type="file"
-            accept="image/png, image/jpeg, image/gif"
-            id="image"
-            name="image"
-          />
-        </div>
+        <ImagePicker
+          entryType={type}
+          prevImageUrl={prevData.image}
+          setImageUrl={handleUrlChange}
+        />
         <div className="flex flex-col mb-10 w-full gap-3">
           <div className="flex flex-col justify-start gap-1">
             <label className="font-bold" htmlFor="short_description">

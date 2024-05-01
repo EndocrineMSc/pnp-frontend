@@ -1,5 +1,5 @@
 import EntryCardLayout from "../components/EntryCardLayout";
-import { getRequest } from "../apiRequests/getRequest";
+import { apiRequest } from "../apiRequests/apiRequest";
 import { useState, useEffect } from "react";
 import AddButton from "../components/basic-ui/AddButton";
 import useCampaignId from "../hooks/useCampaignId";
@@ -13,7 +13,8 @@ const Objects = () => {
   useEffect(() => {
     const fetchObjects = async () => {
       if (campaignId !== "") {
-        const result = await getRequest(
+        const result = await apiRequest(
+          "GET",
           `https://pnp-backend.fly.dev/api/v1/${campaignId}/objects`,
         );
 

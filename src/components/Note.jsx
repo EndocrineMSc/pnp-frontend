@@ -1,7 +1,7 @@
 import Editor from "./NoteEditor";
 import { useState, useEffect, useContext } from "react";
 import { formatDate } from "../utilityFunctions/formatDate";
-import { postRequest } from "../apiRequests/postRequest";
+import { apiRequest } from "../apiRequests/apiRequest";
 import { unescape } from "html-escaper";
 import sanitizeHtml from "sanitize-html";
 import parse from "html-react-parser";
@@ -31,7 +31,8 @@ const Note = ({ note }) => {
 
   const endEdit = (newText) => {
     const updatedNote = { ...note, text: newText };
-    postRequest(
+    apiRequest(
+      "POST",
       `https://pnp-backend.fly.dev/api/v1/note/${note._id}/update`,
       updatedNote,
     );
@@ -58,11 +59,11 @@ const Note = ({ note }) => {
   };
 
   const deleteNote = async () => {
-    const result = await postRequest(
+    const result = await apiRequest(
+      "POST",
       `https://pnp-backend.fly.dev/api/v1/note/${note._id}/delete`,
     );
 
-    console.log(result);
     if (result) {
       closeNote();
     }

@@ -3,7 +3,7 @@ import CollapseButton from "./basic-ui/CollapseButton";
 import Searchbar from "./basic-ui/Searchbar";
 import { useState, useContext, useEffect } from "react";
 import { NavbarContext } from "../Contexts";
-import { getRequest } from "../apiRequests/getRequest";
+import { apiRequest } from "../apiRequests/apiRequest";
 import useCampaignId from "../hooks/useCampaignId";
 
 /**Navigation component for the different single-page app routes */
@@ -20,7 +20,8 @@ const Navbar = () => {
   useEffect(() => {
     const getImage = async () => {
       if (campaignId !== "") {
-        const campaign = await getRequest(
+        const campaign = await apiRequest(
+          "GET",
           `https://pnp-backend.fly.dev/api/v1/campaign/${campaignId}`,
         );
 
@@ -35,6 +36,16 @@ const Navbar = () => {
     };
     getImage();
   }, [campaignId]);
+
+  const shortCampaignName = () => {
+    const nameArr = campaignName.split("");
+
+    if (nameArr.length <= 20) return campaignName;
+
+    const truncArr = nameArr.slice(0, 17);
+    truncArr.push("...");
+    return truncArr.join("");
+  };
 
   const providerValues = useContext(NavbarContext);
 
@@ -51,9 +62,13 @@ const Navbar = () => {
         </div>
       </li>
       <li className="relative flex flex-col items-center w-full">
-        <img className="mr-2 bg-wgray-400 rounded-xl" src={imagePath} alt="" />
+        <img
+          className="mr-2 bg-wgray-400 rounded-xl w-card-image h-card-image"
+          src={imagePath}
+          alt=""
+        />
         <div className="absolute text-center text-pretty text-wgray-50 font-bold text-xl mr-2 bottom-1">
-          {campaignName}
+          {shortCampaignName()}
         </div>
       </li>
       <NavLink

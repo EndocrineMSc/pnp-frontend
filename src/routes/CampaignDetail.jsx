@@ -1,10 +1,8 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import EditButton from "../components/basic-ui/EditButton";
 import DeleteButton from "../components/basic-ui/DeleteButton";
-import { getRequest } from "../apiRequests/getRequest";
 import { useParams } from "react-router-dom";
-import { ApiContext } from "../Contexts";
-import { postRequest } from "../apiRequests/postRequest";
+import { apiRequest } from "../apiRequests/apiRequest";
 import { useNavigate } from "react-router-dom";
 import storeCampaignId from "../utilityFunctions/storeCampaignId";
 
@@ -12,14 +10,14 @@ import storeCampaignId from "../utilityFunctions/storeCampaignId";
 const CampaignDetailView = () => {
   const [campaignData, setCampaignData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const apiContext = useContext(ApiContext);
   const navigate = useNavigate();
 
   const { id } = useParams();
 
   useEffect(() => {
     const fetchCampaign = async () => {
-      const campaign = await getRequest(
+      const campaign = await apiRequest(
+        "GET",
         `https://pnp-backend.fly.dev/api/v1/campaign/${id}`,
       );
 
@@ -30,14 +28,14 @@ const CampaignDetailView = () => {
       }
     };
     fetchCampaign();
-  }, [apiContext, id]);
+  }, [id]);
 
   const deleteCampaign = async () => {
-    const result = await postRequest(
+    const result = await apiRequest(
+      "POST",
       `https://pnp-backend.fly.dev/api/v1/campaign/${id}/delete`,
     );
 
-    console.log(result);
     if (result) {
       storeCampaignId("");
       navigate("/campaigns");
@@ -52,7 +50,7 @@ const CampaignDetailView = () => {
         <div className="flex flex-col gap-3 p-4 bg-wgray-300 rounded-xl max-w-screen-sm">
           <div className="flex justify-center align-center w-full">
             <img
-              className="w-[150px] aspect-square bg-wgray-400 rounded-xl"
+              className="w-card-image aspect-square bg-wgray-400 rounded-xl"
               src={campaignData.image ? campaignData.image : "/campaign.svg"}
               alt="campaign"
             />
@@ -60,7 +58,11 @@ const CampaignDetailView = () => {
           <div className="flex gap-3 justify-between">
             <h2 className="text-3xl font-bold">{campaignData.name}</h2>
             <div className="flex gap-2">
-              <EditButton type="campaign" data={campaignData} />
+              <EditButton
+                type="campaign"
+                data={campaignData}
+                updateParent={setCampaignData}
+              />
               <DeleteButton
                 text="Warning: All characters, locations and items of the campaign will be deleted as well!"
                 deleteEntry={deleteCampaign}

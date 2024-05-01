@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import DetailView from "../components/DetailView";
-import { getRequest } from "../apiRequests/getRequest";
+import { apiRequest } from "../apiRequests/apiRequest";
 import { useParams } from "react-router-dom";
 
 /**Displays detail data of a single location to the user- Allows for editing or deleting the entry. */
@@ -12,7 +12,8 @@ const LocationDetailView = () => {
 
   useEffect(() => {
     const fetchCampaign = async () => {
-      const location = await getRequest(
+      const location = await apiRequest(
+        "GET",
         `https://pnp-backend.fly.dev/api/v1/location/${id}`,
       );
 

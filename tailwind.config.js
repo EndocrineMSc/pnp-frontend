@@ -10,6 +10,12 @@ export default {
       gridTemplateRows: {
         autofill: "repeat(auto-fill, minmax(200px, 1fr))",
       },
+      width: {
+        "card-image": "200px",
+      },
+      height: {
+        "card-image": "200px",
+      },
     },
     colors: {
       transparent: "transparent",
