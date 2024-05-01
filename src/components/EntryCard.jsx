@@ -10,14 +10,31 @@ import PropTypes from "prop-types";
 const EntryCard = ({ name, cardId, image, type }) => {
   const imagePath = image ? image : `/${type}.svg`;
 
+  const headerJustify = () => {
+    const nameArr = name.split("");
+    return nameArr.length > 20 ? "justify-start" : "justify-center";
+  };
+
+  const shortName = () => {
+    const nameArr = name.split("");
+
+    if (nameArr.length <= 20) return name;
+
+    const truncArr = nameArr.slice(0, 17);
+    truncArr.push("...");
+    return truncArr.join("");
+  };
+
   return (
     <Link
       to={`/${type}/${cardId}`}
       className="flex flex-col w-card-image h-auto items-center justify-start
       overflow-clip rounded-xl cursor-pointer shadow-md hover:shadow-xl relative"
     >
-      <h3 className="flex justify-center w-full text-xl leading-relaxed text-center bg-wgray-200/80">
-        {name}
+      <h3
+        className={`flex ${headerJustify()} w-full h-10 text-xl leading-relaxed text-center truncate bg-wgray-200/80 pt-1 px-2`}
+      >
+        {shortName()}
       </h3>
       <img
         src={imagePath}
