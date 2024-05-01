@@ -13,7 +13,7 @@ const EntryCard = ({ name, cardId, image, type }) => {
   return (
     <Link
       to={`/${type}/${cardId}`}
-      className="flex flex-col w-[150px] h-auto items-center justify-start
+      className="flex flex-col w-card-image h-auto items-center justify-start
       overflow-clip rounded-xl cursor-pointer shadow-md hover:shadow-xl relative"
     >
       <h3 className="flex justify-center w-full text-xl leading-relaxed text-center bg-wgray-200/80">
@@ -22,7 +22,7 @@ const EntryCard = ({ name, cardId, image, type }) => {
       <img
         src={imagePath}
         alt={type + " image"}
-        className="w-[150px] h-[150px] bg-gradient-to-t from-wgray-400 to-wgray-500"
+        className="w-card-image h-card-image bg-gradient-to-t from-wgray-400 to-wgray-500"
       />
     </Link>
   );

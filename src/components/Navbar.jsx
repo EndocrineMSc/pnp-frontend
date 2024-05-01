@@ -52,7 +52,11 @@ const Navbar = () => {
         </div>
       </li>
       <li className="relative flex flex-col items-center w-full">
-        <img className="mr-2 bg-wgray-400 rounded-xl" src={imagePath} alt="" />
+        <img
+          className="mr-2 bg-wgray-400 rounded-xl w-card-image h-card-image"
+          src={imagePath}
+          alt=""
+        />
         <div className="absolute text-center text-pretty text-wgray-50 font-bold text-xl mr-2 bottom-1">
           {campaignName}
         </div>
