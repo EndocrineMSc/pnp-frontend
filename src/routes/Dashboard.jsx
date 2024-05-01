@@ -17,10 +17,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   const setDefaultCampaignId = async () => {
-    console.log("select default campaign of user: " + userId);
-    console.log("Current campaignId is: " + campaignId);
     if (userId && !campaignId) {
-      console.log("I shouldn't do stuff");
       const campaigns = await getRequest(
         `https://pnp-backend.fly.dev/api/v1/${userId}/campaigns`,
       );
@@ -56,7 +53,7 @@ const Dashboard = () => {
   }, [userId, currentPath, navigate]);
 
   return (
-    <div className="flex justify-start items-start w-full h-full text-wgray-950 bg-wgray-50 dark:bg-wgray-950">
+    <div className="flex justify-start items-start w-full h-full text-wgray-950 bg-wgray-50">
       <NavbarContext.Provider value={providerValues}>
         {showNavbar ? <Navbar /> : <CollapsedNavbar />}
       </NavbarContext.Provider>
