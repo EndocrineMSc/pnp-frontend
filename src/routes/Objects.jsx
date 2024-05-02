@@ -3,24 +3,29 @@ import { apiRequest } from "../apiRequests/apiRequest";
 import { useState, useEffect } from "react";
 import AddButton from "../components/basic-ui/AddButton";
 import useCampaignId from "../hooks/useCampaignId";
+import GridSpinner from "../components/basic-ui/GridSpinner";
 
 /**Overview page for objects. */
 const Objects = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [objects, setObjects] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [objects, setObjects] = useState([]);
   const campaignId = useCampaignId()[0];
+  const minSpinnerTimeMS = 500;
 
   useEffect(() => {
     const fetchObjects = async () => {
       if (campaignId !== "") {
+        setIsLoading(true);
+        const startTime = Date.now();
         const result = await apiRequest(
           "GET",
           `https://pnp-backend.fly.dev/api/v1/${campaignId}/objects`,
         );
+        const elapsedTime = Date.now() - startTime;
 
         if (result) {
           setObjects(result);
-          setIsLoading(false);
+          setTimeout(() => setIsLoading(false), minSpinnerTimeMS - elapsedTime);
         }
       }
     };
@@ -31,15 +36,15 @@ const Objects = () => {
     setObjects([...objects, object]);
   };
 
-  if (isLoading) {
-    return <></>;
-  }
-
   return (
-    <div>
-      <EntryCardLayout cards={objects} type="object" title="Objects" />
+    <>
+      {isLoading ? (
+        <GridSpinner />
+      ) : (
+        <EntryCardLayout cards={objects} type="object" title="Objects" />
+      )}
       <AddButton type="object" updateParent={onObjectAdded} />
-    </div>
+    </>
   );
 };
 

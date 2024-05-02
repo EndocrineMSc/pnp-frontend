@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { NotesContext } from "../Contexts";
 import { apiRequest } from "../apiRequests/apiRequest";
 import useCampaignId from "../hooks/useCampaignId";
+import { Hourglass } from "react-loader-spinner";
 
 /**Overview page for notes, includes a scrollbar for all notes. */
 const Notes = () => {
@@ -12,6 +13,7 @@ const Notes = () => {
   const [detailNoteIds, setDetailNoteIds] = useState([]);
   const [shortNotes, setShortNotes] = useState(null);
   const [fullNotes, setFullNotes] = useState(null);
+  const [isLoading, setLoading] = useState(false);
   const campaignId = useCampaignId()[0];
 
   const toggleScrollbar = () => {
@@ -28,6 +30,7 @@ const Notes = () => {
   useEffect(() => {
     const getShortNotes = async () => {
       if (campaignId !== "") {
+        setLoading(true);
         const notes = await apiRequest(
           "GET",
           `https://pnp-backend.fly.dev/api/v1/${campaignId}/notes`,
@@ -35,6 +38,7 @@ const Notes = () => {
         setShortNotes(notes);
 
         if (!detailNoteIds && notes[0]) setDetailNoteIds(notes[0]._id);
+        setLoading(false);
       }
     };
     getShortNotes();
@@ -58,15 +62,35 @@ const Notes = () => {
   }, [detailNoteIds]);
 
   return (
-    <div className="flex items-center w-full h-screen">
-      <NotesContext.Provider value={providerValue}>
-        <NoteLayout notes={fullNotes} />
-        {showScrollbar ? (
-          <NoteScrollbar notes={shortNotes} />
-        ) : (
-          <CollapsedNoteScrollbar />
-        )}
-      </NotesContext.Provider>
+    <div className="flex justify-center items-center w-full h-screen">
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <NotesContext.Provider value={providerValue}>
+          <NoteLayout notes={fullNotes} />
+          {showScrollbar ? (
+            <NoteScrollbar notes={shortNotes} />
+          ) : (
+            <CollapsedNoteScrollbar />
+          )}
+        </NotesContext.Provider>
+      )}
+    </div>
+  );
+};
+
+const Spinner = () => {
+  return (
+    <div>
+      <Hourglass
+        visible={true}
+        height="80"
+        width="80"
+        ariaLabel="hourglass-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+        colors={["#306cce", "#72a1ed"]}
+      />
     </div>
   );
 };

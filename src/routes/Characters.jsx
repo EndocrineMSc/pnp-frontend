@@ -3,24 +3,29 @@ import AddButton from "../components/basic-ui/AddButton";
 import { apiRequest } from "../apiRequests/apiRequest";
 import { useState, useEffect } from "react";
 import useCampaignId from "../hooks/useCampaignId";
+import GridSpinner from "../components/basic-ui/GridSpinner";
 
 /**Overview page for characters. */
 const Characters = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [characters, setCharacters] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [characters, setCharacters] = useState([]);
   const campaignId = useCampaignId()[0];
+  const minSpinnerTimeMS = 500;
 
   useEffect(() => {
     const fetchCharacters = async () => {
       if (campaignId !== "") {
+        setIsLoading(true);
+        const startTime = Date.now();
         const result = await apiRequest(
           "GET",
           `https://pnp-backend.fly.dev/api/v1/${campaignId}/characters`,
         );
+        const elapsedTime = Date.now() - startTime;
 
         if (result) {
           setCharacters(result);
-          setIsLoading(false);
+          setTimeout(() => setIsLoading(false), minSpinnerTimeMS - elapsedTime);
         }
       }
     };
@@ -31,15 +36,20 @@ const Characters = () => {
     setCharacters([...characters, character]);
   };
 
-  if (isLoading) {
-    return <></>;
-  }
-
   return (
-    <div>
-      <EntryCardLayout cards={characters} type="character" title="Characters" />
+    <>
+      {isLoading ? (
+        <GridSpinner />
+      ) : (
+        <EntryCardLayout
+          cards={characters}
+          type="character"
+          title="Characters"
+        />
+      )}
+
       <AddButton type="character" updateParent={onCharacterAdded} />
-    </div>
+    </>
   );
 };
 
