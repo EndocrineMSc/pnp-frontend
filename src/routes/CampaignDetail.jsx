@@ -6,6 +6,7 @@ import { apiRequest } from "../apiRequests/apiRequest";
 import { useNavigate } from "react-router-dom";
 import storeCampaignId from "../utilityFunctions/storeCampaignId";
 import useCampaignId from "../hooks/useCampaignId";
+import unescapeText from "../utilityFunctions/unescapeText";
 
 /**Displays detail data of a single campaign to the user- Allows for editing or deleting the entry. */
 const CampaignDetailView = () => {
@@ -18,7 +19,6 @@ const CampaignDetailView = () => {
 
   useEffect(() => {
     if (campaignId !== id) {
-      console.log("CampaignId should change now");
       saveCampaignId(id);
     }
   }, [id, saveCampaignId, campaignId]);
@@ -63,7 +63,9 @@ const CampaignDetailView = () => {
             />
           </div>
           <div className="flex gap-3 justify-between">
-            <h2 className="text-3xl font-bold">{campaignData.name}</h2>
+            <h2 className="text-3xl font-bold">
+              {unescapeText(campaignData.name)}
+            </h2>
             <div className="flex gap-2">
               <EditButton
                 type="campaign"
@@ -77,7 +79,7 @@ const CampaignDetailView = () => {
             </div>
           </div>
           <div className="bg-wgray-200 p-2 rounded">
-            {campaignData.description}
+            {unescapeText(campaignData.description)}
           </div>
         </div>
       </div>

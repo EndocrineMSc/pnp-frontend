@@ -5,6 +5,7 @@ import deleteImageByUrl from "../../utilityFunctions/deleteImageByUrl";
 import PropTypes from "prop-types";
 import useCampaignId from "../../hooks/useCampaignId";
 import ImagePicker from "../basic-ui/ImagePicker";
+import unescapeText from "../../utilityFunctions/unescapeText";
 
 /** Entry Form for characters.
  * @param {string} mode - "create" or "update" -> update shows previous Data as default values.
@@ -30,7 +31,7 @@ const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
   };
 
   const handleSubmissionClose = () => {
-    if (prevData.image && prevData.image !== imageUrl) {
+    if (prevData && prevData.image && prevData.image !== imageUrl) {
       onClose(prevData.image);
     } else {
       onClose();
@@ -66,10 +67,11 @@ const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
       console.error(result[0].msg);
     } else {
       updateParent(result);
+      console.log(result);
       handleSubmissionClose();
       mode === "create"
-        ? navigate(`/$characters`)
-        : navigate(`/$character/${prevData._id}`);
+        ? navigate(`/characters`)
+        : navigate(`/character/${prevData._id}`);
     }
   };
 
@@ -94,7 +96,7 @@ const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
             type="text"
             id="name"
             name="name"
-            defaultValue={prevData ? prevData.name : ""}
+            defaultValue={prevData ? unescapeText(prevData.name) : ""}
             required
           />
         </div>
@@ -107,7 +109,7 @@ const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
             type="text"
             id="occupation"
             name="occupation"
-            defaultValue={prevData ? prevData.occupation : ""}
+            defaultValue={prevData ? unescapeText(prevData.occupation) : ""}
           />
         </div>
         <div className="flex flex-col justify-start gap-1">
@@ -124,7 +126,7 @@ const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
         </div>
         <ImagePicker
           entryType="character"
-          prevImageUrl={prevData.image}
+          prevImageUrl={prevData ? unescapeText(prevData.image) : ""}
           setImageUrl={handleUrlChange}
         />
         <div className="flex flex-col mb-10 w-full gap-3">

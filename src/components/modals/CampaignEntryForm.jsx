@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import ImagePicker from "../basic-ui/ImagePicker";
 import deleteImageByUrl from "../../utilityFunctions/deleteImageByUrl";
 import PropTypes from "prop-types";
+import { unescape } from "html-escaper";
 
 /** Entry Form for campaigns.
  * @param {string} mode - "create" or "update" -> update shows previous Data as default values.
@@ -93,7 +94,7 @@ const CampaignEntryForm = ({ mode, onClose, prevData, updateParent }) => {
             type="text"
             id="name"
             name="name"
-            defaultValue={prevData ? prevData.name : ""}
+            defaultValue={prevData ? unescape(prevData.name) : ""}
             required
           />
         </div>
@@ -111,7 +112,7 @@ const CampaignEntryForm = ({ mode, onClose, prevData, updateParent }) => {
           cols="100"
           id="description"
           name="description"
-          defaultValue={prevData ? prevData.description : ""}
+          defaultValue={prevData ? unescape(prevData.description) : ""}
         />
         <button
           className="absolute right-2 bottom-2 rounded bg-wgray-500 w-20 h-8 shadow-md"

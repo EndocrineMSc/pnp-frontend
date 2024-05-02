@@ -32,14 +32,12 @@ const Navbar = () => {
 
   useEffect(() => {
     const shortCampaignName = (name) => {
-      console.log(name);
       const nameArr = name.split("");
       let modName = name;
 
       if (nameArr.length >= 20) {
         const truncArr = nameArr.slice(0, 17);
         truncArr.push("...");
-        console.log(truncArr);
         modName = truncArr.join("");
       }
 
@@ -56,15 +54,12 @@ const Navbar = () => {
         const path = campaign.image;
         const name = campaign.name;
 
-        console.log(`${path} and ${name}`);
-
         shortCampaignName(name);
         if (path) {
           setImagePath(path);
         }
       }
     };
-    console.log("I triggered!");
     getImage();
   }, [campaignId]);
 

@@ -4,6 +4,7 @@ import { apiRequest } from "../apiRequests/apiRequest";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useState } from "react";
+import unescapeText from "../utilityFunctions/unescapeText";
 
 /**Detail view component for Items and Locations, Campaigns and Characters are separate
  * @param {object} viewData - Entry data to display.
@@ -39,7 +40,7 @@ const DetailView = ({ viewData, type }) => {
           />
         </div>
         <div className="flex justify-between">
-          <h2 className="text-3xl font-bold">{data.name}</h2>
+          <h2 className="text-3xl font-bold">{unescapeText(data.name)}</h2>
           <div className="flex gap-2">
             <EditButton type={type} data={data} updateParent={updateView} />
             <DeleteButton text={`Delete ${type}?`} deleteEntry={deleteEntry} />
@@ -48,11 +49,11 @@ const DetailView = ({ viewData, type }) => {
         <div className="flex flex-col w-full gap-2">
           <h3 className="font-semibold">Short Description</h3>
           <div className="bg-wgray-200 p-2 rounded">
-            {data.short_description}
+            {unescapeText(data.short_description)}
           </div>
           <h3 className="font-semibold">Long Description</h3>
           <div className="bg-wgray-200 p-2 rounded">
-            {data.long_description}
+            {unescapeText(data.long_description)}
           </div>
         </div>
       </div>

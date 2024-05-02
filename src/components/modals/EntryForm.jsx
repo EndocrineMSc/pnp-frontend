@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import useCampaignId from "../../hooks/useCampaignId";
 import ImagePicker from "../basic-ui/ImagePicker";
 import deleteImageByUrl from "../../utilityFunctions/deleteImageByUrl";
+import unescapeText from "../../utilityFunctions/unescapeText";
 
 /** Update Form for Locations and Items. Characters and Campaigns are separate.
  * @param {string} type - "location"/"object" type of database entry that should be created/updated.
@@ -94,7 +95,7 @@ const EntryForm = ({ type, mode, onClose, updateParent, prevData }) => {
             type="text"
             id="name"
             name="name"
-            defaultValue={prevData ? prevData.name : ""}
+            defaultValue={prevData ? unescapeText(prevData.name) : ""}
             required
           />
         </div>
@@ -114,7 +115,9 @@ const EntryForm = ({ type, mode, onClose, updateParent, prevData }) => {
               cols="100"
               id="short_description"
               name="short_description"
-              defaultValue={prevData ? prevData.short_description : ""}
+              defaultValue={
+                prevData ? unescapeText(prevData.short_description) : ""
+              }
             />
           </div>
           <div className="flex flex-col justify-start gap-1">
@@ -127,7 +130,9 @@ const EntryForm = ({ type, mode, onClose, updateParent, prevData }) => {
               cols="100"
               id="long_description"
               name="long_description"
-              defaultValue={prevData ? prevData.long_description : ""}
+              defaultValue={
+                prevData ? unescapeText(prevData.long_description) : ""
+              }
             />
           </div>
         </div>

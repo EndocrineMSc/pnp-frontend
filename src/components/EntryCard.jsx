@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import unescapeText from "../utilityFunctions/unescapeText";
 
 /**Card for top-level display of entries
  * @param {string} name
@@ -15,10 +16,11 @@ const EntryCard = ({ name, cardId, image, type }) => {
     return nameArr.length > 20 ? "justify-start" : "justify-center";
   };
 
-  const shortName = () => {
-    const nameArr = name.split("");
+  const modifiedName = () => {
+    const unescapedName = unescapeText(name);
+    const nameArr = unescapedName.split("");
 
-    if (nameArr.length <= 20) return name;
+    if (nameArr.length <= 20) return unescapedName;
 
     const truncArr = nameArr.slice(0, 17);
     truncArr.push("...");
@@ -34,7 +36,7 @@ const EntryCard = ({ name, cardId, image, type }) => {
       <h3
         className={`flex ${headerJustify()} w-full h-10 text-xl leading-relaxed text-center truncate bg-wgray-200/80 pt-1 px-2`}
       >
-        {shortName()}
+        {modifiedName()}
       </h3>
       <img
         src={imagePath}

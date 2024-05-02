@@ -3,6 +3,7 @@ import EditButton from "../components/basic-ui/EditButton";
 import DeleteButton from "../components/basic-ui/DeleteButton";
 import { useParams, useNavigate } from "react-router-dom";
 import { apiRequest } from "../apiRequests/apiRequest";
+import unescapeText from "../utilityFunctions/unescapeText";
 
 /**Displays detail data of a single character to the user- Allows for editing or deleting the entry. */
 const CharacterDetailView = () => {
@@ -64,9 +65,15 @@ const CharacterDetailView = () => {
             </div>
           </div>
           <div className="flex justify-between">
-            <h2 className="text-3xl font-bold">{characterData.name}</h2>
+            <h2 className="text-3xl font-bold">
+              {unescapeText(characterData.name)}
+            </h2>
             <div className="flex gap-2">
-              <EditButton type="character" data={characterData} />
+              <EditButton
+                type="character"
+                data={characterData}
+                updateParent={setCharacterData}
+              />
               <DeleteButton
                 text="Delete Character?"
                 deleteEntry={deleteCharacter}
@@ -76,11 +83,11 @@ const CharacterDetailView = () => {
           <div className="flex flex-col w-full gap-2">
             <h3 className="font-semibold">Short Description</h3>
             <div className="bg-wgray-200 p-2 rounded">
-              {characterData.short_description}
+              {unescapeText(characterData.short_description)}
             </div>
             <h3 className="font-semibold">Long Description</h3>
             <div className="bg-wgray-200 p-2 rounded">
-              {characterData.long_description}
+              {unescapeText(characterData.long_description)}
             </div>
           </div>
         </div>

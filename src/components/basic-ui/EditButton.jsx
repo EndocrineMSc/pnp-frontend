@@ -20,9 +20,7 @@ const EditButton = ({ type, data, updateParent }) => {
   };
 
   const closeModal = (imageUrl) => {
-    console.log(imageUrl);
     if (imageUrl) {
-      console.log("Trying to delete image");
       deleteImageByUrl(imageUrl);
     }
     setIsEditOpen(false);
