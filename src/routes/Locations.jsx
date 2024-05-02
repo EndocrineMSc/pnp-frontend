@@ -8,7 +8,7 @@ import useCampaignId from "../hooks/useCampaignId";
 const Locations = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [locations, setLocations] = useState(null);
-  const campaignId = useCampaignId();
+  const campaignId = useCampaignId()[0];
 
   useEffect(() => {
     const fetchLocations = async () => {

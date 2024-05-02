@@ -5,9 +5,12 @@ export default function useCampaignId() {
 
   const getId = () => {
     const id = localStorage.getItem("campaignId");
-    if (id !== "") {
-      setCampaignId(id);
-    }
+    if (id) setCampaignId(id);
+  };
+
+  const saveCampaignId = (id) => {
+    localStorage.setItem("campaignId", id);
+    dispatchEvent(new Event("onCampaignIdSet"));
   };
 
   window.addEventListener("onCampaignIdSet", getId);
@@ -20,5 +23,5 @@ export default function useCampaignId() {
     };
   }, []);
 
-  return campaignId;
+  return [campaignId, saveCampaignId];
 }

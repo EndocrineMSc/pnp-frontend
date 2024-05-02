@@ -12,7 +12,7 @@ const Notes = () => {
   const [detailNoteIds, setDetailNoteIds] = useState([]);
   const [shortNotes, setShortNotes] = useState(null);
   const [fullNotes, setFullNotes] = useState(null);
-  const campaignId = useCampaignId();
+  const campaignId = useCampaignId()[0];
 
   const toggleScrollbar = () => {
     setShowNavBar((prev) => !prev);

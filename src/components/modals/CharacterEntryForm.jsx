@@ -13,7 +13,7 @@ import ImagePicker from "../basic-ui/ImagePicker";
  * @param {function} updateParent - function to trigger rerender of parent with new entry.
  */
 const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
-  const campaignId = useCampaignId();
+  const campaignId = useCampaignId()[0];
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState("");
   const [prevRenderUrl, setPrevRenderUrl] = useState("");

@@ -16,7 +16,7 @@ import useCampaignId from "../../hooks/useCampaignId";
 const AddButton = ({ type, updateParent }) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const notesContext = useContext(NotesContext);
-  const campaignId = useCampaignId();
+  const campaignId = useCampaignId()[0];
 
   const toggleEdit = () => {
     setIsEditOpen((prev) => !prev);

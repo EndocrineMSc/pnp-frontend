@@ -14,7 +14,7 @@ import deleteImageByUrl from "../../utilityFunctions/deleteImageByUrl";
  * @param {object} [prevData] - previously displayed entry data only needed in update action.
  */
 const EntryForm = ({ type, mode, onClose, updateParent, prevData }) => {
-  const campaignId = useCampaignId();
+  const campaignId = useCampaignId()[0];
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState("");
   const [prevRenderUrl, setPrevRenderUrl] = useState("");

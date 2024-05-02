@@ -5,14 +5,23 @@ import { useParams } from "react-router-dom";
 import { apiRequest } from "../apiRequests/apiRequest";
 import { useNavigate } from "react-router-dom";
 import storeCampaignId from "../utilityFunctions/storeCampaignId";
+import useCampaignId from "../hooks/useCampaignId";
 
 /**Displays detail data of a single campaign to the user- Allows for editing or deleting the entry. */
 const CampaignDetailView = () => {
   const [campaignData, setCampaignData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [campaignId, saveCampaignId] = useCampaignId();
   const navigate = useNavigate();
 
   const { id } = useParams();
+
+  useEffect(() => {
+    if (campaignId !== id) {
+      console.log("CampaignId should change now");
+      saveCampaignId(id);
+    }
+  }, [id, saveCampaignId, campaignId]);
 
   useEffect(() => {
     const fetchCampaign = async () => {
@@ -21,12 +30,10 @@ const CampaignDetailView = () => {
         `https://pnp-backend.fly.dev/api/v1/campaign/${id}`,
       );
 
-      if (campaign) {
-        setCampaignData(campaign);
-        setIsLoading(false);
-        storeCampaignId(id);
-      }
+      setCampaignData(campaign);
+      setIsLoading(false);
     };
+
     fetchCampaign();
   }, [id]);
 

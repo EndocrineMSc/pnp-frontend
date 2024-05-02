@@ -18,7 +18,7 @@ const Navbar = () => {
     (prev) => !prev,
     false,
   );
-  const campaignId = useCampaignId();
+  const campaignId = useCampaignId()[0];
   const navigate = useNavigate();
 
   const clickHandler = (event) => {
@@ -31,6 +31,21 @@ const Navbar = () => {
   };
 
   useEffect(() => {
+    const shortCampaignName = (name) => {
+      console.log(name);
+      const nameArr = name.split("");
+      let modName = name;
+
+      if (nameArr.length >= 20) {
+        const truncArr = nameArr.slice(0, 17);
+        truncArr.push("...");
+        console.log(truncArr);
+        modName = truncArr.join("");
+      }
+
+      setCampaignName(modName);
+    };
+
     const getImage = async () => {
       if (campaignId !== "") {
         const campaign = await apiRequest(
@@ -41,24 +56,17 @@ const Navbar = () => {
         const path = campaign.image;
         const name = campaign.name;
 
-        setCampaignName(name);
+        console.log(`${path} and ${name}`);
+
+        shortCampaignName(name);
         if (path) {
           setImagePath(path);
         }
       }
     };
+    console.log("I triggered!");
     getImage();
   }, [campaignId]);
-
-  const shortCampaignName = () => {
-    const nameArr = campaignName.split("");
-
-    if (nameArr.length <= 20) return campaignName;
-
-    const truncArr = nameArr.slice(0, 17);
-    truncArr.push("...");
-    return truncArr.join("");
-  };
 
   const providerValues = useContext(NavbarContext);
 
@@ -81,7 +89,7 @@ const Navbar = () => {
           alt=""
         />
         <div className="absolute text-center text-pretty text-wgray-50 font-bold text-xl mr-2 bottom-1">
-          {shortCampaignName()}
+          {campaignName}
         </div>
       </li>
       <NavLink

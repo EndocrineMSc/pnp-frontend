@@ -8,7 +8,7 @@ import useCampaignId from "../hooks/useCampaignId";
 const Characters = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [characters, setCharacters] = useState(null);
-  const campaignId = useCampaignId();
+  const campaignId = useCampaignId()[0];
 
   useEffect(() => {
     const fetchCharacters = async () => {
