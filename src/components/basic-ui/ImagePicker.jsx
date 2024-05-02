@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
+import Icon from "@mdi/react";
+import useDefaultImage from "../../hooks/useDefaultImage";
 
 /**Allows for uploading and image to cloudinary,
  * hidden input will hold the returned cloudinary url as its value
@@ -8,9 +10,9 @@ import PropTypes from "prop-types";
  * @param {function} setImageUrl - parent state setter for image id
  */
 const ImagePicker = ({ prevImageUrl, entryType, setImageUrl }) => {
-  const [imagePath, setImagePath] = useState(
-    prevImageUrl ? prevImageUrl : `/${entryType}.svg`,
-  );
+  const [imagePath, setImagePath] = useState(prevImageUrl);
+
+  const defaultImage = useDefaultImage(entryType);
 
   const widgetRef = useRef();
   const inputRef = useRef();
@@ -39,14 +41,24 @@ const ImagePicker = ({ prevImageUrl, entryType, setImageUrl }) => {
   return (
     <div className="flex flex-col justify-start gap-1">
       <div className="font-bold">Image (200x200px png/jpeg/gif)</div>
-      <div
-        style={{
-          backgroundImage: `url(${imagePath})`,
-        }}
-        className="w-card-image h-card-image hover:bg-wgray-600 hover:opacity-60 rounded bg-no-repeat bg-center"
-        aria-label={`${entryType} image`}
-        onClick={() => widgetRef.current.open()}
-      />
+      {imagePath ? (
+        <div
+          style={{
+            backgroundImage: `url(${imagePath})`,
+          }}
+          className="w-card-image h-card-image hover:bg-wgray-600 hover:opacity-60 rounded bg-no-repeat bg-center"
+          aria-label={`${entryType} image`}
+          onClick={() => widgetRef.current.open()}
+        />
+      ) : (
+        <Icon
+          className="w-card-image h-card-image hover:bg-wgray-600 hover:opacity-60 rounded bg-no-repeat bg-center"
+          path={defaultImage}
+          aria-label={`${entryType} image`}
+          onClick={() => widgetRef.current.open()}
+        />
+      )}
+
       <input
         type="text"
         id="image"

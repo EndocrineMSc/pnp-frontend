@@ -23,11 +23,6 @@ const EntryCardLayout = ({ title, cards, type }) => {
           );
         })}
       </div>
-      <div className="self-center absolute bottom-0">
-        Default Icons made from{" "}
-        <a href="https://www.onlinewebfonts.com/icon">svg icons</a>is licensed
-        by CC BY 4.0
-      </div>
     </div>
   );
 };

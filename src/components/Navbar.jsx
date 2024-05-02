@@ -8,11 +8,13 @@ import { apiRequest } from "../apiRequests/apiRequest";
 import useCampaignId from "../hooks/useCampaignId";
 import ConfirmationBox from "./modals/ConfirmationBox";
 import logoutUser from "../utilityFunctions/logoutUser";
+import Icon from "@mdi/react";
+import useDefaultImage from "../hooks/useDefaultImage";
 
 /**Navigation component for the different single-page app routes */
 const Navbar = () => {
   const [activePage, setActivePage] = useState("Dashboard");
-  const [imagePath, setImagePath] = useState("../campaign.svg");
+  const [imagePath, setImagePath] = useState(null);
   const [campaignName, setCampaignName] = useState("");
   const [showLogoutModal, toggleLogoutModal] = useReducer(
     (prev) => !prev,
@@ -20,6 +22,7 @@ const Navbar = () => {
   );
   const campaignId = useCampaignId()[0];
   const navigate = useNavigate();
+  const defaultImage = useDefaultImage("campaign");
 
   const clickHandler = (event) => {
     setActivePage(event.target.textContent);
@@ -78,11 +81,19 @@ const Navbar = () => {
         </div>
       </li>
       <li className="relative flex flex-col items-center w-full">
-        <img
-          className="mr-2 bg-wgray-400 rounded-xl w-card-image h-card-image"
-          src={imagePath}
-          alt=""
-        />
+        {imagePath ? (
+          <img
+            className="mr-2 bg-wgray-400 rounded-xl w-card-image h-card-image"
+            src={imagePath}
+            alt="campaign"
+          />
+        ) : (
+          <Icon
+            className="mr-2 bg-wgray-400 rounded-xl w-card-image h-card-image"
+            path={defaultImage}
+            alt="campaign"
+          />
+        )}
         <div className="absolute text-center text-pretty text-wgray-50 font-bold text-xl mr-2 bottom-1">
           {campaignName}
         </div>

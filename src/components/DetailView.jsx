@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import unescapeText from "../utilityFunctions/unescapeText";
+import Icon from "@mdi/react";
+import useDefaultImage from "../hooks/useDefaultImage";
 
 /**Detail view component for Items and Locations, Campaigns and Characters are separate
  * @param {object} viewData - Entry data to display.
@@ -12,6 +14,7 @@ import unescapeText from "../utilityFunctions/unescapeText";
  */
 const DetailView = ({ viewData, type }) => {
   const [data, setData] = useState(viewData);
+  const defaultImage = useDefaultImage(type);
   const navigate = useNavigate();
 
   const deleteEntry = async () => {
@@ -33,11 +36,18 @@ const DetailView = ({ viewData, type }) => {
     <div className="flex justify-center items-start w-full h-screen p-2">
       <div className="flex flex-col gap-3 p-4 bg-wgray-300 rounded-xl max-w-screen-sm">
         <div className="flex justify-center items-start gap-10">
-          <img
-            className="w-card-image aspect-square bg-wgray-400 rounded-xl"
-            src={data.image ? data.image : `/${type}.svg`}
-            alt="location"
-          />
+          {data.image ? (
+            <img
+              className="w-card-image aspect-square bg-wgray-400 rounded-xl"
+              src={data.image ? data.image : defaultImage}
+              alt="location"
+            />
+          ) : (
+            <Icon
+              className="w-card-image aspect-square bg-wgray-400 rounded-xl"
+              path={defaultImage()}
+            />
+          )}
         </div>
         <div className="flex justify-between">
           <h2 className="text-3xl font-bold">{unescapeText(data.name)}</h2>

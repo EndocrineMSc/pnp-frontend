@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import storeCampaignId from "../utilityFunctions/storeCampaignId";
 import useCampaignId from "../hooks/useCampaignId";
 import unescapeText from "../utilityFunctions/unescapeText";
+import Icon from "@mdi/react";
+import useDefaultImage from "../hooks/useDefaultImage";
 
 /**Displays detail data of a single campaign to the user- Allows for editing or deleting the entry. */
 const CampaignDetailView = () => {
@@ -14,6 +16,7 @@ const CampaignDetailView = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [campaignId, saveCampaignId] = useCampaignId();
   const navigate = useNavigate();
+  const defaultImage = useDefaultImage("campaign");
 
   const { id } = useParams();
 
@@ -56,11 +59,19 @@ const CampaignDetailView = () => {
       <div className="flex justify-center items-start w-full h-screen p-2">
         <div className="flex flex-col gap-3 p-4 bg-wgray-300 rounded-xl max-w-screen-sm">
           <div className="flex justify-center align-center w-full">
-            <img
-              className="w-card-image aspect-square bg-wgray-400 rounded-xl"
-              src={campaignData.image ? campaignData.image : "/campaign.svg"}
-              alt="campaign"
-            />
+            {campaignData.image ? (
+              <img
+                className="w-card-image aspect-square bg-wgray-400 rounded-xl"
+                src={campaignData.image}
+                alt="campaign"
+              />
+            ) : (
+              <Icon
+                className="w-card-image aspect-square bg-wgray-400 rounded-xl"
+                path={defaultImage}
+                alt="campaign"
+              />
+            )}
           </div>
           <div className="flex gap-3 justify-between">
             <h2 className="text-3xl font-bold">

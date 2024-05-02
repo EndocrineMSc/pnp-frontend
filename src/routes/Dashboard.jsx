@@ -25,8 +25,6 @@ const Dashboard = () => {
       navigate("/welcome");
     } else if (userId && campaignId && currentPath === "/") {
       navigate("/notes");
-    } else {
-      //Todo: Loading spinner
     }
   }, [userId, currentPath, navigate, campaignId]);
 

@@ -4,6 +4,8 @@ import DeleteButton from "../components/basic-ui/DeleteButton";
 import { useParams, useNavigate } from "react-router-dom";
 import { apiRequest } from "../apiRequests/apiRequest";
 import unescapeText from "../utilityFunctions/unescapeText";
+import Icon from "@mdi/react";
+import useDefaultImage from "../hooks/useDefaultImage";
 
 /**Displays detail data of a single character to the user- Allows for editing or deleting the entry. */
 const CharacterDetailView = () => {
@@ -12,6 +14,7 @@ const CharacterDetailView = () => {
 
   const { id } = useParams();
   const navigate = useNavigate();
+  const defaultImage = useDefaultImage("character");
 
   useEffect(() => {
     const fetchCharacter = async () => {
@@ -46,11 +49,20 @@ const CharacterDetailView = () => {
       <div className="flex justify-center items-start w-full h-screen p-2">
         <div className="flex flex-col gap-3 p-4 bg-wgray-300 rounded-xl max-w-screen-sm">
           <div className="flex justify-start items-start gap-10">
-            <img
-              className="w-card-image aspect-square bg-wgray-400 rounded-xl"
-              src={characterData.image ? characterData.image : "/character.svg"}
-              alt="character"
-            />
+            {characterData.image ? (
+              <img
+                className="w-card-image aspect-square bg-wgray-400 rounded-xl"
+                src={characterData.image}
+                alt="character"
+              />
+            ) : (
+              <Icon
+                className="w-card-image aspect-square bg-wgray-400 rounded-xl"
+                path={defaultImage}
+                alt="character"
+              />
+            )}
+
             <div className="flex gap-5 text-xl">
               <div className="flex flex-col gap-7">
                 <h3 className="font-semibold">Location: </h3>

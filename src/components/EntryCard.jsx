@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import unescapeText from "../utilityFunctions/unescapeText";
+import Icon from "@mdi/react";
+import useDefaultImage from "../hooks/useDefaultImage";
 
 /**Card for top-level display of entries
  * @param {string} name
@@ -9,7 +11,7 @@ import unescapeText from "../utilityFunctions/unescapeText";
  * @param {string} type - "object","location","campaign" - Type of entry to display.
  */
 const EntryCard = ({ name, cardId, image, type }) => {
-  const imagePath = image ? image : `/${type}.svg`;
+  const defaultImage = useDefaultImage(type);
 
   const headerJustify = () => {
     const nameArr = name.split("");
@@ -38,11 +40,18 @@ const EntryCard = ({ name, cardId, image, type }) => {
       >
         {modifiedName()}
       </h3>
-      <img
-        src={imagePath}
-        alt={type + " image"}
-        className="w-card-image h-card-image bg-gradient-to-t from-wgray-400 to-wgray-500"
-      />
+      {image ? (
+        <img
+          src={image}
+          alt={type + " image"}
+          className="w-card-image h-card-image"
+        />
+      ) : (
+        <Icon
+          className="w-card-image h-card-image bg-gradient-to-t from-wgray-400 to-wgray-500"
+          path={defaultImage}
+        />
+      )}
     </Link>
   );
 };
