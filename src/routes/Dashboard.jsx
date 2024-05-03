@@ -23,8 +23,10 @@ const Dashboard = () => {
   useEffect(() => {
     if (currentPath === "/" && userId === "") {
       navigate("/welcome");
-    } else if (userId && campaignId && currentPath === "/") {
+    } else if (userId && campaignId !== "" && currentPath === "/") {
       navigate("/notes");
+    } else if (userId && currentPath === "/") {
+      navigate("/campaigns");
     }
   }, [userId, currentPath, navigate, campaignId]);
 
