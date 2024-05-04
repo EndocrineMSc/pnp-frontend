@@ -67,7 +67,6 @@ const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
       console.error(result[0].msg);
     } else {
       updateParent(result);
-      console.log(result);
       handleSubmissionClose();
       mode === "create"
         ? navigate(`/characters`)

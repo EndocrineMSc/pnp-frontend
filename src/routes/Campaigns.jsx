@@ -20,7 +20,6 @@ const Campaigns = () => {
         `https://pnp-backend.fly.dev/api/v1/${userId}/campaigns`,
       );
       const elapsedTime = Date.now() - startTime;
-      console.log(result);
 
       if (!result.message) {
         setCampaigns(result);

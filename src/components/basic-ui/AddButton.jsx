@@ -17,7 +17,6 @@ const AddButton = ({ type, updateParent }) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const notesContext = useContext(NotesContext);
   const campaignId = useCampaignId()[0];
-  console.log(campaignId.toString());
 
   const toggleEdit = () => {
     setIsEditOpen((prev) => !prev);

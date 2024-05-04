@@ -30,7 +30,7 @@ const CampaignEntryForm = ({ mode, onClose, prevData, updateParent }) => {
   };
 
   const handleSubmissionClose = () => {
-    if (prevData.image && prevData.image !== imageUrl) {
+    if (prevData && prevData.image && prevData.image !== imageUrl) {
       onClose(prevData.image);
     } else {
       onClose();
@@ -100,7 +100,7 @@ const CampaignEntryForm = ({ mode, onClose, prevData, updateParent }) => {
         </div>
         <ImagePicker
           entryType="campaign"
-          prevImageUrl={prevData.image}
+          prevImageUrl={prevData && prevData.image ? prevData.image : ""}
           setImageUrl={handleUrlChange}
         />
         <label className="font-bold" htmlFor="description">

@@ -32,7 +32,7 @@ const EntryForm = ({ type, mode, onClose, updateParent, prevData }) => {
   };
 
   const handleSubmissionClose = () => {
-    if (prevData.image && prevData.image !== imageUrl) {
+    if (prevData && prevData.image && prevData.image !== imageUrl) {
       onClose(prevData.image);
     } else {
       onClose();
@@ -101,7 +101,7 @@ const EntryForm = ({ type, mode, onClose, updateParent, prevData }) => {
         </div>
         <ImagePicker
           entryType={type}
-          prevImageUrl={prevData.image}
+          prevImageUrl={prevData && prevData.image ? prevData.image : ""}
           setImageUrl={handleUrlChange}
         />
         <div className="flex flex-col mb-10 w-full gap-3">
