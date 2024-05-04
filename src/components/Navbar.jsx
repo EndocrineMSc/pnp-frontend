@@ -13,7 +13,6 @@ import useDefaultImage from "../hooks/useDefaultImage";
 
 /**Navigation component for the different single-page app routes */
 const Navbar = () => {
-  const [activePage, setActivePage] = useState("Dashboard");
   const [imagePath, setImagePath] = useState(null);
   const [campaignName, setCampaignName] = useState("");
   const [showLogoutModal, toggleLogoutModal] = useReducer(
@@ -23,10 +22,6 @@ const Navbar = () => {
   const campaignId = useCampaignId()[0];
   const navigate = useNavigate();
   const defaultImage = useDefaultImage("campaign");
-
-  const clickHandler = (event) => {
-    setActivePage(event.target.textContent);
-  };
 
   const handleLogout = () => {
     logoutUser();
@@ -98,36 +93,11 @@ const Navbar = () => {
           {campaignName}
         </div>
       </li>
-      <NavLink
-        path="/notes"
-        text="Dashboard"
-        onClick={clickHandler}
-        className={activePage === "Dashboard" ? "bg-wgray-400" : ""}
-      />
-      <NavLink
-        path="/campaigns"
-        text="Campaigns"
-        onClick={clickHandler}
-        className={activePage === "Campaigns" ? "bg-wgray-400" : ""}
-      />
-      <NavLink
-        path="/characters"
-        text="Characters"
-        onClick={clickHandler}
-        className={activePage === "Characters" ? "bg-wgray-400" : ""}
-      />
-      <NavLink
-        path="/locations"
-        text="Locations"
-        onClick={clickHandler}
-        className={activePage === "Locations" ? "bg-wgray-400" : ""}
-      />
-      <NavLink
-        path="/objects"
-        text="Objects"
-        onClick={clickHandler}
-        className={activePage === "Objects" ? "bg-wgray-400" : ""}
-      />
+      <NavLink path="/notes" text="Dashboard" />
+      <NavLink path="/campaigns" text="Campaigns" />
+      <NavLink path="/characters" text="Characters" />
+      <NavLink path="/locations" text="Locations" />
+      <NavLink path="/objects" text="Objects" />
       <button
         className="w-full h-16 flex items-center pl-4 rounded-l-xl text-2xl leading-loose hover:bg-wgray-400 active:bg-wgray-400"
         onClick={toggleLogoutModal}
