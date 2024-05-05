@@ -10,5 +10,4 @@ export default function useLogout() {
   localStorage.setItem("accessToken", "");
   localStorage.setItem("refreshToken", "");
   localStorage.setItem("campaignId", "");
-  localStorage.setItem("userId", "");
 }

@@ -3,10 +3,12 @@ import { formPostRequest } from "../apiRequests/formPostRequest";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import formErrorMessages from "../globalConstants/formErrorMessages";
+import useUserId from "../hooks/useUserId";
 
 /**Login Form. Saves Access Token, Refresh Token and User Id into localStorage on successful login */
 const LoginForm = () => {
   const navigate = useNavigate();
+  const saveUserId = useUserId()[1];
   const [nameLength, setNameLength] = useState(0);
   const [passwordLength, setPasswordLength] = useState(0);
   const [nameError, setNameError] = useState("");
@@ -21,7 +23,7 @@ const LoginForm = () => {
     if (result.success) {
       localStorage.setItem("accessToken", "Bearer " + result.data.accessToken);
       localStorage.setItem("refreshToken", result.data.refreshToken);
-      localStorage.setItem("userId", result.data.user);
+      saveUserId(result.data.user);
       navigate("/notes");
     }
   };

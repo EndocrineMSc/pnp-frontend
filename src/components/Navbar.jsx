@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { NavbarContext } from "../Contexts";
 import { apiRequest } from "../apiRequests/apiRequest";
 import useCampaignId from "../hooks/useCampaignId";
+import useUserId from "../hooks/useUserId";
 import ConfirmationBox from "./modals/ConfirmationBox";
 import logoutUser from "../utilityFunctions/logoutUser";
 import Icon from "@mdi/react";
@@ -22,9 +23,11 @@ const Navbar = () => {
   const campaignId = useCampaignId()[0];
   const navigate = useNavigate();
   const defaultImage = useDefaultImage("campaign");
+  const saveUserId = useUserId()[1];
 
   const handleLogout = () => {
     logoutUser();
+    saveUserId("");
     navigate("/welcome");
   };
 

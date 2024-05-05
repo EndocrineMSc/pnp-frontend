@@ -1,11 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { formPostRequest } from "../apiRequests/formPostRequest";
+import useUserId from "../hooks/useUserId";
 import formErrorMessages from "../globalConstants/formErrorMessages";
 
 /**Form to register new user, will also login new user immediatly, saving Access Token, Refresh Token and user id to localStorage */
 const RegisterForm = () => {
   const navigate = useNavigate();
+  const saveUserId = useUserId()[1];
   const [nameLength, setNameLength] = useState(0);
   const [nameError, setNameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -22,10 +24,10 @@ const RegisterForm = () => {
     if (!result.success) {
       setNameError(result.data.message);
     } else {
-      localStorage.setItem("accessToken", "Bearer " + result.accessToken);
-      localStorage.setItem("refreshToken", result.refreshToken);
-      localStorage.setItem("userId", result.user);
-      navigate("/login");
+      localStorage.setItem("accessToken", "Bearer " + result.data.accessToken);
+      localStorage.setItem("refreshToken", result.data.refreshToken);
+      saveUserId(result.data.user);
+      navigate("/notes");
     }
   };
 

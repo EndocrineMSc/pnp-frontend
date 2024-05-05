@@ -7,6 +7,7 @@ import deleteImageByUrl from "../../utilityFunctions/deleteImageByUrl";
 import CampaignEntryForm from "./CampaignEntryForm";
 import CharacterEntryForm from "./CharacterEntryForm";
 import EntryForm from "./EntryForm";
+import useUserId from "../../hooks/useUserId";
 
 /** Wrapper for form handling
  * @param {string} type - "location"/"object" type of database entry that should be created/updated.
@@ -17,7 +18,7 @@ import EntryForm from "./EntryForm";
  */
 const FormWrapper = ({ type, mode, onClose, updateParent, prevData }) => {
   const campaignId = useCampaignId()[0];
-  const userId = localStorage.getItem("userId");
+  const userId = useUserId()[0];
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState("");
   const [prevRenderUrl, setPrevRenderUrl] = useState("");

@@ -3,12 +3,13 @@ import { apiRequest } from "../apiRequests/apiRequest";
 import { useState, useEffect } from "react";
 import AddButton from "../components/basic-ui/AddButton";
 import GridSpinner from "../components/basic-ui/GridSpinner";
+import useUserId from "../hooks/useUserId";
 
 /**Overview page for campaigns. */
 const Campaigns = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [campaigns, setCampaigns] = useState([]);
-  const userId = localStorage.getItem("userId");
+  const userId = useUserId()[0];
   const minSpinnerTimeMS = 500;
 
   useEffect(() => {

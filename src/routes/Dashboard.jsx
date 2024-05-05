@@ -6,11 +6,12 @@ import { NavbarContext } from "../Contexts";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import useCampaignId from "../hooks/useCampaignId";
+import useUserId from "../hooks/useUserId";
 
 /**Main page of the webapp, displays a navbar and the currently selected page view (Outlet) */
 const Dashboard = () => {
   const [showNavbar, setShowNavbar] = useState(true);
-  const userId = localStorage.getItem("userId");
+  const userId = useUserId()[0];
   const campaignId = useCampaignId()[0];
   const navigate = useNavigate();
   const currentPath = window.location.pathname;

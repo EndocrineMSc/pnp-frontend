@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import useUserId from "../hooks/useUserId";
 
 /**Link component that links to a specific route
  * @param {string} path - Single page app route destination
@@ -8,6 +9,8 @@ import PropTypes from "prop-types";
  */
 const NavLink = ({ path, text, onClick }) => {
   const [isInFocus, setInFocus] = useState(false);
+  const disabledCSS = "pointer-events-none";
+  const userId = useUserId()[0];
 
   useEffect(() => {
     const location = window.location.href;
@@ -17,7 +20,7 @@ const NavLink = ({ path, text, onClick }) => {
   return (
     <Link
       to={path}
-      className={`w-full h-16 flex items-center pl-4 rounded-l-xl text-2xl leading-loose hover:bg-wgray-400 active:bg-wgray-400 ${isInFocus ? "bg-wgray-400" : ""}`}
+      className={`w-full h-16 flex items-center pl-4 rounded-l-xl text-2xl leading-loose hover:bg-wgray-400 active:bg-wgray-400 ${isInFocus ? "bg-wgray-400" : ""} ${!userId ? disabledCSS : ""}`}
       onClick={onClick}
     >
       {text}
