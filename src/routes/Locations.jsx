@@ -23,8 +23,8 @@ const Locations = () => {
         );
         const elapsedTime = Date.now() - startTime;
 
-        if (result) {
-          setLocations(result);
+        if (result.success) {
+          setLocations(result.data);
           setTimeout(() => setIsLoading(false), minSpinnerTimeMS - elapsedTime);
         }
       }

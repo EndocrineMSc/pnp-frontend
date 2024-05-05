@@ -1,13 +1,11 @@
 import Icon from "@mdi/react";
 import { mdiPlusCircle } from "@mdi/js";
 import { useState, useContext } from "react";
-import CharacterEntryForm from "../modals/CharacterEntryForm";
-import CampaignEntryForm from "../modals/CampaignEntryForm";
-import EntryForm from "../modals/EntryForm";
 import { NotesContext } from "../../Contexts";
 import { apiRequest } from "../../apiRequests/apiRequest";
 import PropTypes from "prop-types";
 import useCampaignId from "../../hooks/useCampaignId";
+import FormWrapper from "../modals/EntryFormWrapper";
 
 /** Default Button for adding any type of entry, will position itself bottom right (absolute)
  * @param {string} type - "character", "object", "location", "campaign", "note" - determines the type of entry form connected to the button "note" will add a new empty note directly instead
@@ -22,33 +20,11 @@ const AddButton = ({ type, updateParent }) => {
     setIsEditOpen((prev) => !prev);
   };
 
-  const form = function () {
-    if (type === "character") {
-      return (
-        <CharacterEntryForm
-          mode="create"
-          onClose={toggleEdit}
-          updateParent={updateParent}
-        />
-      );
-    } else if (type === "object" || type === "location") {
-      return (
-        <EntryForm
-          type={type}
-          mode="create"
-          updateParent={updateParent}
-          onClose={toggleEdit}
-        />
-      );
-    } else if (type === "campaign") {
-      return (
-        <CampaignEntryForm
-          mode="create"
-          onClose={toggleEdit}
-          updateParent={updateParent}
-        />
-      );
-    }
+  const formProps = {
+    type,
+    mode: "create",
+    updateParent,
+    onClose: toggleEdit,
   };
 
   const addNote = () => {
@@ -84,7 +60,7 @@ const AddButton = ({ type, updateParent }) => {
       >
         <Icon path={mdiPlusCircle} color="#6a7fc1" />
       </button>
-      {isEditOpen ? form() : <></>}
+      {isEditOpen ? <FormWrapper {...formProps} /> : <></>}
     </>
   );
 };

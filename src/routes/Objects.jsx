@@ -23,8 +23,8 @@ const Objects = () => {
         );
         const elapsedTime = Date.now() - startTime;
 
-        if (result) {
-          setObjects(result);
+        if (result.success) {
+          setObjects(result.data);
           setTimeout(() => setIsLoading(false), minSpinnerTimeMS - elapsedTime);
         }
       }

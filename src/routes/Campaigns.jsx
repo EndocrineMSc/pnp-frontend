@@ -21,8 +21,8 @@ const Campaigns = () => {
       );
       const elapsedTime = Date.now() - startTime;
 
-      if (!result.message) {
-        setCampaigns(result);
+      if (result.success) {
+        setCampaigns(result.data);
         setTimeout(() => setIsLoading(false), minSpinnerTimeMS - elapsedTime);
       }
     };

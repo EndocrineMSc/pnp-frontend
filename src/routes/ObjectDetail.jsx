@@ -12,13 +12,13 @@ const ObjectDetailView = () => {
 
   useEffect(() => {
     const fetchObject = async () => {
-      const object = await apiRequest(
+      const result = await apiRequest(
         "GET",
         `https://pnp-backend.fly.dev/api/v1/object/${id}`,
       );
 
-      if (object) {
-        setObjectData(object);
+      if (result.success) {
+        setObjectData(result.data);
         setIsLoading(false);
       }
     };

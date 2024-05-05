@@ -23,7 +23,7 @@ const DetailView = ({ viewData, type }) => {
       `https://pnp-backend.fly.dev/api/v1/${type}/${viewData._id}/delete`,
     );
 
-    if (result) {
+    if (result.success) {
       navigate(`/${type}s`);
     }
   };
@@ -45,7 +45,7 @@ const DetailView = ({ viewData, type }) => {
           ) : (
             <Icon
               className="w-card-image aspect-square bg-wgray-400 rounded-xl"
-              path={defaultImage()}
+              path={defaultImage}
             />
           )}
         </div>

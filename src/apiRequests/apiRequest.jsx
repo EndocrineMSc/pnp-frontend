@@ -18,11 +18,11 @@ export const apiRequest = async (reqType, url, data) => {
     credentials: "include",
   };
 
-  let response = await fetch(url, opts);
+  const response = await fetch(url, opts);
+  const result = await response.json();
 
-  const result = response.json();
   if (result.accessToken) {
-    localStorage.setItem("accessToken", result.accessToken);
+    localStorage.setItem("accessToken", "Bearer " + result.accessToken);
   }
-  return result;
+  return { success: response.ok, data: result };
 };

@@ -35,7 +35,7 @@ const Notes = () => {
           "GET",
           `https://pnp-backend.fly.dev/api/v1/${campaignId}/notes`,
         );
-        setShortNotes(notes);
+        setShortNotes(notes.data);
 
         if (!detailNoteIds && notes[0]) setDetailNoteIds(notes[0]._id);
         setLoading(false);

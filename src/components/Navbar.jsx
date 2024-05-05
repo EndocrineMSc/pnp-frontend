@@ -49,8 +49,8 @@ const Navbar = () => {
           `https://pnp-backend.fly.dev/api/v1/campaign/${campaignId}`,
         );
 
-        const path = campaign.image;
-        const name = campaign.name;
+        const path = campaign.data.image;
+        const name = campaign.data.name;
 
         shortCampaignName(name);
         if (path) {

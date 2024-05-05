@@ -12,13 +12,13 @@ const LocationDetailView = () => {
 
   useEffect(() => {
     const fetchCampaign = async () => {
-      const location = await apiRequest(
+      const result = await apiRequest(
         "GET",
         `https://pnp-backend.fly.dev/api/v1/location/${id}`,
       );
 
-      if (location) {
-        setLocationData(location);
+      if (result.success) {
+        setLocationData(result.data);
         setIsLoading(false);
       }
     };

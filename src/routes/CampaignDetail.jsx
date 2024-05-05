@@ -33,7 +33,7 @@ const CampaignDetailView = () => {
         `https://pnp-backend.fly.dev/api/v1/campaign/${id}`,
       );
 
-      setCampaignData(campaign);
+      setCampaignData(campaign.data);
       setIsLoading(false);
     };
 
@@ -89,6 +89,7 @@ const CampaignDetailView = () => {
               />
             </div>
           </div>
+          <h3 className="font-semibold">Description</h3>
           <div className="bg-wgray-200 p-2 rounded">
             {unescapeText(campaignData.description)}
           </div>

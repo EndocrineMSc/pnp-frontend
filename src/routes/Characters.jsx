@@ -23,8 +23,8 @@ const Characters = () => {
         );
         const elapsedTime = Date.now() - startTime;
 
-        if (result) {
-          setCharacters(result);
+        if (result.success) {
+          setCharacters(result.data);
           setTimeout(() => setIsLoading(false), minSpinnerTimeMS - elapsedTime);
         }
       }

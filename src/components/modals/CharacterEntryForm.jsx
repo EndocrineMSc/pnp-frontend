@@ -1,77 +1,48 @@
-import { useEffect, useState } from "react";
-import { formPostRequest } from "../../apiRequests/formPostRequest";
-import { useNavigate } from "react-router-dom";
-import deleteImageByUrl from "../../utilityFunctions/deleteImageByUrl";
 import PropTypes from "prop-types";
-import useCampaignId from "../../hooks/useCampaignId";
 import ImagePicker from "../basic-ui/ImagePicker";
 import unescapeText from "../../utilityFunctions/unescapeText";
+import { useState, useEffect } from "react";
+import formErrorMessages from "../../globalConstants/formErrorMessages";
 
 /** Entry Form for characters.
- * @param {string} mode - "create" or "update" -> update shows previous Data as default values.
- * @param {function} onClose - toggle function for showing the form in the parent.
- * @param {object} [prevData] - previous character data, only needed in update mode.
- * @param {function} updateParent - function to trigger rerender of parent with new entry.
+ * @param {function} handleAbortClose
+ * @param {function} handleFormSubmission
+ * @param {function} handleUrlChange
+ * @param {object} [prevData] - previously displayed entry data only needed in update action.
  */
-const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
-  const campaignId = useCampaignId()[0];
-  const navigate = useNavigate();
-  const [imageUrl, setImageUrl] = useState("");
-  const [prevRenderUrl, setPrevRenderUrl] = useState("");
-
-  const handleUrlChange = (url) => {
-    if (!prevRenderUrl) {
-      setPrevRenderUrl(url);
-    } else if (url !== prevRenderUrl) {
-      deleteImageByUrl(prevRenderUrl);
-      setPrevRenderUrl(url);
-    }
-
-    setImageUrl(url);
-  };
-
-  const handleSubmissionClose = () => {
-    if (prevData && prevData.image && prevData.image !== imageUrl) {
-      onClose(prevData.image);
-    } else {
-      onClose();
-    }
-  };
-
-  const handleAbortClose = () => {
-    imageUrl ? onClose(imageUrl) : onClose();
-  };
-
-  const uri =
-    mode === "create"
-      ? `https://pnp-backend.fly.dev/api/v1/${campaignId}/character/create`
-      : `https://pnp-backend.fly.dev/api/v1/character/${prevData._id}/update`;
+const CharacterEntryForm = ({
+  handleAbortClose,
+  handleFormSubmission,
+  handleUrlChange,
+  prevData,
+}) => {
+  const [name, setName] = useState(prevData ? unescapeText(prevData.name) : "");
+  const [nameError, setNameError] = useState("");
+  const [shortDescription, setShortDescription] = useState(
+    prevData ? unescapeText(prevData.shortDescription) : "",
+  );
+  const [descriptionError, setDescriptionError] = useState("");
 
   useEffect(() => {
-    const closeForm = (event) => {
-      if (event.key === "Escape") {
-        imageUrl ? onClose(imageUrl) : onClose();
-      }
-    };
-    window.addEventListener("keydown", closeForm);
-
-    return () => {
-      window.removeEventListener("keydown", closeForm);
-    };
-  }, [imageUrl, onClose]);
-
-  const handleFormSubmission = async (event) => {
-    const result = await formPostRequest(event, uri);
-
-    if (result[0]) {
-      console.error(result[0].msg);
-    } else {
-      updateParent(result);
-      handleSubmissionClose();
-      mode === "create"
-        ? navigate(`/characters`)
-        : navigate(`/character/${prevData._id}`);
+    let nError = "";
+    if (name === "") {
+      nError = formErrorMessages.requiredField;
+    } else if (name.length === 50) {
+      nError = formErrorMessages.maxLengthReached;
     }
+    setNameError(nError);
+
+    setDescriptionError(
+      shortDescription.length === 500 ? formErrorMessages.maxLengthReached : "",
+    );
+  }, [name, shortDescription.length]);
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleShortDescriptionChange = (e) => {
+    setShortDescription(e.target.value);
   };
 
   return (
@@ -90,21 +61,25 @@ const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
           <label className="font-bold" htmlFor="name">
             Name&#42;
           </label>
-          <input
-            className="rounded bg-wgray-50 h-8"
-            type="text"
-            id="name"
-            name="name"
-            defaultValue={prevData ? unescapeText(prevData.name) : ""}
-            required
-          />
+          <div className="relative">
+            <input
+              className={`input-base h-8 ${nameError !== "" ? "input-error" : ""}`}
+              type="text"
+              id="name"
+              name="name"
+              onChange={handleNameChange}
+              defaultValue={prevData ? unescapeText(prevData.name) : ""}
+              required
+            />
+            <div className="error-message">{nameError ? nameError : ""}</div>
+          </div>
         </div>
         <div className="flex flex-col justify-start gap-1">
           <label className="font-bold" htmlFor="occupation">
             Occupation
           </label>
           <input
-            className="rounded bg-wgray-50 h-8"
+            className="input-base h-8"
             type="text"
             id="occupation"
             name="occupation"
@@ -116,7 +91,7 @@ const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
             Location
           </label>
           <input
-            className="rounded bg-wgray-50 h-8"
+            className="input-base h-8"
             type="text"
             id="location"
             name="location"
@@ -133,21 +108,28 @@ const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
             <label className="font-bold" htmlFor="short_description">
               Short Description (max. 500 characters)
             </label>
-            <textarea
-              className="rounded bg-wgray-50"
-              rows="5"
-              cols="100"
-              id="short_description"
-              name="short_description"
-              defaultValue={prevData ? prevData.short_description : ""}
-            />
+            <div className="relative">
+              <textarea
+                className={`input-base w-full ${descriptionError !== "" ? "input-error" : ""}`}
+                rows="5"
+                cols="100"
+                id="short_description"
+                name="short_description"
+                maxLength={500}
+                onChange={handleShortDescriptionChange}
+                defaultValue={prevData ? prevData.short_description : ""}
+              />
+              <div className="error-message">
+                {descriptionError ? descriptionError : ""}
+              </div>
+            </div>
           </div>
           <div className="flex flex-col justify-start gap-1">
             <label className="font-bold" htmlFor="long_description">
               Long Description
             </label>
             <textarea
-              className="rounded bg-wgray-50"
+              className="input-base"
               rows="10"
               cols="100"
               id="long_description"
@@ -168,10 +150,10 @@ const CharacterEntryForm = ({ mode, onClose, prevData, updateParent }) => {
 };
 
 CharacterEntryForm.propTypes = {
-  mode: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired,
+  handleAbortClose: PropTypes.func.isRequired,
+  handleFormSubmission: PropTypes.func.isRequired,
+  handleUrlChange: PropTypes.func.isRequired,
   prevData: PropTypes.object,
-  updateParent: PropTypes.func.isRequired,
 };
 
 export default CharacterEntryForm;

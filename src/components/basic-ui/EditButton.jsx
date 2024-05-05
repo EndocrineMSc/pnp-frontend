@@ -1,11 +1,9 @@
 import Icon from "@mdi/react";
-import EntryForm from "../modals/EntryForm";
-import CharacterEntryForm from "../modals/CharacterEntryForm";
 import { mdiPencil } from "@mdi/js";
 import { useState } from "react";
-import CampaignEntryForm from "../modals/CampaignEntryForm";
 import PropTypes from "prop-types";
 import deleteImageByUrl from "../../utilityFunctions/deleteImageByUrl";
+import FormWrapper from "../modals/EntryFormWrapper";
 
 /**Button component to edit entries.
  * @param {string} type - "character", "object", "location", "campaign", "note" - Determines the type of entry form connected to the button.
@@ -26,36 +24,12 @@ const EditButton = ({ type, data, updateParent }) => {
     setIsEditOpen(false);
   };
 
-  const form = function () {
-    if (type === "character") {
-      return (
-        <CharacterEntryForm
-          prevData={data}
-          onClose={closeModal}
-          updateParent={updateParent}
-          mode="update"
-        />
-      );
-    } else if (type === "object" || type === "location") {
-      return (
-        <EntryForm
-          type={type}
-          prevData={data}
-          onClose={closeModal}
-          updateParent={updateParent}
-          mode="update"
-        />
-      );
-    } else {
-      return (
-        <CampaignEntryForm
-          prevData={data}
-          onClose={closeModal}
-          updateParent={updateParent}
-          mode="update"
-        />
-      );
-    }
+  const formProps = {
+    type,
+    mode: "update",
+    updateParent,
+    onClose: closeModal,
+    prevData: data,
   };
 
   return (
@@ -68,7 +42,7 @@ const EditButton = ({ type, data, updateParent }) => {
       >
         <Icon path={mdiPencil} size={1.1} />
       </button>
-      {isEditOpen ? form() : <></>}
+      {isEditOpen ? <FormWrapper {...formProps} /> : <></>}
     </>
   );
 };

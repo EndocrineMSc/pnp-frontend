@@ -18,13 +18,13 @@ const CharacterDetailView = () => {
 
   useEffect(() => {
     const fetchCharacter = async () => {
-      const character = await apiRequest(
+      const result = await apiRequest(
         "GET",
         `https://pnp-backend.fly.dev/api/v1/character/${id}`,
       );
 
-      if (character) {
-        setCharacterData(character);
+      if (result.success) {
+        setCharacterData(result.data);
         setIsLoading(false);
       }
     };
