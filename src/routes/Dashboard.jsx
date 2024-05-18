@@ -32,7 +32,7 @@ const Dashboard = () => {
   }, [userId, currentPath, navigate, campaignId]);
 
   return (
-    <div className="flex justify-start items-start w-full h-full text-wgray-950 bg-wgray-50">
+    <div className="flex justify-start items-start w-full h-screen text-wgray-950 bg-wgray-50">
       <NavbarContext.Provider value={providerValues}>
         {showNavbar ? <Navbar /> : <CollapsedNavbar />}
       </NavbarContext.Provider>

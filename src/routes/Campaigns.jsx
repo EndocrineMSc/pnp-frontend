@@ -35,14 +35,14 @@ const Campaigns = () => {
   };
 
   return (
-    <>
+    <div className="relative h-full w-full">
       {isLoading ? (
         <GridSpinner />
       ) : (
         <EntryCardLayout cards={campaigns} type="campaign" title="Campaigns" />
       )}
       <AddButton type="campaign" updateParent={addNewCampaign} />
-    </>
+    </div>
   );
 };
 

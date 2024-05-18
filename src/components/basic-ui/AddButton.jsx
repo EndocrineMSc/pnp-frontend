@@ -52,9 +52,7 @@ const AddButton = ({ type, updateParent }) => {
   return (
     <>
       <button
-        className="flex justify-center items-center
-                  absolute right-2 bottom-2 rounded-full drop-shadow-md
-                  aspect-square w-24 hover:brightness-125 hover:drop-shadow-xl"
+        className="absolute flex justify-center items-center right-2 bottom-2 rounded-full drop-shadow-md aspect-square w-24 hover:brightness-125 hover:drop-shadow-xl"
         onClick={handleButtonClick}
         disabled={type !== "campaign" && campaignId === ""}
       >
