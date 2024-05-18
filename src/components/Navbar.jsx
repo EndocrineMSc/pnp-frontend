@@ -75,7 +75,6 @@ const Navbar = () => {
             isExpanded={providerValues.isExpanded}
             isPageRight={false}
           />
-          <Searchbar />
         </div>
       </li>
       <li className="relative flex flex-col items-center w-full">
