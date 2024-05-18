@@ -13,3 +13,7 @@
 .error-message {
   @apply absolute text-sm text-red-600 -bottom-5
 }
+
+.entry-form {
+  @apply relative flex flex-wrap max-w-[600px] gap-5 bg-wgray-300 p-5 rounded-xl
+}

@@ -40,7 +40,7 @@ const CampaignEntryForm = ({
         onClick={handleAbortClose}
       ></div>
       <form
-        className="relative flex flex-wrap max-w-screen-sm gap-5 bg-wgray-300 p-5 rounded-xl"
+        className="entry-form"
         action=""
         method="POST"
         onSubmit={handleFormSubmission}
@@ -72,7 +72,7 @@ const CampaignEntryForm = ({
           Description
         </label>
         <textarea
-          className="input-base mb-10"
+          className="input-base mb-10 w-full"
           rows="5"
           cols="100"
           id="description"
