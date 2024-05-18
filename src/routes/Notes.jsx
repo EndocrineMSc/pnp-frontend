@@ -6,15 +6,19 @@ import { NotesContext } from "../Contexts";
 import { apiRequest } from "../apiRequests/apiRequest";
 import useCampaignId from "../hooks/useCampaignId";
 import { Hourglass } from "react-loader-spinner";
+import useWindowDimensions from "../hooks/useWindowDimensions";
 
 /**Overview page for notes, includes a scrollbar for all notes. */
 const Notes = () => {
   const [showScrollbar, setShowNavBar] = useState(true);
   const [detailNoteIds, setDetailNoteIds] = useState([]);
-  const [shortNotes, setShortNotes] = useState(null);
-  const [fullNotes, setFullNotes] = useState(null);
+  const [shortNotes, setShortNotes] = useState([]);
+  const [fullNotes, setFullNotes] = useState([]);
+  const [limitedFullNotes, setLimitedFullNotes] = useState([]);
+  const [amountAllowedDetailNotes, setAmountAllowedDetailNotes] = useState(1);
   const [isLoading, setLoading] = useState(false);
   const campaignId = useCampaignId()[0];
+  const windowSize = useWindowDimensions();
 
   const toggleScrollbar = () => {
     setShowNavBar((prev) => !prev);
@@ -25,6 +29,7 @@ const Notes = () => {
     toggleScrollbar,
     detailNoteIds,
     setDetailNoteIds,
+    amountAllowedDetailNotes,
   };
 
   useEffect(() => {
@@ -55,11 +60,28 @@ const Notes = () => {
             );
           }),
         );
+
         setFullNotes(notes);
       }
     };
     getFullNotes();
   }, [detailNoteIds]);
+
+  useEffect(() => {
+    const adjustedWidth = windowSize.width - 120; //120px for navbar + scrollbar
+    const allowedNotesX =
+      adjustedWidth <= 640 ? 1 : Math.floor(adjustedWidth / 640); //640px is width of a note
+    const allowedNotesY =
+      windowSize.height <= 640 ? 1 : Math.floor(windowSize.height / 640);
+    const allowedAmountNotes = allowedNotesX * allowedNotesY;
+    setAmountAllowedDetailNotes(allowedAmountNotes);
+
+    const truncNotes =
+      fullNotes.length > allowedAmountNotes
+        ? fullNotes.slice(0, allowedAmountNotes)
+        : fullNotes;
+    setLimitedFullNotes(truncNotes);
+  }, [windowSize, fullNotes]);
 
   return (
     <div className="flex justify-center items-center w-full h-screen">
@@ -67,7 +89,7 @@ const Notes = () => {
         <Spinner />
       ) : (
         <NotesContext.Provider value={providerValue}>
-          <NoteLayout notes={fullNotes} />
+          <NoteLayout notes={limitedFullNotes} />
           {showScrollbar ? (
             <NoteScrollbar notes={shortNotes} />
           ) : (

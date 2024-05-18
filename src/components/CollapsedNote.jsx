@@ -9,15 +9,19 @@ import PropTypes from "prop-types";
  */
 const CollapsedNote = ({ date, noteId }) => {
   const [toggledOn, setToggledOn] = useState(false);
+  const [animation, setAnimation] = useState("");
   const noteContext = useContext(NotesContext);
   const bgColor = toggledOn ? "bg-wgray-500" : "bg-wgray-300";
 
   const toggleNoteDetailView = () => {
+    console.log(animation);
     if (toggledOn) {
       const newArray = noteContext.detailNoteIds.filter((id) => id !== noteId);
       noteContext.setDetailNoteIds(newArray);
       setToggledOn(false);
-    } else {
+    } else if (
+      noteContext.amountAllowedDetailNotes > noteContext.detailNoteIds.length
+    ) {
       noteContext.setDetailNoteIds([...noteContext.detailNoteIds, noteId]);
       setToggledOn(true);
     }
@@ -27,11 +31,19 @@ const CollapsedNote = ({ date, noteId }) => {
     setToggledOn(noteContext.detailNoteIds.includes(noteId));
   }, [noteContext.detailNoteIds, noteId]);
 
+  useEffect(() => {
+    const animationText =
+      noteContext.amountAllowedDetailNotes !== noteContext.detailNoteIds.length
+        ? "animate-none"
+        : "animate-button-shake";
+    setAnimation(animationText);
+  }, [noteContext.detailNoteIds, noteContext.amountAllowedDetailNotes]);
+
   return (
     <button
       type="button"
       onClick={toggleNoteDetailView}
-      className={`${bgColor} w-full h-10 rounded shadow hover:shadow-md`}
+      className={`${bgColor} w-full h-10 rounded shadow hover:shadow-md active:${!toggledOn ? animation : ""}`}
     >
       {formatDate(date)}
     </button>
