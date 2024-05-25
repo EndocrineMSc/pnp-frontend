@@ -14,8 +14,10 @@ const EntryCard = ({ name, cardId, image, type }) => {
   const defaultImage = useDefaultImage(type);
 
   const headerJustify = () => {
-    const nameArr = name.split("");
-    return nameArr.length > 20 ? "justify-start" : "justify-center";
+    if (name) {
+      const nameArr = name.split("");
+      return nameArr.length > 20 ? "justify-start" : "justify-center";
+    }
   };
 
   const modifiedName = () => {

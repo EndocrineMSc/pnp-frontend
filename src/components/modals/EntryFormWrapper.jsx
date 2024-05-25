@@ -70,7 +70,7 @@ const FormWrapper = ({ type, mode, onClose, updateParent, prevData }) => {
     if (result[0]) {
       console.error(result[0].msg);
     } else {
-      updateParent(result);
+      updateParent(result.data);
       handleSubmissionClose();
       mode === "create"
         ? navigate(`/${type}s`)
