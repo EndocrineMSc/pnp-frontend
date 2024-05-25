@@ -4,26 +4,45 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import formErrorMessages from "../globalConstants/formErrorMessages";
 import useUserId from "../hooks/useUserId";
+import { apiRequest } from "../apiRequests/apiRequest";
+import useCampaignId from "../hooks/useCampaignId";
 
 /**Login Form. Saves Access Token, Refresh Token and User Id into localStorage on successful login */
 const LoginForm = () => {
   const navigate = useNavigate();
   const saveUserId = useUserId()[1];
+  const saveCampaignId = useCampaignId()[1];
   const [nameLength, setNameLength] = useState(0);
   const [passwordLength, setPasswordLength] = useState(0);
   const [nameError, setNameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
   const handleFormSubmission = async (event) => {
-    const result = await formPostRequest(
+    const userResult = await formPostRequest(
       event,
       `https://pnp-backend.fly.dev/api/v1/login`,
     );
 
-    if (result.success) {
-      localStorage.setItem("accessToken", "Bearer " + result.data.accessToken);
-      localStorage.setItem("refreshToken", result.data.refreshToken);
-      saveUserId(result.data.user);
+    if (userResult.success) {
+      localStorage.setItem(
+        "accessToken",
+        "Bearer " + userResult.data.accessToken,
+      );
+      localStorage.setItem("refreshToken", userResult.data.refreshToken);
+      saveUserId(userResult.data.user);
+
+      console.log(
+        `https://pnp-backend.fly.dev/api/v1/${userResult.data.user._id}/campaigns`,
+      );
+      const campaignResult = await apiRequest(
+        "GET",
+        `https://pnp-backend.fly.dev/api/v1/${userResult.data.user}/campaigns`,
+      );
+
+      if (campaignResult.success) {
+        const defaultCampaign = campaignResult.data[0];
+        if (defaultCampaign) saveCampaignId(defaultCampaign._id);
+      }
       navigate("/notes");
     }
   };

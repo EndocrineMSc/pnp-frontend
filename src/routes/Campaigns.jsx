@@ -27,7 +27,7 @@ const Campaigns = () => {
         setTimeout(() => setIsLoading(false), minSpinnerTimeMS - elapsedTime);
       }
     };
-    fetchCampaigns();
+    if (userId) fetchCampaigns();
   }, [userId]);
 
   const addNewCampaign = (campaign) => {

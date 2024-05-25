@@ -1,6 +1,5 @@
 import NavLink from "./NavLink";
 import CollapseButton from "./basic-ui/CollapseButton";
-import Searchbar from "./basic-ui/Searchbar";
 import { useState, useContext, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { NavbarContext } from "../Contexts";
@@ -20,7 +19,7 @@ const Navbar = () => {
     (prev) => !prev,
     false,
   );
-  const campaignId = useCampaignId()[0];
+  const [campaignId, saveCampaignId] = useCampaignId();
   const navigate = useNavigate();
   const defaultImage = useDefaultImage("campaign");
   const saveUserId = useUserId()[1];
@@ -28,23 +27,26 @@ const Navbar = () => {
   const handleLogout = () => {
     logoutUser();
     saveUserId("");
+    saveCampaignId("");
+    setImagePath(null);
+    setCampaignName("");
     navigate("/welcome");
   };
 
+  const shortCampaignName = (name) => {
+    const nameArr = name.split("");
+    let modName = name;
+
+    if (nameArr.length >= 20) {
+      const truncArr = nameArr.slice(0, 17);
+      truncArr.push("...");
+      modName = truncArr.join("");
+    }
+
+    setCampaignName(modName);
+  };
+
   useEffect(() => {
-    const shortCampaignName = (name) => {
-      const nameArr = name.split("");
-      let modName = name;
-
-      if (nameArr.length >= 20) {
-        const truncArr = nameArr.slice(0, 17);
-        truncArr.push("...");
-        modName = truncArr.join("");
-      }
-
-      setCampaignName(modName);
-    };
-
     const getImage = async () => {
       if (campaignId !== "") {
         const campaign = await apiRequest(
@@ -61,7 +63,11 @@ const Navbar = () => {
         }
       }
     };
+
+    window.addEventListener("onCampaignIdSet", getImage);
     getImage();
+
+    return () => window.removeEventListener("onCampaignIdSet", getImage);
   }, [campaignId]);
 
   const providerValues = useContext(NavbarContext);
