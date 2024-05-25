@@ -2,7 +2,7 @@ import Icon from "@mdi/react";
 import { mdiPlusCircle } from "@mdi/js";
 import { useState, useContext } from "react";
 import { NotesContext } from "../../Contexts";
-import { apiRequest } from "../../apiRequests/apiRequest";
+import addNote from "../../utilityFunctions/addNote";
 import PropTypes from "prop-types";
 import useCampaignId from "../../hooks/useCampaignId";
 import FormWrapper from "../modals/EntryFormWrapper";
@@ -27,26 +27,8 @@ const AddButton = ({ type, updateParent }) => {
     onClose: toggleEdit,
   };
 
-  const addNote = () => {
-    if (type === "note") {
-      const noteBody = { date: new Date() };
-      const createNewNote = async () => {
-        const newNote = await apiRequest(
-          "POST",
-          `https://pnp-backend.fly.dev/api/v1/${campaignId}/note/create`,
-          noteBody,
-        );
-        notesContext.setDetailNoteIds([
-          ...notesContext.detailNoteIds,
-          newNote._id,
-        ]);
-      };
-      createNewNote();
-    }
-  };
-
   const handleButtonClick = () => {
-    type === "note" ? addNote() : toggleEdit();
+    type === "note" ? addNote(campaignId, notesContext) : toggleEdit();
   };
 
   return (

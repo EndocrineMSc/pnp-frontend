@@ -12,7 +12,7 @@ const DeleteButton = ({ text, deleteEntry }) => {
   const [isModalOpen, setModalOpen] = useState(false);
 
   const toggleModal = () => {
-    setModalOpen(!isModalOpen);
+    setModalOpen((prev) => !prev);
   };
 
   return (
