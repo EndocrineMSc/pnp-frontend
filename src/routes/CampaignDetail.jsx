@@ -40,6 +40,11 @@ const CampaignDetailView = () => {
     fetchCampaign();
   }, [id]);
 
+  const updateCampaign = (data) => {
+    dispatchEvent(new Event("onCampaignIdSet"));
+    setCampaignData(data);
+  };
+
   const deleteCampaign = async () => {
     const result = await apiRequest(
       "POST",
@@ -81,7 +86,7 @@ const CampaignDetailView = () => {
               <EditButton
                 type="campaign"
                 data={campaignData}
-                updateParent={setCampaignData}
+                updateParent={updateCampaign}
               />
               <DeleteButton
                 text="Warning: All characters, locations and items of the campaign will be deleted as well!"

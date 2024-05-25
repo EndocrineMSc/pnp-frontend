@@ -3,7 +3,7 @@ import { apiRequest } from "../apiRequests/apiRequest";
 export default function useLogout() {
   const rToken = localStorage.getItem("refreshToken");
 
-  apiRequest("POST", "https://rpg-adventure-journal.vercel.app/api/v1/logout", {
+  apiRequest("POST", "https://pnp-backend.fly.dev/api/v1/logout", {
     token: rToken,
   });
 
