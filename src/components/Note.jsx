@@ -17,6 +17,11 @@ const Note = ({ note }) => {
   const [editMode, setEditMode] = useState(false);
   const [noteText, setNoteText] = useState(note.text);
   const [sanitizedText, setSanitizedText] = useState("");
+  const date = formatDate(note.date);
+  console.log("----");
+  console.log(note);
+  console.log(`This is the ${date}`);
+  console.log("----");
 
   const noteContext = useContext(NotesContext);
 
@@ -73,10 +78,11 @@ const Note = ({ note }) => {
     <div
       className="relative flex flex-col shadow-md bg-wgray-100 overflow-y-auto w-full max-w-screen-sm aspect-square rounded"
       onDoubleClick={clickToEdit}
+      key={note._id}
     >
       <div className="h-full">
         <div className="relative bg-gradient-to-b from-wgray-300 to-wgray-400">
-          <h3 className="text-center p-1 text-xl">{formatDate(note.date)}</h3>
+          <h3 className="text-center p-1 text-xl">{date}</h3>
           <div className="flex gap-1 absolute right-0 top-0">
             <DeleteButton text="Delete this note?" deleteEntry={deleteNote} />
             <CloseButton onClose={closeNote} size={1.5} />

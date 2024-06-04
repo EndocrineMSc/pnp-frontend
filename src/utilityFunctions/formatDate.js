@@ -18,10 +18,12 @@ export const formatDate = (date) => {
     "Dec",
   ];
 
+  console.log(date);
   const displayDate = new Date(date);
   const day = displayDate.getDate();
   const month = monthName[displayDate.getMonth()];
   const year = displayDate.getFullYear();
   const dateString = `${day}. ${month}. ${year}`;
+  console.log(dateString);
   return dateString;
 };
