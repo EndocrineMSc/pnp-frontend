@@ -17,7 +17,6 @@ const CharacterDetailView = () => {
   const defaultImage = useDefaultImage("character");
 
   const updateCharacterDetail = (data) => {
-    console.log(data);
     setCharacterData(data);
   };
 
