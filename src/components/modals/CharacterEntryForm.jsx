@@ -3,6 +3,8 @@ import ImagePicker from "../basic-ui/ImagePicker";
 import unescapeText from "../../utilityFunctions/unescapeText";
 import { useState, useEffect } from "react";
 import formErrorMessages from "../../globalConstants/formErrorMessages";
+import { apiRequest } from "../../apiRequests/apiRequest";
+import useCampaignId from "../../hooks/useCampaignId";
 
 /** Entry Form for characters.
  * @param {function} handleAbortClose
@@ -17,11 +19,16 @@ const CharacterEntryForm = ({
   prevData,
 }) => {
   const [name, setName] = useState(prevData ? unescapeText(prevData.name) : "");
+  const [locations, setLocations] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState(
+    prevData && prevData.location ? prevData.location._id : "n.a.",
+  );
   const [nameError, setNameError] = useState("");
   const [shortDescription, setShortDescription] = useState(
     prevData ? unescapeText(prevData.shortDescription) : "",
   );
   const [descriptionError, setDescriptionError] = useState("");
+  const campaignId = useCampaignId()[0];
 
   useEffect(() => {
     let nError = "";
@@ -37,12 +44,36 @@ const CharacterEntryForm = ({
     );
   }, [name, shortDescription.length]);
 
+  useEffect(() => {
+    const getLocations = async () => {
+      if (campaignId) {
+        const result = await apiRequest(
+          "GET",
+          `https://pnp-backend.fly.dev/api/v1/${campaignId}/locations`,
+        );
+
+        if (result.success) {
+          const newLocations = [];
+          for (const loc of result.data) {
+            newLocations.push(loc);
+          }
+          setLocations(newLocations);
+        }
+      }
+    };
+    getLocations();
+  }, [campaignId]);
+
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
 
   const handleShortDescriptionChange = (e) => {
     setShortDescription(e.target.value);
+  };
+
+  const handleLocationChange = (e) => {
+    setSelectedLocation(e.target.value);
   };
 
   return (
@@ -90,13 +121,22 @@ const CharacterEntryForm = ({
           <label className="font-bold" htmlFor="occupation">
             Location
           </label>
-          <input
-            className="input-base h-8"
-            type="text"
+          <select
+            className="input-base h-8 w-[243px] p-4"
             id="location"
             name="location"
-            defaultValue={prevData ? prevData.location : ""}
-          />
+            value={selectedLocation}
+            onChange={handleLocationChange}
+          >
+            <option value="n.a.">n.a.</option>
+            {locations.map((loc) => {
+              return (
+                <option value={loc._id} key={loc._id}>
+                  {unescapeText(loc.name)}
+                </option>
+              );
+            })}
+          </select>
         </div>
         <ImagePicker
           entryType="character"

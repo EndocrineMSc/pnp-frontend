@@ -16,6 +16,11 @@ const CharacterDetailView = () => {
   const navigate = useNavigate();
   const defaultImage = useDefaultImage("character");
 
+  const updateCharacterDetail = (data) => {
+    console.log(data);
+    setCharacterData(data);
+  };
+
   useEffect(() => {
     const fetchCharacter = async () => {
       const result = await apiRequest(
@@ -70,7 +75,9 @@ const CharacterDetailView = () => {
               </div>
               <div className="flex flex-col gap-7">
                 <div>
-                  {characterData.location ? characterData.location : "n.a."}
+                  {characterData.location
+                    ? unescapeText(characterData.location.name)
+                    : "n.a."}
                 </div>
                 <div>{characterData.occupation}</div>
               </div>
@@ -84,7 +91,7 @@ const CharacterDetailView = () => {
               <EditButton
                 type="character"
                 data={characterData}
-                updateParent={setCharacterData}
+                updateParent={updateCharacterDetail}
               />
               <DeleteButton
                 text="Delete Character?"
