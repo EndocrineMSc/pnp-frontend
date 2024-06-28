@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import EditButton from "./EditButton";
 
-vi.mock("../modals/EntryFormWrapper", () => {
+vi.mock("../../modals/entryFormWrapper/EntryFormWrapper", () => {
   return {
     default: () => <div role="form">Mocked FormWrapper</div>,
   };

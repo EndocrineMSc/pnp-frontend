@@ -1,22 +1,22 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, it, expect, vi, afterEach } from "vitest";
 import AddButton from "./AddButton";
-import * as useCampaignId from "../../../hooks/useCampaignId";
-import * as addNote from "../../../utilityFunctions/addNote";
+import * as useCampaignId from "../../../utility/hooks/useCampaignId";
+import * as addNote from "../../../utility/otherFunctions/addNote";
 
-vi.mock("../modals/EntryFormWrapper", (props) => {
+vi.mock("../../modals/entryFormWrapper/EntryFormWrapper", (props) => {
   return {
     default: () => <div role="form">Mocked FormWrapper</div>,
   };
 });
 
-vi.mock("../../hooks/useCampaignId", () => {
+vi.mock("../../../utility/hooks/useCampaignId", () => {
   return {
     default: () => ["mockedCampaignId", () => {}],
   };
 });
 
-vi.mock("../../utilityFunctions/addNote", (props) => {
+vi.mock("../../../utility/otherFunctions/addNote", (props) => {
   return {
     default: () => {},
   };

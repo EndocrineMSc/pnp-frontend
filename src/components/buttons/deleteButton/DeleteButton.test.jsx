@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import DeleteButton from "./DeleteButton";
 
-vi.mock("../modals/ConfirmationBox", () => {
+vi.mock("../../modals/confirmationBox/ConfirmationBox", () => {
   return {
     default: () => <div>Delete?</div>,
   };
