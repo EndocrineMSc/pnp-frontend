@@ -28,7 +28,6 @@ const ImagePicker = ({ prevImageUrl, entryType, setImageUrl }) => {
       },
       function (error, result) {
         if (error) console.error(error);
-
         if (result.info.secure_url) {
           setImageUrl(result.info.secure_url);
           setImagePath(result.info.secure_url);
@@ -36,6 +35,8 @@ const ImagePicker = ({ prevImageUrl, entryType, setImageUrl }) => {
         }
       },
     );
+
+    return () => widgetRef.current.destroy();
   }, [setImageUrl]);
 
   return (
