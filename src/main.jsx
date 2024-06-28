@@ -1,20 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import App from "./App.jsx";
-import Login from "./routes/Login";
-import Register from "./routes/Register";
-import Notes from "./routes/Notes";
-import Campaigns from "./routes/Campaigns";
-import CampaignDetail from "./routes/CampaignDetail";
-import CharacterDetail from "./routes/CharacterDetail";
-import Characters from "./routes/Characters";
-import Locations from "./routes/Locations";
-import LocationDetail from "./routes/LocationDetail";
-import Items from "./routes/Objects.jsx";
-import ItemDetail from "./routes/ObjectDetail.jsx";
 import "./index.css";
-import LandingPage from "./routes/LandingPage.jsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import App from "./App";
+import Login from "./pages/login/Login";
+import Register from "./pages/register/Register";
+import Notes from "./pages/notes/Notes";
+import Campaigns from "./pages/campaigns/Campaigns";
+import Characters from "./pages/characters/Characters";
+import Locations from "./pages/locations/Locations";
+import Objects from "./pages/objects/Objects";
+import LandingPage from "./pages/landingPage/LandingPage";
+import CampaignDetail from "./pages/detailViews/campaignDetail/CampaignDetail";
+import CharacterDetail from "./pages/detailViews/characterDetail/CharacterDetail";
+import LocationDetail from "./pages/detailViews/locationDetail/LocationDetail";
+import ObjectDetail from "./pages/detailViews/objectDetail/ObjectDetail";
 
 const router = createBrowserRouter([
   {
@@ -31,8 +31,8 @@ const router = createBrowserRouter([
       { path: "character/:id", element: <CharacterDetail /> },
       { path: "locations", element: <Locations /> },
       { path: "location/:id", element: <LocationDetail /> },
-      { path: "objects", element: <Items /> },
-      { path: "object/:id", element: <ItemDetail /> },
+      { path: "objects", element: <Objects /> },
+      { path: "object/:id", element: <ObjectDetail /> },
     ],
   },
 ]);
