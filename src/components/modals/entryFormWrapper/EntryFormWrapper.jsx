@@ -20,8 +20,12 @@ const FormWrapper = ({ type, mode, onClose, updateParent, prevData }) => {
   const campaignId = useCampaignId()[0];
   const userId = useUserId()[0];
   const navigate = useNavigate();
-  const [imageUrl, setImageUrl] = useState("");
-  const [prevRenderUrl, setPrevRenderUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState(
+    prevData && prevData.image ? prevData.image : "",
+  );
+  const [prevRenderUrl, setPrevRenderUrl] = useState(
+    prevData && prevData.image ? prevData.image : "",
+  );
 
   const handleUrlChange = (url) => {
     if (!prevRenderUrl) {

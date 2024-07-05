@@ -28,7 +28,7 @@ const ImagePicker = ({ prevImageUrl, entryType, setImageUrl }) => {
       },
       function (error, result) {
         if (error) console.error(error);
-        if (result.info.secure_url) {
+        if (result.info && result.info.secure_url) {
           setImageUrl(result.info.secure_url);
           setImagePath(result.info.secure_url);
           inputRef.current.value = result.info.secure_url;
@@ -38,6 +38,10 @@ const ImagePicker = ({ prevImageUrl, entryType, setImageUrl }) => {
 
     return () => widgetRef.current.destroy();
   }, [setImageUrl]);
+
+  useEffect(() => {
+    inputRef.current.value = prevImageUrl;
+  }, [prevImageUrl]);
 
   return (
     <div className="flex flex-col justify-start gap-1">

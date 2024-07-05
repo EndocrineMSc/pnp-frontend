@@ -20,13 +20,6 @@ const AddButton = ({ type, updateParent }) => {
     setIsEditOpen((prev) => !prev);
   };
 
-  const formProps = {
-    type,
-    mode: "create",
-    updateParent,
-    onClose: toggleEdit,
-  };
-
   const handleButtonClick = () => {
     type === "note" ? addNote(campaignId, notesContext) : toggleEdit();
   };
@@ -40,7 +33,16 @@ const AddButton = ({ type, updateParent }) => {
       >
         <Icon path={mdiPlusCircle} color="#6a7fc1" />
       </button>
-      {isEditOpen ? <FormWrapper {...formProps} /> : <></>}
+      {isEditOpen ? (
+        <FormWrapper
+          type={type}
+          mode="create"
+          updateParent={updateParent}
+          onClose={toggleEdit}
+        />
+      ) : (
+        <></>
+      )}
     </>
   );
 };
