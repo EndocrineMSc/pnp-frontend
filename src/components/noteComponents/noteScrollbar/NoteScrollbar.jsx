@@ -17,7 +17,7 @@ const NoteScrollbar = ({ notes }) => {
           isPageRight={true}
         />
       </div>
-      {notes ? (
+      {notes && notes.length > 0 ? (
         notes.map((note) => {
           return (
             <CollapsedNote key={note._id} date={note.date} noteId={note._id} />

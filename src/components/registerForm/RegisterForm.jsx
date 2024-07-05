@@ -16,18 +16,28 @@ const RegisterForm = () => {
   const [passwordRpt, setPasswordRpt] = useState("");
 
   const handleFormSubmission = async (event) => {
-    const result = await formPostRequest(
+    const signupResult = await formPostRequest(
       event,
       `https://pnp-backend.fly.dev/api/v1/signup`,
     );
 
-    if (!result.success) {
-      setNameError(result.data.message);
-    } else {
-      localStorage.setItem("accessToken", "Bearer " + result.data.accessToken);
-      localStorage.setItem("refreshToken", result.data.refreshToken);
-      saveUserId(result.data.user);
-      navigate("/notes");
+    if (signupResult.success) {
+      const loginResult = await formPostRequest(
+        event,
+        `https://pnp-backend.fly.dev/api/v1/login`,
+      );
+
+      if (!loginResult.success) {
+        setNameError(loginResult.data.message);
+      } else {
+        localStorage.setItem(
+          "accessToken",
+          "Bearer " + loginResult.data.accessToken,
+        );
+        localStorage.setItem("refreshToken", loginResult.data.refreshToken);
+        saveUserId(loginResult.data.user);
+        navigate("/campaigns");
+      }
     }
   };
 
