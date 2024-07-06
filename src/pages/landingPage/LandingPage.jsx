@@ -5,8 +5,8 @@ const LandingPage = () => {
   return (
     <div className="p-5">
       <h1 className="text-5xl font-bold mb-3">Welcome!</h1>
-      <div className=" text-xl">RPG Adventure Journal v0.0.1</div>
-      <div className="text-s mb-5">Page last updated: 30. Mar. 2024</div>
+      <div className=" text-xl">RPG Adventure Journal v0.1.0</div>
+      <div className="text-s mb-5">Page last updated: 06. Jul. 2024</div>
       <div className="mb-5">
         <Link to="/login">
           <button
@@ -34,16 +34,6 @@ const LandingPage = () => {
       </div>
       <h2 className="text-xl font-bold">New Features: </h2>
       <ul className="list-disc ml-5 mb-5 leading-7">
-        <li>First test deployment on vercel</li>
-        <li>This welcome page</li>
-        <li>Automatic redirect to this page</li>
-      </ul>
-      <h2 className="text-xl font-bold">Bug Fixes: </h2>
-      <ul className="list-disc ml-5 mb-5 leading-7">
-        <li> None </li>
-      </ul>
-      <h2 className="text-xl font-bold">Planned features for next update: </h2>
-      <ul className="list-disc ml-5 mb-5 leading-7">
         <li>
           Register and Login Pages and functionality, as well as logout
           functionality
@@ -64,18 +54,36 @@ const LandingPage = () => {
           currently open
         </li>
         <li>
-          Enabling image upload for campaigns, characters, locations and objects
+          Image upload functionality for campaigns, characters, locations and
+          objects
+        </li>
+      </ul>
+      <h2 className="text-xl font-bold">Bug Fixes: </h2>
+      <ul className="list-disc ml-5 mb-5 leading-7">
+        <li>Add Button now always at correct, bottom-right position</li>
+        <li>
+          Forms for characters, campaigns and objects now look identical in
+          different Browsers
         </li>
         <li>
-          Connecting all possible entries to their database entries (get/post
-          requests)
+          Links in left navigation bar are disabled if no user is logged in
         </li>
+        <li>
+          Links in left navigation bar now still show correct highlight even
+          after page reload
+        </li>
+        <li>Text is now unescaped everywhere it needs to be</li>
+      </ul>
+      <h2 className="text-xl font-bold">Planned features for next update: </h2>
+      <ul className="list-disc ml-5 mb-5 leading-7">
+        <li>Complete rework of UI/UX</li>
+        <li>Make app fully responsive and work on mobile</li>
       </ul>
       <h2 className="text-xl font-bold">
         Planned features for further updates:{" "}
       </h2>
       <ul className="list-disc ml-5 mb-5 leading-7">
-        <li>Searchbar functionalities</li>
+        <li>Add a search functionality</li>
         <li>Enable linking to campaign, character and object in notes</li>
         <li>
           Showing tooltips with short descriptions when hovering over above
